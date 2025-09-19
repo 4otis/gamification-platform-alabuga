@@ -7,5 +7,5 @@ type Student struct {
 	Patronymic string `json:"patronymic"`
 	Exp        int    `json:"exp"`
 	Mana       int    `json:"mana"`
-	RandId     uint   `json:"rank_id"`
+	RankId     uint   `json:"rank_id"`
 }
