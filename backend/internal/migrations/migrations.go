@@ -12,12 +12,30 @@ import (
 
 func RunInitDBMigrations(db *gorm.DB) error {
 
-	err := RunStudentMigrations(db)
-	if err != nil {
-		return err
-	}
+	
+
+
+	// err := RunStudentMigrations(db)
+	// if err != nil {
+	// 	return err
+	// }
 
 	return nil
+}
+
+func CreateAllTables(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		sqlPath := filepath.Join("internal", "migrations", "sql", "init_students.sql")
+			sqlBytes, err := os.ReadFile(sqlPath)
+			if err != nil {
+				return err
+			}
+
+			if err := tx.Exec(string(sqlBytes)).Error; err != nil {
+				return err
+			}
+			return nil
+	}
 }
 
 func RunStudentMigrations(db *gorm.DB) error {
