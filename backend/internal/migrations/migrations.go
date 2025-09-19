@@ -12,35 +12,27 @@ import (
 
 func RunInitDBMigrations(db *gorm.DB) error {
 
-	
+	err := CreateAllTables(db)
+	if err != nil {
+		return err
+	}
 
+	err = AddAllConstraints(db)
+	if err != nil {
+		return err
+	}
 
-	// err := RunStudentMigrations(db)
-	// if err != nil {
-	// 	return err
-	// }
+	err = RunStudentMigrations(db)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
 
 func CreateAllTables(db *gorm.DB) error {
 	return db.Transaction(func(tx *gorm.DB) error {
-		sqlPath := filepath.Join("internal", "migrations", "sql", "init_students.sql")
-			sqlBytes, err := os.ReadFile(sqlPath)
-			if err != nil {
-				return err
-			}
-
-			if err := tx.Exec(string(sqlBytes)).Error; err != nil {
-				return err
-			}
-			return nil
-	}
-}
-
-func RunStudentMigrations(db *gorm.DB) error {
-	return db.Transaction(func(tx *gorm.DB) error {
-		sqlPath := filepath.Join("internal", "migrations", "sql", "init_students.sql")
+		sqlPath := filepath.Join("internal", "migrations", "sql", "create_tables.sql")
 		sqlBytes, err := os.ReadFile(sqlPath)
 		if err != nil {
 			return err
@@ -49,7 +41,27 @@ func RunStudentMigrations(db *gorm.DB) error {
 		if err := tx.Exec(string(sqlBytes)).Error; err != nil {
 			return err
 		}
+		return nil
+	})
+}
 
+func AddAllConstraints(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		sqlPath := filepath.Join("internal", "migrations", "sql", "create_tables.sql")
+		sqlBytes, err := os.ReadFile(sqlPath)
+		if err != nil {
+			return err
+		}
+
+		if err := tx.Exec(string(sqlBytes)).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+}
+
+func RunStudentMigrations(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
 		jsonPath := filepath.Join("internal", "migrations", "data", "student.json")
 		jsonBytes, err := os.ReadFile(jsonPath)
 		if err != nil {
