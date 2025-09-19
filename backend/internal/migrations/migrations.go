@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func RunInitDBMigrations(db *gorm.DB) error {
+func RunInitDbMigrations(db *gorm.DB) error {
 
 	err := CreateAllTables(db)
 	if err != nil {
