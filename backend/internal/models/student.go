@@ -7,7 +7,7 @@ type Student struct {
 	Patronymic string `json:"patronymic"`
 	Login      string `json:"login"`
 	Password   string `json:"password"`
-	Exp        int    `json:"exp"`
-	Mana       int    `json:"mana"`
+	Exp        uint   `json:"exp"`
+	Mana       uint   `json:"mana"`
 	RankId     uint   `json:"rank_id"`
 }
