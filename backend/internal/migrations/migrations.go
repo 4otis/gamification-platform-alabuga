@@ -66,7 +66,7 @@ func CreateAllTables(db *gorm.DB) error {
 
 func AddAllConstraints(db *gorm.DB) error {
 	return db.Transaction(func(tx *gorm.DB) error {
-		sqlPath := filepath.Join("internal", "migrations", "sql", "create_tables.sql")
+		sqlPath := filepath.Join("internal", "migrations", "sql", "constraints.sql")
 		sqlBytes, err := os.ReadFile(sqlPath)
 		if err != nil {
 			return err
@@ -147,7 +147,7 @@ func InsertStudentRank(db *gorm.DB) error {
 			if err := tx.Exec(`
 			INSERT INTO student_rank
 			(id, name, min_exp)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+			VALUES (?, ?, ?);`,
 				studentRank.ID,
 				studentRank.Name,
 				studentRank.MinExp,
@@ -212,7 +212,7 @@ func InsertMissionType(db *gorm.DB) error {
 			INSERT INTO mission_type
 			(id, name)
 			VALUES (?, ?);`,
-				mts.ID, mts.Name,
+				mt.ID, mt.Name,
 			).Error; err != nil {
 				return err
 			}
@@ -305,7 +305,7 @@ func InsertStudent(db *gorm.DB) error {
 				student.ID, student.Login,
 				student.Password, student.Name,
 				student.Surname, student.Patronymic,
-				student.Mana, student.Exp, student.RankID,
+				student.Exp, student.Mana, student.RankID,
 			).Error; err != nil {
 				return err
 			}
@@ -334,10 +334,10 @@ func InsertArtifact(db *gorm.DB) error {
 			if err := tx.Exec(`
 			INSERT INTO artifact
 			(id, title, descr, file_path, rarity_id)
-			VALUES (?, ?, ?, ?, ?, ?);`,
+			VALUES (?, ?, ?, ?, ?);`,
 				a.ID, a.Title,
-				a.Descr, a.RankID,
-				a.FilePath, a.RarityID,
+				a.Descr, a.FilePath,
+				a.RarityID,
 			).Error; err != nil {
 				return err
 			}
@@ -366,7 +366,7 @@ func InsertCourse(db *gorm.DB) error {
 			if err := tx.Exec(`
 			INSERT INTO course
 			(id, title, descr, rank_id, artifact_id)
-			VALUES (?, ?, ?, ?, ?,);`,
+			VALUES (?, ?, ?, ?, ?);`,
 				c.ID, c.Title,
 				c.Descr, c.RankID,
 				c.ArtifactID,
