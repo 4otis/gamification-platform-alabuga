@@ -10,4 +10,5 @@ type Student struct {
 	Exp        int    `json:"exp"`
 	Mana       int    `json:"mana"`
 	RankID     uint   `json:"rank_id"`
+
 }
