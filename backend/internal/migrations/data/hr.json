@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "login": "anna.ivanova",
+        "password": "hashed_password_1",
+        "name": "Анна",
+        "surname": "Иванова",
+        "patronymic": "Петровна"
+    },
+    {
+        "id": 2,
+        "login": "sergey.smirnov",
+        "password": "hashed_password_2",
+        "name": "Сергей",
+        "surname": "Смирнов",
+        "patronymic": "Александрович"
+    },
+    {
+        "id": 3,
+        "login": "ekaterina.popova",
+        "password": "hashed_password_3",
+        "name": "Екатерина",
+        "surname": "Попова",
+        "patronymic": "Владимировна"
+    },
+    {
+        "id": 4,
+        "login": "dmitry.kozlov",
+        "password": "hashed_password_4",
+        "name": "Дмитрий",
+        "surname": "Козлов",
+        "patronymic": "Игоревич"
+    },
+    {
+        "id": 5,
+        "login": "olga.volkova",
+        "password": "hashed_password_5",
+        "name": "Ольга",
+        "surname": "Волкова",
+        "patronymic": "Сергеевна"
+    }
+]
