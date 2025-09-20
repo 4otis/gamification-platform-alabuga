@@ -1,8 +1,8 @@
 package models
 
-type MissionSkills struct {
-	ID          uint   `json:"id"`
-	ScoreReward string `json:"score_reward"`
-	MissionID   string `json:"mission_id"`
-	SkillID     string `json:"skill_id"`
+type MissionsSkills struct {
+	ID          uint    `json:"id"`
+	ScoreReward float64 `json:"score_reward"`
+	MissionID   uint    `json:"mission_id"`
+	SkillID     uint    `json:"skill_id"`
 }
