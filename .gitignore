@@ -1,6 +1,5 @@
 *.exe
 *.log
 *.out
-go.sum
 .vscode/
 debug
