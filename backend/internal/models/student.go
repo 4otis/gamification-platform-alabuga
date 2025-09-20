@@ -9,5 +9,5 @@ type Student struct {
 	Password   string `json:"password"`
 	Exp        uint   `json:"exp"`
 	Mana       uint   `json:"mana"`
-	RankId     uint   `json:"rank_id"`
+	RankID     uint   `json:"rank_id"`
 }
