@@ -1,6 +1,6 @@
 package models
 
 type Skill struct {
-	ID	 uint   `json:"id"`
-	Name String `json:"name"`
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
 }

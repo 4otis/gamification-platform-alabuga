@@ -1,4 +1,4 @@
-package model
+package models
 
 type Mission struct {
 	ID         uint   `json:"id"`

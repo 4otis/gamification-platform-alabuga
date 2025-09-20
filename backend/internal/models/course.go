@@ -1,4 +1,4 @@
-package model
+package models
 
 type Course struct {
 	ID         uint   `json:"id"`
