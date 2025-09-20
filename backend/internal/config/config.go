@@ -53,7 +53,7 @@ func Load() *Config {
 			Port:     getEnv("DB_PORT", "5432"),
 			User:     getEnv("DB_USER", "postgres"),
 			Password: getEnv("DB_PASSWORD", "password"),
-			Name:     getEnv("DB_NAME", "gamification-platform-db"),
+			Name:     getEnv("DB_NAME", "gamification_platform_db"),
 		},
 		Server: ServerConfig{
 			Port:        getEnv("SERVER_PORT", "8080"),

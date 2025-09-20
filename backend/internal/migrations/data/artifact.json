@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "title": "Статуэтка программиста",
+        "descr": "Маленькая статуэтка для рабочего стола",
+        "file_path": "/artifacts/programmer_statue.png",
+        "rarity_id": 1
+    },
+    {
+        "id": 2,
+        "title": "Книга алгоритмов",
+        "descr": "Древний фолиант с знаниями",
+        "file_path": "/artifacts/algorithms_book.png",
+        "rarity_id": 2
+    },
+    {
+        "id": 3,
+        "title": "База данных",
+        "descr": "Миниатюрная модель сервера",
+        "file_path": "/artifacts/database_model.png",
+        "rarity_id": 3
+    },
+    {
+        "id": 4,
+        "title": "Веб-медальон",
+        "descr": "Магический артефакт веб-разработчика",
+        "file_path": "/artifacts/web_medallion.png",
+        "rarity_id": 4
+    },
+    {
+        "id": 5,
+        "title": "Легендарный компилятор",
+        "descr": "Артефакт легендарной силы",
+        "file_path": "/artifacts/legendary_compiler.png",
+        "rarity_id": 5
+    }
+]
