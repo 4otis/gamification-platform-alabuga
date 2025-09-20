@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "score": 85.5,
+        "student_id": 1,
+        "skill_id": 1
+    },
+    {
+        "id": 2,
+        "score": 72.3,
+        "student_id": 1,
+        "skill_id": 2
+    },
+    {
+        "id": 3,
+        "score": 90.1,
+        "student_id": 2,
+        "skill_id": 3
+    },
+    {
+        "id": 4,
+        "score": 68.7,
+        "student_id": 2,
+        "skill_id": 4
+    },
+    {
+        "id": 5,
+        "score": 95.0,
+        "student_id": 3,
+        "skill_id": 5
+    },
+    {
+        "id": 6,
+        "score": 78.2,
+        "student_id": 3,
+        "skill_id": 1
+    },
+    {
+        "id": 7,
+        "score": 88.9,
+        "student_id": 4,
+        "skill_id": 2
+    },
+    {
+        "id": 8,
+        "score": 65.4,
+        "student_id": 4,
+        "skill_id": 3
+    },
+    {
+        "id": 9,
+        "score": 92.6,
+        "student_id": 5,
+        "skill_id": 4
+    },
+    {
+        "id": 10,
+        "score": 75.8,
+        "student_id": 5,
+        "skill_id": 5
+    }
+]

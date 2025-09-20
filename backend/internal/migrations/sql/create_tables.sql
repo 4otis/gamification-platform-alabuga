@@ -1,15 +1,11 @@
-CREATE DATABASE gamification_platform_db;
-
-\c gamification_platform_db
-
 -- Таблицы без внешних ключей
-CREATE TABLE IF NOT EXISTS Student_Rank (
+CREATE TABLE IF NOT EXISTS student_rank (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
-    minExp INT
+    min_exp INT
 );
 
-CREATE TABLE IF NOT EXISTS HR (
+CREATE TABLE IF NOT EXISTS hr (
     id SERIAL PRIMARY KEY,
     login VARCHAR(255),
     password VARCHAR(255),
@@ -18,23 +14,23 @@ CREATE TABLE IF NOT EXISTS HR (
     patronymic VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS Mission_Type (
+CREATE TABLE IF NOT EXISTS mission_type (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS Skill (
+CREATE TABLE IF NOT EXISTS skill (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS Rarity (
+CREATE TABLE IF NOT EXISTS rarity (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255)
 );
 
 -- Таблицы с внешними ключами
-CREATE TABLE IF NOT EXISTS Student (
+CREATE TABLE IF NOT EXISTS student (
     id SERIAL PRIMARY KEY,
     login VARCHAR(255),
     password VARCHAR(255),
@@ -43,59 +39,59 @@ CREATE TABLE IF NOT EXISTS Student (
     patronymic VARCHAR(255),
     exp INT,
     mana INT,
-    rankId INT,
-    FOREIGN KEY (rankId) REFERENCES Student_Rank(id)
+    rank_id INT,
+    FOREIGN KEY (rank_id) REFERENCES student_rank(id)
 );
 
-CREATE TABLE IF NOT EXISTS Artifact (
+CREATE TABLE IF NOT EXISTS artifact (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
     descr TEXT,
-    filePath VARCHAR(255),
-    rarityId INT,
-    FOREIGN KEY (rarityId) REFERENCES Rarity(id)
+    file_path VARCHAR(255),
+    rarity_id INT,
+    FOREIGN KEY (rarity_id) REFERENCES rarity(id)
 );
 
-CREATE TABLE IF NOT EXISTS Course (
+CREATE TABLE IF NOT EXISTS course (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
     descr TEXT,
-    rankId INT,
-    artifactId INT,
-    FOREIGN KEY (rankId) REFERENCES Student_Rank(id),
-    FOREIGN KEY (artifactId) REFERENCES Artifact(id)
+    rank_id INT,
+    artifact_id INT,
+    FOREIGN KEY (rank_id) REFERENCES student_rank(id),
+    FOREIGN KEY (artifact_id) REFERENCES artifact(id)
 );
 
-CREATE TABLE IF NOT EXISTS Mission (
+CREATE TABLE IF NOT EXISTS mission (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
     descr TEXT,
-    expReward INT,
-    manaReward INT,
-    nodeLvl INT,
-    artifactId INT,
-    typeId INT,
-    courseId INT,
-    FOREIGN KEY (artifactId) REFERENCES Artifact(id),
-    FOREIGN KEY (typeId) REFERENCES Mission_Type(id),
-    FOREIGN KEY (courseId) REFERENCES Course(id)
+    exp_reward INT,
+    mana_reward INT,
+    node_lvl INT,
+    artifact_id INT,
+    type_id INT,
+    course_id INT,
+    FOREIGN KEY (artifact_id) REFERENCES artifact(id),
+    FOREIGN KEY (type_id) REFERENCES mission_type(id),
+    FOREIGN KEY (course_id) REFERENCES course(id)
 );
 
 -- Смежные таблицы для связи многие ко многим
-CREATE TABLE IF NOT EXISTS Students_Skills (
+CREATE TABLE IF NOT EXISTS students_skills (
     id SERIAL PRIMARY KEY,
     score FLOAT,
-    studentId INT,
-    skillId INT,
-    FOREIGN KEY (studentId) REFERENCES Student(id),
-    FOREIGN KEY (skillId) REFERENCES Skill(id)
+    student_id INT,
+    skill_id INT,
+    FOREIGN KEY (student_id) REFERENCES student(id),
+    FOREIGN KEY (skill_id) REFERENCES skill(id)
 );
 
-CREATE TABLE IF NOT EXISTS Mission_Skills (
+CREATE TABLE IF NOT EXISTS missions_skills (
     id SERIAL PRIMARY KEY,
-    scoreReward FLOAT NOT NULL,
-    missionId INT,
-    skillId INT,
-    FOREIGN KEY (missionId) REFERENCES Mission(id),
-    FOREIGN KEY (skillId) REFERENCES Skill(id)
+    score_reward FLOAT NOT NULL,
+    mission_id INT,
+    skill_id INT,
+    FOREIGN KEY (mission_id) REFERENCES mission(id),
+    FOREIGN KEY (skill_id) REFERENCES skill(id)
 );

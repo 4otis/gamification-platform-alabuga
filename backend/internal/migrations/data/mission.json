@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "title": "Первая программа",
+        "descr": "Написать Hello World",
+        "exp_reward": 10,
+        "mana_reward": 20,
+        "node_lvl": 1,
+        "artifact_id": 1,
+        "type_id": 1,
+        "course_id": 1
+    },
+    {
+        "id": 2,
+        "title": "Сортировка пузырьком",
+        "descr": "Реализовать алгоритм сортировки",
+        "exp_reward": 25,
+        "mana_reward": 35,
+        "node_lvl": 2,
+        "artifact_id": 2,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 3,
+        "title": "SQL запросы",
+        "descr": "Написать сложные SQL запросы",
+        "exp_reward": 40,
+        "mana_reward": 50,
+        "node_lvl": 3,
+        "artifact_id": 3,
+        "type_id": 3,
+        "course_id": 3
+    },
+    {
+        "id": 4,
+        "title": "Веб-сервер",
+        "descr": "Создать простой веб-сервер",
+        "exp_reward": 60,
+        "mana_reward": 70,
+        "node_lvl": 4,
+        "artifact_id": 4,
+        "type_id": 4,
+        "course_id": 4
+    },
+    {
+        "id": 5,
+        "title": "Оптимизация кода",
+        "descr": "Оптимизировать производительность",
+        "exp_reward": 80,
+        "mana_reward": 90,
+        "node_lvl": 5,
+        "artifact_id": 5,
+        "type_id": 5,
+        "course_id": 5
+    }
+]
