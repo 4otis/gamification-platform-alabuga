@@ -1,13 +1,57 @@
 [
     {
         "id": 1,
+        "login": "ivan.petrov",
+        "password": "hashed_pass_1",
         "name": "Иван",
         "surname": "Петров",
         "patronymic": "Сергеевич",
-        "login": "ivan.petrov",
-        "password": "hashed_password_123",
-        "exp": 150,
-        "mana": 75,
+        "exp": 75,
+        "mana": 150,
         "rank_id": 1
+    },
+    {
+        "id": 2,
+        "login": "maria.sidorova",
+        "password": "hashed_pass_2",
+        "name": "Мария",
+        "surname": "Сидорова",
+        "patronymic": "Алексеевна",
+        "exp": 250,
+        "mana": 300,
+        "rank_id": 2
+    },
+    {
+        "id": 3,
+        "login": "alexey.kuznetsov",
+        "password": "hashed_pass_3",
+        "name": "Алексей",
+        "surname": "Кузнецов",
+        "patronymic": "Дмитриевич",
+        "exp": 450,
+        "mana": 500,
+        "rank_id": 3
+    },
+    {
+        "id": 4,
+        "login": "elena.vorobeva",
+        "password": "hashed_pass_4",
+        "name": "Елена",
+        "surname": "Воробьева",
+        "patronymic": "Игоревна",
+        "exp": 700,
+        "mana": 800,
+        "rank_id": 4
+    },
+    {
+        "id": 5,
+        "login": "maxim.orshov",
+        "password": "hashed_pass_5",
+        "name": "Максим",
+        "surname": "Орлов",
+        "patronymic": "Викторович",
+        "exp": 1200,
+        "mana": 1000,
+        "rank_id": 5
     }
 ]

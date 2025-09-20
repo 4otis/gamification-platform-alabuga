@@ -423,7 +423,7 @@ func InsertStudentsSkills(db *gorm.DB) error {
 
 		_ = jsonBytes
 
-		var ss []models.StudentSkills
+		var ss []models.StudentsSkills
 		if err := json.Unmarshal(jsonBytes, &ss); err != nil {
 			return err
 		}
