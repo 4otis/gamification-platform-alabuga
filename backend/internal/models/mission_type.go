@@ -1,6 +1,6 @@
 package models
 
-type MissionSkills struct {
+type MissionType struct {
 	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
