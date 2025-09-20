@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
 	"gorm.io/gorm"
@@ -22,10 +21,10 @@ func RunInitDbMigrations(db *gorm.DB) error {
 		return err
 	}
 
-	err = RunStudentMigrations(db)
-	if err != nil {
-		return err
-	}
+	// err = RunStudentMigrations(db)
+	// if err != nil {
+	// 	return err
+	// }
 
 	return nil
 }
@@ -77,13 +76,13 @@ func RunStudentMigrations(db *gorm.DB) error {
 
 		for _, student := range students {
 			if err := tx.Exec(`
-			INSERT INTO assets
-			(id, name, surname, patronymic, exp, mana, rank_id)
-			VALUES (?, ?, ?, ?, ?, ?, ?)`,
-				time.Now(), time.Now(),
-				student.ID, student.Name,
+			INSERT INTO Student
+			(id, login, password, name, surname, patronymic, exp, mana, rank_id)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+				student.ID, student.Login,
+				student.Password, student.Name,
 				student.Surname, student.Patronymic,
-				student.Mana, student.RankId,
+				student.Mana, student.Exp, student.RankId,
 			).Error; err != nil {
 				return err
 			}
