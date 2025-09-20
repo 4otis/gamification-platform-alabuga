@@ -9,7 +9,7 @@ type MissionRepository struct {
 	db *gorm.DB
 }
 
-func NewSkillRepository(db *gorm.DB) *MissionRepository {
+func NewMissionRepository(db *gorm.DB) *MissionRepository {
 	return &MissionRepository{db: db}
 }
 

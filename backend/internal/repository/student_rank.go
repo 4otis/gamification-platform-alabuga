@@ -9,21 +9,21 @@ type StudentRankRepository struct {
 	db *gorm.DB
 }
 
-func NewSkillRepository(db *gorm.DB) *StudentRankRepository {
+func NewStudentRankRepository(db *gorm.DB) *StudentRankRepository {
 	return &StudentRankRepository{db: db}
 }
 
-func (r StudentRankRepository) Create(student_rank *models.StudentRank) error {
-	return r.db.Create(student_rank).Error
+func (r StudentRankRepository) Create(studentRank *models.StudentRank) error {
+	return r.db.Create(studentRank).Error
 }
 
 func (r StudentRankRepository) Read(id uint) (*models.StudentRank, error) {
-	var student_rank models.StudentRank
-	err := r.db.First(&student_rank, id).Error
+	var studentRank models.StudentRank
+	err := r.db.First(&studentRank, id).Error
 	if err != nil {
 		return nil, err
 	}
-	return &student_rank, nil
+	return &studentRank, nil
 }
 
 func (r StudentRankRepository) UpdateFields(id uint, updates map[string]interface{}) error {

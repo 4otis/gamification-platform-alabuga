@@ -9,7 +9,7 @@ type ArtifactRepository struct {
 	db *gorm.DB
 }
 
-func NewSkillRepository(db *gorm.DB) *ArtifactRepository {
+func NewArtifactRepository(db *gorm.DB) *ArtifactRepository {
 	return &ArtifactRepository{db: db}
 }
 

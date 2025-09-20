@@ -9,21 +9,21 @@ type MissionTypeRepository struct {
 	db *gorm.DB
 }
 
-func NewSkillRepository(db *gorm.DB) *MissionTypeRepository {
+func NewMissionTypeRepository(db *gorm.DB) *MissionTypeRepository {
 	return &MissionTypeRepository{db: db}
 }
 
-func (r MissionTypeRepository) Create(mission_type *models.MissionType) error {
-	return r.db.Create(mission_type).Error
+func (r MissionTypeRepository) Create(missionType *models.MissionType) error {
+	return r.db.Create(missionType).Error
 }
 
 func (r MissionTypeRepository) Read(id uint) (*models.MissionType, error) {
-	var mission_type models.MissionType
-	err := r.db.First(&mission_type, id).Error
+	var missionType models.MissionType
+	err := r.db.First(&missionType, id).Error
 	if err != nil {
 		return nil, err
 	}
-	return &mission_type, nil
+	return &missionType, nil
 }
 
 func (r MissionTypeRepository) UpdateFields(id uint, updates map[string]interface{}) error {

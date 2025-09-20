@@ -13,7 +13,7 @@ func NewSkillRepository(db *gorm.DB) *SkillRepository {
 	return &SkillRepository{db: db}
 }
 
-func (r SkillRepository) Create(artifact *models.Skill) error {
+func (r SkillRepository) Create(skill *models.Skill) error {
 	return r.db.Create(skill).Error
 }
 

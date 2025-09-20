@@ -9,7 +9,7 @@ type StudentsSkillsRepository struct {
 	db *gorm.DB
 }
 
-func NewSkillRepository(db *gorm.DB) *StudentsSkillsRepository {
+func NewStudentsSkillsRepository(db *gorm.DB) *StudentsSkillsRepository {
 	return &StudentsSkillsRepository{db: db}
 }
 

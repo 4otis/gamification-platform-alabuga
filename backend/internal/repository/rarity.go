@@ -13,7 +13,7 @@ func NewRarityRepository(db *gorm.DB) *RarityRepository {
 	return &RarityRepository{db: db}
 }
 
-func (r RarityRepository) Create(artifact *models.Rarity) error {
+func (r RarityRepository) Create(rarity *models.Rarity) error {
 	return r.db.Create(rarity).Error
 }
 
