@@ -86,6 +86,9 @@ ALTER TABLE mission
 ADD CONSTRAINT check_if_exp_reward_is_not_negative CHECK (exp_reward >= 0),
 ADD CONSTRAINT check_if_mana_reward_is_not_negative CHECK (mana_reward >= 0);
 
+-- Ограничения таблицы students_courses
+-- отсутсвуют
+
 -- Ограничения таблицы students_skills
 ALTER TABLE students_skills
 ALTER COLUMN score SET NOT NULL;

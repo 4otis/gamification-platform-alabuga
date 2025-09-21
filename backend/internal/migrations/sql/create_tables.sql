@@ -78,6 +78,15 @@ CREATE TABLE IF NOT EXISTS mission (
 );
 
 -- Смежные таблицы для связи многие ко многим
+CREATE TABLE IF NOT EXISTS students_courses (
+    id SERIAL PRIMARY KEY,
+    student_id INT,
+    course_id INT,
+    FOREIGN KEY (student_id) REFERENCES student(id),
+    FOREIGN KEY (course_id) REFERENCES course(id)
+);
+
+
 CREATE TABLE IF NOT EXISTS students_skills (
     id SERIAL PRIMARY KEY,
     score FLOAT,
