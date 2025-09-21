@@ -17,9 +17,9 @@ func (r StudentRepository) Create(student *models.Student) error {
 	return r.db.Create(student).Error
 }
 
-func (r StudentRepository) Read(login string) (*models.Student, error) {
+func (r StudentRepository) Read(id uint) (*models.Student, error) {
 	var student models.Student
-	err := r.db.Where("login = ?", login).First(&student).Error
+	err := r.db.Where("id = ?", id).First(&student).Error
 	if err != nil {
 		return nil, err
 	}
