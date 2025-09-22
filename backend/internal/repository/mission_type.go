@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"context"
+
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
 	"gorm.io/gorm"
 )
@@ -13,23 +15,25 @@ func NewMissionTypeRepository(db *gorm.DB) *MissionTypeRepository {
 	return &MissionTypeRepository{db: db}
 }
 
-func (r MissionTypeRepository) Create(missionType *models.MissionType) error {
-	return r.db.Create(missionType).Error
+func (r *MissionTypeRepository) Create(ctx context.Context, missionType *models.MissionType) error {
+	return r.db.WithContext(ctx).Create(missionType).Error
 }
 
-func (r MissionTypeRepository) Read(id uint) (*models.MissionType, error) {
+func (r *MissionTypeRepository) Read(ctx context.Context, id uint) (*models.MissionType, error) {
 	var missionType models.MissionType
-	err := r.db.First(&missionType, id).Error
+	err := r.db.WithContext(ctx).First(&missionType, id).Error
 	if err != nil {
 		return nil, err
 	}
 	return &missionType, nil
 }
 
-func (r MissionTypeRepository) UpdateFields(id uint, updates map[string]interface{}) error {
-	return r.db.Model(&models.MissionType{}).Where("id = ?", id).Updates(updates).Error
+func (r *MissionTypeRepository) UpdateFields(ctx context.Context, id uint, updates map[string]interface{}) error {
+	result := r.db.WithContext(ctx).Model(&models.MissionType{}).Where("id = ?", id).Updates(updates)
+	return result.Error
 }
 
-func (r MissionTypeRepository) Delete(id uint) error {
-	return r.db.Delete(&models.MissionType{}, id).Error
+func (r *MissionTypeRepository) Delete(ctx context.Context, id uint) error {
+	result := r.db.WithContext(ctx).Delete(&models.MissionType{}, id)
+	return result.Error
 }
