@@ -52,6 +52,8 @@ func AutoMigrateAll(db *gorm.DB) error {
 			&models.Course{},
 			&models.Mission{},
 			&models.StudentsSkills{},
+			&models.StudentsCourses{},
+			&models.StudentsMissions{},
 			&models.MissionsSkills{},
 		}
 
@@ -152,6 +154,14 @@ func InsertData(db *gorm.DB) error {
 	}
 
 	if err := InsertMissionsSkills(db); err != nil {
+		return err
+	}
+
+	if err := InsertStudentsMissions(db); err != nil {
+		return err
+	}
+
+	if err := InsertStudentsCourses(db); err != nil {
 		return err
 	}
 
@@ -290,17 +300,6 @@ func InsertCourse(db *gorm.DB) error {
 			return err
 		}
 
-		for i := range courses {
-			if courses[i].MinProgress == 0 {
-				courses[i].MinProgress = 1.0
-			}
-			if courses[i].Progress == 0 {
-				courses[i].Progress = 0.0
-			}
-			courses[i].IsActive = false
-			courses[i].IsCompleted = false
-		}
-
 		return tx.Create(&courses).Error
 	})
 }
@@ -318,11 +317,6 @@ func InsertMission(db *gorm.DB) error {
 			return err
 		}
 
-		for i := range missions {
-			missions[i].IsActive = false
-			missions[i].IsCompleted = false
-		}
-
 		return tx.Create(&missions).Error
 	})
 }
@@ -336,6 +330,40 @@ func InsertStudentsSkills(db *gorm.DB) error {
 		}
 
 		var ss []models.StudentsSkills
+		if err := json.Unmarshal(jsonBytes, &ss); err != nil {
+			return err
+		}
+
+		return tx.Create(&ss).Error
+	})
+}
+
+func InsertStudentsCourses(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "students_courses.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
+		}
+
+		var ss []models.StudentsCourses
+		if err := json.Unmarshal(jsonBytes, &ss); err != nil {
+			return err
+		}
+
+		return tx.Create(&ss).Error
+	})
+}
+
+func InsertStudentsMissions(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "students_missions.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
+		}
+
+		var ss []models.StudentsMissions
 		if err := json.Unmarshal(jsonBytes, &ss); err != nil {
 			return err
 		}
