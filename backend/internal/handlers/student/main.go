@@ -44,7 +44,7 @@ func NewMainHandler(studentService services.StudentService,
 // @Failure 404 {object} dto.ErrorResponse "Студент не найден"
 // @Failure 500 {object} dto.ErrorResponse "Внутренняя ошибка сервера"
 // @Security ApiKeyAuth
-// @Router /student/main/{student_id} [get]
+// @Router /student/{student_id}/main/ [get]
 func (h *MainHandler) GetMainPage(c *gin.Context) {
 	studentID, err := strconv.Atoi(c.Param("student_id"))
 	if err != nil {
@@ -52,7 +52,7 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		return
 	}
 
-	// studentData, err := h.studentService.GetStudentByID(c.Request.Context(), studentID)
+	studentData, err := h.studentService.GetStudentByID(c.Request.Context(), uint(studentID))
 	if err != nil {
 		if errors.Is(err, repository.ErrNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{
@@ -97,11 +97,11 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 
 	response := student.MainResponse{
 		Student: &student.StudentInfo{
-			// ID:      studentData.ID,
-			// Name:    studentData.Name,
-			// Surname: studentData.Surname,
-			// Exp:     studentData.Exp,
-			// Mana:    studentData.Mana,
+			ID:      studentData.ID,
+			Name:    studentData.Name,
+			Surname: studentData.Surname,
+			Exp:     studentData.Exp,
+			Mana:    studentData.Mana,
 		},
 		// Missions: convertMissionsToDTO(missions),
 		// Courses:  convertCoursesToDTO(courses),

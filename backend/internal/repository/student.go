@@ -19,16 +19,13 @@ func (r StudentRepository) Create(student *models.Student) error {
 
 func (r StudentRepository) Read(id uint) (*models.Student, error) {
 	var student models.Student
-	err := r.db.Where("id = ?", id).First(&student).Error
-	if err != nil {
-		return nil, err
-	}
-	return &student, nil
+	err := r.db.Table("student").First(&student, id).Error
+	return &student, err
 }
 
 func (r StudentRepository) ReadAll() ([]*models.Student, error) {
 	var students []*models.Student
-	err := r.db.Find(&students).Error
+	err := r.db.Table("student").Find(&students).Error
 	if err != nil {
 		return nil, err
 	}
