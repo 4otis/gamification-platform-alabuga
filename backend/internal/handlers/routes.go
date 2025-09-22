@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"gorm.io/gorm"
 )
 
@@ -21,6 +23,8 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	g.StaticFile("/index.html", "./index.html")
 
 	// g.POST("/courses", courseHandler.GetAllCourses)
+	g.GET("/")
+	g.GET("/swagger/*", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// g.Use(cors.New(cors.Config{
 	// 	AllowOrigins:     []string{"*"},

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/4otis/gamification-platform-alabuga/internal/dto/responses/student"
+	"github.com/4otis/gamification-platform-alabuga/internal/dto/response/student"
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
 	"github.com/4otis/gamification-platform-alabuga/internal/repository"
 	"github.com/4otis/gamification-platform-alabuga/internal/services"
