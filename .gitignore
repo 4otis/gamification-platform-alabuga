@@ -1,6 +1,3 @@
-[alias]
-    lg = git log --graph --oneline --pretty=format:'%C(auto)%h %d %s %C(cyan)(%cr) %C(bold blue)<%an>%Creset'
-
 *.exe
 *.log
 *.out
