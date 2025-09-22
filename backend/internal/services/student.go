@@ -33,5 +33,5 @@ func NewStudentService(
 }
 
 func (s *studentService) GetStudentByID(ctx context.Context, id uint) (*models.Student, error) {
-	return s.studentRepo.Read(id)
+	return s.studentRepo.Read(ctx, id)
 }
