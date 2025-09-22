@@ -65,13 +65,13 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		return
 	}
 
-	missions, err := h.missionService.GetAvailableMissions(c.Request.Context(), uint(studentID))
+	// missions, err := h.missionService.GetAvailableMissions(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	courses, err := h.courseService.GetAvailableCourses(c.Request.Context(), uint(studentID))
+	// courses, err := h.courseService.GetAvailableCourses(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

@@ -16,12 +16,22 @@ func RunInitDbMigrations(db *gorm.DB) error {
 		return err
 	}
 
-	err = CreateAllTables(db)
-	if err != nil {
-		return err
-	}
+	// err = CreateAllTables(db)
+	// if err != nil {
+	// 	return err
+	// }
 
-	err = AddAllConstraints(db)
+	// err = AddAllConstraints(db)
+	// if err != nil {
+	// 	return err
+	// }
+
+	// err := DropAllTables(db)
+	// if err != nil {
+	// 	return err
+	// }
+
+	err = AutoMigrateAll(db)
 	if err != nil {
 		return err
 	}
@@ -32,6 +42,56 @@ func RunInitDbMigrations(db *gorm.DB) error {
 	}
 
 	return nil
+}
+
+func DropAllTables(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		tables := []string{
+			"missions_skills",
+			"students_skills",
+			"missions",
+			"courses",
+			"artifacts",
+			"students",
+			"rarities",
+			"skills",
+			"mission_types",
+			"hrs",
+			"student_ranks",
+		}
+
+		for _, table := range tables {
+			if err := tx.Migrator().DropTable(table); err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+}
+
+func AutoMigrateAll(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		models := []interface{}{
+			&models.StudentRank{},
+			&models.HR{},
+			&models.MissionType{},
+			&models.Skill{},
+			&models.Rarity{},
+			&models.Student{},
+			&models.Artifact{},
+			&models.Course{},
+			&models.Mission{},
+			&models.StudentsSkills{},
+			&models.MissionsSkills{},
+		}
+
+		for _, model := range models {
+			if err := tx.AutoMigrate(model); err != nil {
+				return err
+			}
+		}
+		return nil
+	})
 }
 
 func DeleteAll(db *gorm.DB) error {
@@ -49,20 +109,20 @@ func DeleteAll(db *gorm.DB) error {
 	})
 }
 
-func CreateAllTables(db *gorm.DB) error {
-	return db.Transaction(func(tx *gorm.DB) error {
-		sqlPath := filepath.Join("internal", "migrations", "sql", "create_tables.sql")
-		sqlBytes, err := os.ReadFile(sqlPath)
-		if err != nil {
-			return err
-		}
+// func CreateAllTables(db *gorm.DB) error {
+// 	return db.Transaction(func(tx *gorm.DB) error {
+// 		sqlPath := filepath.Join("internal", "migrations", "sql", "create_tables.sql")
+// 		sqlBytes, err := os.ReadFile(sqlPath)
+// 		if err != nil {
+// 			return err
+// 		}
 
-		if err := tx.Exec(string(sqlBytes)).Error; err != nil {
-			return err
-		}
-		return nil
-	})
-}
+// 		if err := tx.Exec(string(sqlBytes)).Error; err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
 
 func AddAllConstraints(db *gorm.DB) error {
 	return db.Transaction(func(tx *gorm.DB) error {
