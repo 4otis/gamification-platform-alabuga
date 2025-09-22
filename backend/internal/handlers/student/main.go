@@ -57,7 +57,7 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		if errors.Is(err, repository.ErrNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{
 				"error":   err.Error(),
-				"message": fmt.Sprint("Student by (id:%d) not found", studentID),
+				"message": fmt.Sprintf("Student by (id:%d) not found", studentID),
 			})
 			return
 		}
@@ -65,19 +65,19 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		return
 	}
 
-	// missions, err := h.missionService.GetAvailableMissions(c.Request.Context(), studentID)
+	missions, err := h.missionService.GetAvailableMissions(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	// courses, err := h.courseService.GetAvailableCourses(c.Request.Context(), studentID)
+	courses, err := h.courseService.GetAvailableCourses(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	// position, err := h.rankingService.GetStudentPosition(c.Request.Context(), studentID)
+	position, err := h.rankingService.GetStudentPosition(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -105,11 +105,11 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		},
 		// Missions: convertMissionsToDTO(missions),
 		// Courses:  convertCoursesToDTO(courses),
-		Rank: &student.RankInfo{
+		CurRank: &student.RankInfo{
 			// ID:   rank.ID,
 			// Name: rank.Name,
 		},
-		// Position:    position,
+		CurPosition: position,
 		Leaderboard: convertLeaderboardToDTO(leaderboard),
 	}
 

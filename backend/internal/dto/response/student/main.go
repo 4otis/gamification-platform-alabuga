@@ -6,8 +6,8 @@ type MainResponse struct {
 	Student     *StudentInfo        `json:"student"`
 	Missions    []*MissionInfo      `json:"missions"`
 	Courses     []*CourseInfo       `json:"courses"`
-	Rank        *RankInfo           `json:"rank"`
-	Position    int                 `json:"position"`
+	CurRank     *RankInfo           `json:"cur_rank"`
+	CurPosition int                 `json:"cur_position"`
 	Leaderboard []*LeaderboardEntry `json:"leaderboard"`
 }
 
