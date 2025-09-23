@@ -7,9 +7,11 @@ type Course struct {
 	RankID      uint        `gorm:"not null" json:"rank_id"`
 	ArtifactID  uint        `gorm:"not null" json:"artifact_id"`
 	MinProgress float64     `gorm:"not null;default:1.0" json:"min_progress"`
-	Progress    float64     `gorm:"not null;default:0.0" json:"progress"`
-	IsActive    bool        `gorm:"not null;default:false" json:"is_active"`
-	IsCompleted bool        `gorm:"not null;default:false" json:"is_completed"`
 	Rank        StudentRank `gorm:"foreignKey:RankID"`
 	Artifact    Artifact    `gorm:"foreignKey:ArtifactID"`
+
+	// Статусные поля (не сохраняются в БД, заполняются из JOIN)
+	Progress    float64 `gorm:"-" json:"progress"`
+	IsCompleted bool    `gorm:"-" json:"is_completed"`
+	StudentID   uint    `gorm:"-" json:"student_id,omitempty"`
 }

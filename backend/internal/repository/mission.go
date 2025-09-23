@@ -38,8 +38,8 @@ func (r *MissionRepository) Delete(ctx context.Context, id uint) error {
 	return result.Error
 }
 
-func (r *MissionRepository) GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error) {
-	var availableMissions []*models.Mission
-	err := r.db.WithContext().Jo
-	return
-}
+// func (r *MissionRepository) GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error) {
+// 	var availableMissions []*models.Mission
+// 	err := r.db.WithContext().Jo
+// 	return
+// }

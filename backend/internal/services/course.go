@@ -16,16 +16,20 @@ type courseService struct {
 	courseRepo  repository.CourseRepository
 	missionRepo repository.MissionRepository
 	studentRepo repository.StudentRepository
+	// missionService MissionService
+	// studentRankRepo
 }
 
 func NewCourseService(
 	courseRepo repository.CourseRepository,
 	missionRepo repository.MissionRepository,
 	studentRepo repository.StudentRepository,
+	// missionService MissionService,
 ) CourseService {
 	return &courseService{
 		courseRepo:  courseRepo,
-		missionRepo: missionRepo,
 		studentRepo: studentRepo,
+		missionRepo: missionRepo,
+		// missionService: missionService,
 	}
 }

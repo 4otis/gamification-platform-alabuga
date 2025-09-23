@@ -10,26 +10,32 @@ import (
 
 type MissionService interface {
 	GetMissionByID(ctx context.Context, id uint) (*models.Mission, error)
-	// GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error)
+	GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error)
 	// StartMission(ctx context.Context, studentID, missionID uint) error
 	// CompleteMission(ctx context.Context, studentID, missionID uint) error
 	// GetMissionChain(ctx context.Context, missionID uint) ([]*models.Mission, error)
 }
 
 type missionService struct {
-	missionRepo    repository.MissionRepository
-	studentRepo    repository.StudentRepository
-	studentService StudentService
+	missionRepo repository.MissionRepository
+	studentRepo repository.StudentRepository
+	// courseRepo     repository.CourseRepository
+	studentsMissionsRepo repository.StudentsMissionsRepository
+	studentService       StudentService
 }
 
 func NewMissionService(
 	missionRepo repository.MissionRepository,
 	studentRepo repository.StudentRepository,
+	// courseRepo repository.CourseRepository,
+	studentsMissionsRepo repository.StudentsMissionsRepository,
 	studentService StudentService,
 ) MissionService {
 	return &missionService{
-		missionRepo:    missionRepo,
-		studentRepo:    studentRepo,
+		missionRepo:          missionRepo,
+		studentRepo:          studentRepo,
+		studentsMissionsRepo: studentsMissionsRepo,
+		// courseRepo:     courseRepo,
 		studentService: studentService,
 	}
 }
@@ -38,14 +44,9 @@ func (s *missionService) GetMissionByID(ctx context.Context, id uint) (*models.M
 	return s.missionRepo.Read(ctx, id)
 }
 
-// func (s *missionService) GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error) {
-// 	student, err := s.studentRepo.Read(ctx, studentID)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	return s.missionRepo.GetByRankID(ctx, student.RankID)
-// }
+func (s *missionService) GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error) {
+	return s.studentsMissionsRepo.GetAvailableMissions(ctx, studentID)
+}
 
 // func (s *missionService) StartMission(ctx context.Context, studentID, missionID int) error {
 // 	// Проверяем доступность миссии для студента

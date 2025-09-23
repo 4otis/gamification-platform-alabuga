@@ -65,7 +65,7 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		return
 	}
 
-	// missions, err := h.missionService.GetAvailableMissions(c.Request.Context(), uint(studentID))
+	missions, err := h.missionService.GetAvailableMissions(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -103,7 +103,7 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 			Exp:     studentData.Exp,
 			Mana:    studentData.Mana,
 		},
-		// Missions: convertMissionsToDTO(missions),
+		Missions: convertMissionsToDTO(missions),
 		// Courses:  convertCoursesToDTO(courses),
 		CurRank: &student.RankInfo{
 			// ID:   rank.ID,

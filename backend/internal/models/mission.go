@@ -1,4 +1,3 @@
-// internal/models/mission.go
 package models
 
 type Mission struct {
@@ -11,9 +10,12 @@ type Mission struct {
 	ArtifactID  uint        `gorm:"not null" json:"artifact_id"`
 	TypeID      uint        `gorm:"not null" json:"type_id"`
 	CourseID    uint        `gorm:"not null" json:"course_id"`
-	IsActive    bool        `gorm:"not null;default:false" json:"is_active"`
-	IsCompleted bool        `gorm:"not null;default:false" json:"is_completed"`
 	Artifact    Artifact    `gorm:"foreignKey:ArtifactID"`
 	MissionType MissionType `gorm:"foreignKey:TypeID"`
 	Course      Course      `gorm:"foreignKey:CourseID"`
+
+	// Статусные поля (не сохраняются в БД, заполняются из JOIN)
+	IsActive    bool `gorm:"-" json:"is_active,omitempty"`
+	IsCompleted bool `gorm:"-" json:"is_completed,omitempty"`
+	StudentID   uint `gorm:"-" json:"student_id,omitempty"`
 }
