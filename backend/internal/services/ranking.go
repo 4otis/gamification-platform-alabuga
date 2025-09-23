@@ -26,7 +26,7 @@ func NewRankingService(studentRepo repository.StudentRepository) RankingService 
 }
 
 func (s *rankingService) GetLeaderboard(ctx context.Context, limit, offset int) ([]*LeaderboardEntry, error) {
-	students, err := s.studentRepo.ReadAll()
+	students, err := s.studentRepo.ReadAll(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (s *rankingService) GetLeaderboard(ctx context.Context, limit, offset int) 
 }
 
 func (s *rankingService) GetStudentPosition(ctx context.Context, studentID uint) (int, error) {
-	students, err := s.studentRepo.ReadAll()
+	students, err := s.studentRepo.ReadAll(ctx)
 	if err != nil {
 		return 0, err
 	}
@@ -68,7 +68,7 @@ func (s *rankingService) GetStudentPosition(ctx context.Context, studentID uint)
 }
 
 func (s *rankingService) GetTopStudentsByExp(ctx context.Context, limit int) ([]*models.Student, error) {
-	students, err := s.studentRepo.ReadAll()
+	students, err := s.studentRepo.ReadAll(ctx)
 	if err != nil {
 		return nil, err
 	}

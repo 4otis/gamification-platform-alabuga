@@ -37,3 +37,9 @@ func (r *MissionRepository) Delete(ctx context.Context, id uint) error {
 	result := r.db.WithContext(ctx).Delete(&models.Mission{}, id)
 	return result.Error
 }
+
+// func (r *MissionRepository) GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error) {
+// 	var availableMissions []*models.Mission
+// 	err := r.db.WithContext().Jo
+// 	return
+// }

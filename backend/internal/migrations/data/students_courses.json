@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "student_id": 1,
+        "course_id": 1,
+        "progress": 0.3,
+        "is_completed": false
+    },
+    {
+        "id": 2,
+        "student_id": 1,
+        "course_id": 2,
+        "progress": 0.0,
+        "is_completed": false
+    },
+    {
+        "id": 3,
+        "student_id": 2,
+        "course_id": 1,
+        "progress": 0.8,
+        "is_completed": false
+    },
+    {
+        "id": 4,
+        "student_id": 2,
+        "course_id": 3,
+        "progress": 1.0,
+        "is_completed": true
+    },
+    {
+        "id": 5,
+        "student_id": 3,
+        "course_id": 2,
+        "progress": 0.5,
+        "is_completed": false
+    },
+    {
+        "id": 6,
+        "student_id": 3,
+        "course_id": 4,
+        "progress": 0.0,
+        "is_completed": false
+    },
+    {
+        "id": 7,
+        "student_id": 4,
+        "course_id": 1,
+        "progress": 0.9,
+        "is_completed": false
+    },
+    {
+        "id": 8,
+        "student_id": 4,
+        "course_id": 5,
+        "progress": 0.2,
+        "is_completed": false
+    },
+    {
+        "id": 9,
+        "student_id": 5,
+        "course_id": 3,
+        "progress": 0.6,
+        "is_completed": false
+    },
+    {
+        "id": 10,
+        "student_id": 5,
+        "course_id": 2,
+        "progress": 1.0,
+        "is_completed": true
+    }
+]

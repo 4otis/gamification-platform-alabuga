@@ -12,10 +12,12 @@ type StudentService interface {
 }
 
 type studentService struct {
-	studentRepo repository.StudentRepository
-	rankRepo    repository.StudentRankRepository
-	skillRepo   repository.SkillRepository
-	missionRepo repository.MissionRepository
+	studentRepo          repository.StudentRepository
+	rankRepo             repository.StudentRankRepository
+	skillRepo            repository.SkillRepository
+	missionRepo          repository.MissionRepository
+	studentsMissionsRepo repository.StudentsMissionsRepository
+	studentsCoursesRepo  repository.StudentsCoursesRepository
 }
 
 func NewStudentService(
@@ -23,15 +25,19 @@ func NewStudentService(
 	rankRepo repository.StudentRankRepository,
 	skillRepo repository.SkillRepository,
 	missionRepo repository.MissionRepository,
+	studentsMissionsRepo repository.StudentsMissionsRepository,
+	studentsCoursesRepo repository.StudentsCoursesRepository,
 ) StudentService {
 	return &studentService{
-		studentRepo: studentRepo,
-		rankRepo:    rankRepo,
-		skillRepo:   skillRepo,
-		missionRepo: missionRepo,
+		studentRepo:          studentRepo,
+		rankRepo:             rankRepo,
+		skillRepo:            skillRepo,
+		missionRepo:          missionRepo,
+		studentsMissionsRepo: studentsMissionsRepo,
+		studentsCoursesRepo:  studentsCoursesRepo,
 	}
 }
 
 func (s *studentService) GetStudentByID(ctx context.Context, id uint) (*models.Student, error) {
-	return s.studentRepo.Read(id)
+	return s.studentRepo.Read(ctx, id)
 }

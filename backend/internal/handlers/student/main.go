@@ -103,9 +103,9 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 			Exp:     studentData.Exp,
 			Mana:    studentData.Mana,
 		},
-		// Missions: convertMissionsToDTO(missions),
-		// Courses:  convertCoursesToDTO(courses),
-		CurRank: &student.RankInfo{
+		Missions: convertMissionsToDTO(missions),
+		Courses:  convertCoursesToDTO(courses),
+		CurRank:  &student.RankInfo{
 			// ID:   rank.ID,
 			// Name: rank.Name,
 		},

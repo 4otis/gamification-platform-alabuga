@@ -16,12 +16,17 @@ func RunInitDbMigrations(db *gorm.DB) error {
 		return err
 	}
 
-	err = CreateAllTables(db)
-	if err != nil {
-		return err
-	}
+	// err = CreateAllTables(db)
+	// if err != nil {
+	// 	return err
+	// }
 
-	err = AddAllConstraints(db)
+	// err = AddAllConstraints(db)
+	// if err != nil {
+	// 	return err
+	// }
+
+	err = AutoMigrateAll(db)
 	if err != nil {
 		return err
 	}
@@ -32,6 +37,33 @@ func RunInitDbMigrations(db *gorm.DB) error {
 	}
 
 	return nil
+}
+
+func AutoMigrateAll(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		models := []interface{}{
+			&models.StudentRank{},
+			&models.HR{},
+			&models.MissionType{},
+			&models.Skill{},
+			&models.Rarity{},
+			&models.Student{},
+			&models.Artifact{},
+			&models.Course{},
+			&models.Mission{},
+			&models.StudentsSkills{},
+			&models.StudentsCourses{},
+			&models.StudentsMissions{},
+			&models.MissionsSkills{},
+		}
+
+		for _, model := range models {
+			if err := tx.AutoMigrate(model); err != nil {
+				return err
+			}
+		}
+		return nil
+	})
 }
 
 func DeleteAll(db *gorm.DB) error {
@@ -49,20 +81,20 @@ func DeleteAll(db *gorm.DB) error {
 	})
 }
 
-func CreateAllTables(db *gorm.DB) error {
-	return db.Transaction(func(tx *gorm.DB) error {
-		sqlPath := filepath.Join("internal", "migrations", "sql", "create_tables.sql")
-		sqlBytes, err := os.ReadFile(sqlPath)
-		if err != nil {
-			return err
-		}
+// func CreateAllTables(db *gorm.DB) error {
+// 	return db.Transaction(func(tx *gorm.DB) error {
+// 		sqlPath := filepath.Join("internal", "migrations", "sql", "create_tables.sql")
+// 		sqlBytes, err := os.ReadFile(sqlPath)
+// 		if err != nil {
+// 			return err
+// 		}
 
-		if err := tx.Exec(string(sqlBytes)).Error; err != nil {
-			return err
-		}
-		return nil
-	})
-}
+// 		if err := tx.Exec(string(sqlBytes)).Error; err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
 
 func AddAllConstraints(db *gorm.DB) error {
 	return db.Transaction(func(tx *gorm.DB) error {
@@ -125,6 +157,14 @@ func InsertData(db *gorm.DB) error {
 		return err
 	}
 
+	if err := InsertStudentsMissions(db); err != nil {
+		return err
+	}
+
+	if err := InsertStudentsCourses(db); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -136,27 +176,12 @@ func InsertStudentRank(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var studentRanks []models.StudentRank
 		if err := json.Unmarshal(jsonBytes, &studentRanks); err != nil {
 			return err
 		}
 
-		for _, studentRank := range studentRanks {
-			if err := tx.Exec(`
-			INSERT INTO student_rank
-			(id, name, min_exp)
-			VALUES (?, ?, ?);`,
-				studentRank.ID,
-				studentRank.Name,
-				studentRank.MinExp,
-			).Error; err != nil {
-				return err
-			}
-		}
-
-		return nil
+		return tx.Create(&studentRanks).Error
 	})
 }
 
@@ -168,27 +193,12 @@ func InsertHR(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var hrs []models.HR
 		if err := json.Unmarshal(jsonBytes, &hrs); err != nil {
 			return err
 		}
 
-		for _, hr := range hrs {
-			if err := tx.Exec(`
-			INSERT INTO hr
-			(id, login, password, name, surname, patronymic)
-			VALUES (?, ?, ?, ?, ?, ?);`,
-				hr.ID, hr.Login,
-				hr.Password, hr.Name,
-				hr.Surname, hr.Patronymic,
-			).Error; err != nil {
-				return err
-			}
-		}
-
-		return nil
+		return tx.Create(&hrs).Error
 	})
 }
 
@@ -200,25 +210,12 @@ func InsertMissionType(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var mts []models.MissionType
 		if err := json.Unmarshal(jsonBytes, &mts); err != nil {
 			return err
 		}
 
-		for _, mt := range mts {
-			if err := tx.Exec(`
-			INSERT INTO mission_type
-			(id, name)
-			VALUES (?, ?);`,
-				mt.ID, mt.Name,
-			).Error; err != nil {
-				return err
-			}
-		}
-
-		return nil
+		return tx.Create(&mts).Error
 	})
 }
 
@@ -230,25 +227,12 @@ func InsertSkill(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var skills []models.Skill
 		if err := json.Unmarshal(jsonBytes, &skills); err != nil {
 			return err
 		}
 
-		for _, skill := range skills {
-			if err := tx.Exec(`
-			INSERT INTO skill
-			(id, name)
-			VALUES (?, ?);`,
-				skill.ID, skill.Name,
-			).Error; err != nil {
-				return err
-			}
-		}
-
-		return nil
+		return tx.Create(&skills).Error
 	})
 }
 
@@ -260,25 +244,12 @@ func InsertRarity(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var rs []models.Rarity
 		if err := json.Unmarshal(jsonBytes, &rs); err != nil {
 			return err
 		}
 
-		for _, r := range rs {
-			if err := tx.Exec(`
-			INSERT INTO rarity
-			(id, name)
-			VALUES (?, ?);`,
-				r.ID, r.Name,
-			).Error; err != nil {
-				return err
-			}
-		}
-
-		return nil
+		return tx.Create(&rs).Error
 	})
 }
 
@@ -290,28 +261,12 @@ func InsertStudent(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var students []models.Student
 		if err := json.Unmarshal(jsonBytes, &students); err != nil {
 			return err
 		}
 
-		for _, student := range students {
-			if err := tx.Exec(`
-			INSERT INTO Student
-			(id, login, password, name, surname, patronymic, exp, mana, rank_id)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
-				student.ID, student.Login,
-				student.Password, student.Name,
-				student.Surname, student.Patronymic,
-				student.Exp, student.Mana, student.RankID,
-			).Error; err != nil {
-				return err
-			}
-		}
-
-		return nil
+		return tx.Create(&students).Error
 	})
 }
 
@@ -323,27 +278,12 @@ func InsertArtifact(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var artifacts []models.Artifact
 		if err := json.Unmarshal(jsonBytes, &artifacts); err != nil {
 			return err
 		}
 
-		for _, a := range artifacts {
-			if err := tx.Exec(`
-			INSERT INTO artifact
-			(id, title, descr, file_path, rarity_id)
-			VALUES (?, ?, ?, ?, ?);`,
-				a.ID, a.Title,
-				a.Descr, a.FilePath,
-				a.RarityID,
-			).Error; err != nil {
-				return err
-			}
-		}
-
-		return nil
+		return tx.Create(&artifacts).Error
 	})
 }
 
@@ -355,27 +295,12 @@ func InsertCourse(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var courses []models.Course
 		if err := json.Unmarshal(jsonBytes, &courses); err != nil {
 			return err
 		}
 
-		for _, c := range courses {
-			if err := tx.Exec(`
-			INSERT INTO course
-			(id, title, descr, rank_id, artifact_id)
-			VALUES (?, ?, ?, ?, ?);`,
-				c.ID, c.Title,
-				c.Descr, c.RankID,
-				c.ArtifactID,
-			).Error; err != nil {
-				return err
-			}
-		}
-
-		return nil
+		return tx.Create(&courses).Error
 	})
 }
 
@@ -387,29 +312,12 @@ func InsertMission(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var missions []models.Mission
 		if err := json.Unmarshal(jsonBytes, &missions); err != nil {
 			return err
 		}
 
-		for _, m := range missions {
-			if err := tx.Exec(`
-			INSERT INTO mission
-			(id, title, descr, exp_reward, mana_reward, node_lvl, artifact_id, type_id, course_id)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`,
-				m.ID, m.Title,
-				m.Descr, m.ExpReward,
-				m.ManaReward, m.NodeLvl,
-				m.ArtifactID, m.TypeID,
-				m.CourseID,
-			).Error; err != nil {
-				return err
-			}
-		}
-
-		return nil
+		return tx.Create(&missions).Error
 	})
 }
 
@@ -421,26 +329,46 @@ func InsertStudentsSkills(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var ss []models.StudentsSkills
 		if err := json.Unmarshal(jsonBytes, &ss); err != nil {
 			return err
 		}
 
-		for _, s := range ss {
-			if err := tx.Exec(`
-			INSERT INTO students_skills
-			(id, score, student_id, skill_id)
-			VALUES (?, ?, ?, ?);`,
-				s.ID, s.Score,
-				s.StudentID, s.SkillID,
-			).Error; err != nil {
-				return err
-			}
+		return tx.Create(&ss).Error
+	})
+}
+
+func InsertStudentsCourses(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "students_courses.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
 		}
 
-		return nil
+		var ss []models.StudentsCourses
+		if err := json.Unmarshal(jsonBytes, &ss); err != nil {
+			return err
+		}
+
+		return tx.Create(&ss).Error
+	})
+}
+
+func InsertStudentsMissions(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "students_missions.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
+		}
+
+		var ss []models.StudentsMissions
+		if err := json.Unmarshal(jsonBytes, &ss); err != nil {
+			return err
+		}
+
+		return tx.Create(&ss).Error
 	})
 }
 
@@ -452,25 +380,11 @@ func InsertMissionsSkills(db *gorm.DB) error {
 			return err
 		}
 
-		_ = jsonBytes
-
 		var ms []models.MissionsSkills
 		if err := json.Unmarshal(jsonBytes, &ms); err != nil {
 			return err
 		}
 
-		for _, m := range ms {
-			if err := tx.Exec(`
-			INSERT INTO missions_skills
-			(id, score_reward, mission_id, skill_id)
-			VALUES (?, ?, ?, ?);`,
-				m.ID, m.ScoreReward,
-				m.MissionID, m.SkillID,
-			).Error; err != nil {
-				return err
-			}
-		}
-
-		return nil
+		return tx.Create(&ms).Error
 	})
 }
