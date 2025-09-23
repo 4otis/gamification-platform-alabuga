@@ -15,15 +15,15 @@ func NewStudentsCoursesRepository(db *gorm.DB) *StudentsCoursesRepository {
 	return &StudentsCoursesRepository{db: db}
 }
 
-func (r *StudentsCoursesRepository) GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.StudentsCourses, error) {
-	var availableMissions []*models.StudentsCourses
+func (r *StudentsCoursesRepository) GetAvailableCourses(ctx context.Context, studentID uint) ([]*models.Course, error) {
+	var availableCourses []*models.Course
 	err := r.db.WithContext(ctx).
-		Joins("JOIN students_missions sm ON missions.id = sm.mission_id").
-		Where("sm.student_id = ? AND sm.is_active = ?", studentID, true).
-		Find(&availableMissions).Error
+		Joins("JOIN students_courses sc ON courses.id = sc.course_id").
+		Where("sc.student_id = ? AND sc.is_completed = ?", studentID, false).
+		Find(&availableCourses).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return availableMissions, err
+	return availableCourses, err
 }
