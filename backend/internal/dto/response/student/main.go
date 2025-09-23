@@ -7,6 +7,7 @@ type MainResponse struct {
 	Missions    []*MissionInfo      `json:"missions"`
 	Courses     []*CourseInfo       `json:"courses"`
 	CurRank     *RankInfo           `json:"cur_rank"`
+	CurExp      *ExpInfo            `json:"cur_exp"`
 	CurPosition int                 `json:"cur_position"`
 	Leaderboard []*LeaderboardEntry `json:"leaderboard"`
 }
@@ -43,6 +44,13 @@ type CourseInfo struct {
 // RankInfo информация о ранге
 // swagger:model RankInfo
 type RankInfo struct {
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
+}
+
+// ExpInfo информация о ранге
+// swagger:model ExpInfo
+type ExpInfo struct {
 	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
