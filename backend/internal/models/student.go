@@ -1,13 +1,14 @@
 package models
 
 type Student struct {
-	ID         uint   `json:"id"`
-	Name       string `json:"name"`
-	Surname    string `json:"surname"`
-	Patronymic string `json:"patronymic"`
-	Login      string `json:"login"`
-	Password   string `json:"password"`
-	Exp        uint   `json:"exp"`
-	Mana       uint   `json:"mana"`
-	RankID     uint   `json:"rank_id"`
+	ID         uint        `gorm:"primaryKey;not null" json:"id"`
+	Login      string      `gorm:"not null;unique" json:"login"`
+	Password   string      `gorm:"not null" json:"password"`
+	Name       string      `gorm:"not null" json:"name"`
+	Surname    string      `gorm:"not null" json:"surname"`
+	Patronymic string      `json:"patronymic"`
+	Exp        uint        `gorm:"not null;default:0;check:exp>=0" json:"exp"`
+	Mana       uint        `gorm:"not null;default:0;check:mana>=0" json:"mana"`
+	RankID     uint        `gorm:"not null" json:"rank_id"`
+	Rank       StudentRank `gorm:"foreignKey:RankID"`
 }

@@ -9,7 +9,7 @@ tests :
 	go test -v ./test/...
 
 docs :
-	swag init -g ./cmd/main.go --parseDependency --parseInternal --parseDepth 2
+	swag init -g ./cmd/main.go --output ./docs --parseDependency --parseInternal
 
 clean : 
 	rm -rf docs/

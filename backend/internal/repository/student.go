@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"context"
+
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
 	"gorm.io/gorm"
 )
@@ -13,23 +15,34 @@ func NewStudentRepository(db *gorm.DB) *StudentRepository {
 	return &StudentRepository{db: db}
 }
 
-func (r StudentRepository) Create(student *models.Student) error {
-	return r.db.Create(student).Error
+func (r *StudentRepository) Create(ctx context.Context, student *models.Student) error {
+	return r.db.WithContext(ctx).Create(student).Error
 }
 
-func (r StudentRepository) Read(login string) (*models.Student, error) {
+func (r *StudentRepository) Read(ctx context.Context, id uint) (*models.Student, error) {
 	var student models.Student
-	err := r.db.Where("login = ?", login).First(&student).Error
+	err := r.db.WithContext(ctx).First(&student, id).Error
 	if err != nil {
 		return nil, err
 	}
 	return &student, nil
 }
 
-func (r StudentRepository) UpdateFields(id uint, updates map[string]interface{}) error {
-	return r.db.Model(&models.Student{}).Where("id = ?", id).Updates(updates).Error
+func (r StudentRepository) ReadAll(ctx context.Context) ([]*models.Student, error) {
+	var students []*models.Student
+	err := r.db.WithContext(ctx).Find(&students).Error
+	if err != nil {
+		return nil, err
+	}
+	return students, nil
 }
 
-func (r StudentRepository) Delete(id uint) error {
-	return r.db.Delete(&models.Student{}, id).Error
+func (r *StudentRepository) UpdateFields(ctx context.Context, id uint, updates map[string]interface{}) error {
+	result := r.db.WithContext(ctx).Model(&models.Student{}).Where("id = ?", id).Updates(updates)
+	return result.Error
+}
+
+func (r *StudentRepository) Delete(ctx context.Context, id uint) error {
+	result := r.db.WithContext(ctx).Delete(&models.Student{}, id)
+	return result.Error
 }

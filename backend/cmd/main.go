@@ -10,6 +10,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @title Gamification Platform API
+// @version 1.0
+// @description API для геймифицированной образовательной платформы
+// @host localhost:8080
+// @BasePath /
 func main() {
 	db, err := config.InitDB(config.Load().DB)
 	if err != nil {

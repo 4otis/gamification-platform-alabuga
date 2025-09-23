@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "student_id": 1,
+        "mission_id": 1,
+        "is_active": true,
+        "is_completed": false
+    },
+    {
+        "id": 2,
+        "student_id": 1,
+        "mission_id": 2,
+        "is_active": false,
+        "is_completed": false
+    },
+    {
+        "id": 3,
+        "student_id": 2,
+        "mission_id": 1,
+        "is_active": true,
+        "is_completed": false
+    },
+    {
+        "id": 4,
+        "student_id": 2,
+        "mission_id": 3,
+        "is_active": false,
+        "is_completed": true
+    },
+    {
+        "id": 5,
+        "student_id": 3,
+        "mission_id": 2,
+        "is_active": true,
+        "is_completed": false
+    },
+    {
+        "id": 6,
+        "student_id": 3,
+        "mission_id": 4,
+        "is_active": false,
+        "is_completed": false
+    },
+    {
+        "id": 7,
+        "student_id": 4,
+        "mission_id": 1,
+        "is_active": true,
+        "is_completed": false
+    },
+    {
+        "id": 8,
+        "student_id": 4,
+        "mission_id": 5,
+        "is_active": true,
+        "is_completed": false
+    },
+    {
+        "id": 9,
+        "student_id": 5,
+        "mission_id": 3,
+        "is_active": true,
+        "is_completed": false
+    },
+    {
+        "id": 10,
+        "student_id": 5,
+        "mission_id": 2,
+        "is_active": false,
+        "is_completed": true
+    }
+]
