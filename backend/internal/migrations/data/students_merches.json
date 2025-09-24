@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "student_id": 1,
+        "merch_id": 3,
+        "created_time": "2024-02-10T11:20:00Z",
+        "is_done": true
+    },
+    {
+        "id": 2,
+        "student_id": 2,
+        "merch_id": 1,
+        "created_time": "2024-01-25T15:40:00Z",
+        "is_done": false
+    },
+    {
+        "id": 3,
+        "student_id": 2,
+        "merch_id": 2,
+        "created_time": "2024-02-05T13:15:00Z",
+        "is_done": true
+    },
+    {
+        "id": 4,
+        "student_id": 4,
+        "merch_id": 4,
+        "created_time": "2024-02-18T10:00:00Z",
+        "is_done": false
+    }
+]

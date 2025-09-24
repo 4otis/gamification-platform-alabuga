@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Кибер-аватар",
+        "file_path": "/items/cyber_avatar.png",
+        "min_exp": 100,
+        "type_id": 1
+    },
+    {
+        "id": 2,
+        "name": "Золотая рамка",
+        "file_path": "/items/golden_frame.png",
+        "min_exp": 500,
+        "type_id": 2
+    },
+    {
+        "id": 3,
+        "name": "Космический фон",
+        "file_path": "/items/space_background.png",
+        "min_exp": 200,
+        "type_id": 3
+    },
+    {
+        "id": 4,
+        "name": "Анимация огня",
+        "file_path": "/items/fire_animation.gif",
+        "min_exp": 1000,
+        "type_id": 4
+    },
+    {
+        "id": 5,
+        "name": "Стикеры программиста",
+        "file_path": "/items/programmer_stickers.png",
+        "min_exp": 300,
+        "type_id": 5
+    }
+]
