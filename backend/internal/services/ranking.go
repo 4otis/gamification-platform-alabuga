@@ -101,3 +101,7 @@ func (s *rankingService) GetTopStudentsByExp(ctx context.Context, limit int) ([]
 func (s *rankingService) GetSkills(ctx context.Context, studentID uint) ([]*models.Skill, error) {
 	return s.studentsSkillsRepo.GetAllSkillsByStudentID(ctx, studentID)
 }
+
+func (s *rankingService) GetArtifactsByStudentID(ctx context.Context, studentID uint) ([]*models.Artifact, error) {
+	return s.artifactRepo.GetArtifactsByStudentID(ctx, studentID)
+}
