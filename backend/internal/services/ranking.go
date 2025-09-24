@@ -10,7 +10,7 @@ import (
 )
 
 type RankingService interface {
-	GetLeaderboard(ctx context.Context, limit, offset int) ([]*LeaderboardEntry, error)
+	GetLeaderboard(ctx context.Context, limit int) ([]*LeaderboardEntry, error)
 	GetStudentPosition(ctx context.Context, studentID uint) (int, error)
 	GetTopStudentsByExp(ctx context.Context, limit int) ([]*models.Student, error)
 }
@@ -25,24 +25,22 @@ func NewRankingService(studentRepo repository.StudentRepository) RankingService 
 	}
 }
 
-func (s *rankingService) GetLeaderboard(ctx context.Context, limit, offset int) ([]*LeaderboardEntry, error) {
-	students, err := s.studentRepo.ReadAll(ctx)
+func (s *rankingService) GetLeaderboard(ctx context.Context, limit int) ([]*LeaderboardEntry, error) {
+	students, err := s.studentRepo.GetSortedByExp(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	sort.Slice(students, func(i, j int) bool {
-		return students[i].Exp > students[j].Exp
-	})
-
 	var leaderboard []*LeaderboardEntry
-	for i, student := range students {
-		if i >= offset && i < offset+limit {
-			leaderboard = append(leaderboard, &LeaderboardEntry{
-				Position: i + 1,
-				Student:  student,
-			})
+
+	for i, s := range students {
+		if i == limit {
+			break
 		}
+		leaderboard = append(leaderboard, &LeaderboardEntry{
+			Position: i,
+			Student:  s,
+		})
 	}
 
 	return leaderboard, nil

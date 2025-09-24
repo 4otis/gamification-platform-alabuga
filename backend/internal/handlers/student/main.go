@@ -92,7 +92,7 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		return
 	}
 
-	leaderboard, err := h.rankingService.GetLeaderboard(c.Request.Context(), 0, 10) // топ-10
+	leaderboard, err := h.rankingService.GetLeaderboard(c.Request.Context(), 10) // топ-10
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -153,7 +153,6 @@ func convertCoursesToDTO(courses []*models.Course) []*student.CourseInfo {
 			ID:    c.ID,
 			Title: c.Title,
 			Descr: c.Descr,
-			// Progress:   calculateCourseProgress(m), // реализуем на уровне handler'ов, чтобы не тащить зависимость от DTO в сервисы
 		})
 	}
 	return result

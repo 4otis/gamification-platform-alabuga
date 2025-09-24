@@ -1,4 +1,4 @@
-// package student
+package student
 
 // import (
 // 	"errors"
@@ -59,10 +59,9 @@
 // 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 // 		return
 // 	}
+
 // }
 
 // func (h *ProfileHandler) GetMissionHistory(c *gin.Context) {
 
 // }
-
-package student

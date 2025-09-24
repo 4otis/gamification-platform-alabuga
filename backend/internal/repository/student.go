@@ -30,7 +30,17 @@ func (r *StudentRepository) Read(ctx context.Context, id uint) (*models.Student,
 
 func (r StudentRepository) ReadAll(ctx context.Context) ([]*models.Student, error) {
 	var students []*models.Student
-	err := r.db.WithContext(ctx).Find(&students).Error
+	err := r.db.WithContext(ctx).Preload("Rank").Find(&students).Error
+	if err != nil {
+		return nil, err
+	}
+	return students, nil
+}
+
+func (r StudentRepository) GetSortedByExp(ctx context.Context) ([]*models.Student, error) {
+	var students []*models.Student
+	err := r.db.WithContext(ctx).Preload("Rank").
+		Order("exp desc").Find(&students).Error
 	if err != nil {
 		return nil, err
 	}
