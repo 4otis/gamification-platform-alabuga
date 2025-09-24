@@ -58,8 +58,9 @@ func (r *StudentsItemsRepository) GetEquipedItems(ctx context.Context, studentID
 	var equipedItems []*models.Item
 
 	err := r.db.WithContext(ctx).
-		Joins("JOIN students_items si ON student.id = si.student_id").
-		Where("si.student_id = ? AND item.is_equiped = ?", studentID, true).
+		Preload("Type").
+		Joins("JOIN students_items si ON items.id = si.item_id").
+		Where("si.student_id = ? AND si.is_equiped = ?", studentID, true).
 		Find(&equipedItems).Error
 	if err != nil {
 		return nil, err

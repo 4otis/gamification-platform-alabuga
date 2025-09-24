@@ -30,15 +30,15 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	inventoryService := services.NewInventoryService(*itemRepo, *itemTypeRepo, *studentsItemsRepo, *studentRepo)
 
 	mainHandler := student.NewMainHandler(studentService, missionService, courseService, rankingService, inventoryService)
-	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService)
+	// profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService)
 
 	// g.StaticFile("/", "./index.html")
 	// g.StaticFile("/index.html", "./index.html")
 
 	g.GET("/student/:student_id/main", mainHandler.GetMainPage)
 
-	g.GET("/student/:student_id/profile", profileHandler.GetProfile)
-	g.GET("/student/profile/history/:student_id", profileHandler.GetMissionHistory)
+	// g.GET("/student/:student_id/profile", profileHandler.GetProfile)
+	// g.GET("/student/profile/history/:student_id", profileHandler.GetMissionHistory)
 
 	// g.GET("/student/profile/items/:student_id", itemsHandler.GetProfile)
 	// g.GET("/student/profile/items/:student_id", itemsHandler.GetAllItems)

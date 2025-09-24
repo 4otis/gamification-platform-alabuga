@@ -13,12 +13,8 @@ type StudentInfo struct {
 }
 
 type ProfileInfo struct {
-	Student *StudentInfo `json:"student"`
-	Avatar  *AvatarInfo  `json:"avatar"`
-}
-
-type AvatarInfo struct {
-	EquipedItems []*ItemInfo `json:"equiped_items"`
+	Student      *StudentInfo `json:"student"`
+	EquipedItems []*ItemInfo  `json:"equiped_items"`
 }
 
 type ItemInfo struct {

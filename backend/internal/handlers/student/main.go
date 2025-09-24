@@ -55,7 +55,7 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		return
 	}
 
-	student, err := h.studentService.GetStudentByID(c.Request.Context(), uint(studentID))
+	studentData, err := h.studentService.GetStudentByID(c.Request.Context(), uint(studentID))
 	if err != nil {
 		if errors.Is(err, repository.ErrNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{
@@ -101,14 +101,13 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 	response := student.MainResponse{
 		Profile: &student.ProfileInfo{
 			Student: &student.StudentInfo{
-				ID:      student.ID,
-				Name:    student.Name,
-				Surname: student.Surname,
-				Exp:     student.Exp,
-				Mana:    student.Mana,
-				Rank:    student.Rank.Name,
+				ID:      studentData.ID,
+				Name:    studentData.Name,
+				Surname: studentData.Surname,
+				Exp:     studentData.Exp,
+				Rank:    studentData.Rank.Name,
 			},
-			Avatar: convertItemsToDTO(items),
+			EquipedItems: convertItemsToDTO(items),
 		},
 		Missions:    convertMissionsToDTO(missions),
 		Courses:     convertCoursesToDTO(courses),
