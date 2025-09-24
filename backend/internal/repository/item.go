@@ -28,7 +28,7 @@ func (r *ItemRepository) Read(ctx context.Context, id uint) (*models.Item, error
 	return &item, nil
 }
 
-func (r *ItemRepository) ReadAll(ctx context.Context) (*models.Item, error) {
+func (r *ItemRepository) ReadAll(ctx context.Context) ([]*models.Item, error) {
 	var items []*models.Item
 	err := r.db.WithContext(ctx).Find(&items).Error
 	if err != nil {

@@ -11,7 +11,7 @@ type ItemTypeRepository struct {
 	db *gorm.DB
 }
 
-func NewItemRepository(db *gorm.DB) *ItemTypeRepository {
+func NewItemTypeRepository(db *gorm.DB) *ItemTypeRepository {
 	return &ItemTypeRepository{db: db}
 }
 
@@ -28,7 +28,7 @@ func (r *ItemTypeRepository) Read(ctx context.Context, id uint) (*models.ItemTyp
 	return &itemType, nil
 }
 
-func (r *ItemTypeRepository) ReadAll(ctx context.Context) (*models.ItemType, error) {
+func (r *ItemTypeRepository) ReadAll(ctx context.Context) ([]*models.ItemType, error) {
 	var itemTypes []*models.ItemType
 	err := r.db.WithContext(ctx).Find(&itemTypes).Error
 	if err != nil {

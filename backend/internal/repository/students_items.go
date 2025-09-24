@@ -28,7 +28,7 @@ func NewStudentsItemsRepository(db *gorm.DB) *StudentsItemsRepository {
 // 	return &studentsItems, nil
 // }
 
-func (r *StudentsItemsRepository) ReadAll(ctx context.Context) (*models.StudentsItems, error) {
+func (r *StudentsItemsRepository) ReadAll(ctx context.Context) ([]*models.StudentsItems, error) {
 	var studentsItems []*models.StudentsItems
 	err := r.db.WithContext(ctx).Find(&studentsItems).Error
 	if err != nil {
@@ -49,5 +49,7 @@ func (r *StudentsItemsRepository) ReadAll(ctx context.Context) (*models.Students
 
 func (r *StudentsItemsRepository) GetAvailableItems(ctx context.Context, studentExp int) ([]*models.Course, error) {
 
-	return availableCourses, err
+	var availableCourses []*models.Course
+
+	return availableCourses, nil /// !!! nil исправить на err
 }
