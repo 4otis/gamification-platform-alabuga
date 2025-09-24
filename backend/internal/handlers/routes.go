@@ -18,6 +18,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	missionRepo := repository.NewMissionRepository(db)
 	courseRepo := repository.NewCourseRepository(db)
 	itemRepo := repository.NewItemRepository(db)
+	itemTypeRepo := repository.NewItemTypeRepository(db)
 	studentsMissionsRepo := repository.NewStudentsMissionsRepository(db)
 	studentsCoursesRepo := repository.NewStudentsCoursesRepository(db)
 	studentsItemsRepo := repository.NewStudentsItemsRepository(db)
@@ -26,7 +27,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	missionService := services.NewMissionService(*missionRepo, *studentRepo, *studentsMissionsRepo, studentService)
 	courseService := services.NewCourseService(*courseRepo, *missionRepo, *studentRepo, *studentsCoursesRepo)
 	rankingService := services.NewRankingService(*studentRepo)
-	inventoryService := services.NewInventoryService()
+	inventoryService := services.NewInventoryService(*itemRepo, *itemTypeRepo, *studentsItemsRepo, *studentRepo)
 
 	mainHandler := student.NewMainHandler(studentService, missionService, courseService, rankingService, inventoryService)
 	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService)

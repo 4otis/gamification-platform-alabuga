@@ -108,7 +108,7 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 				Mana:    student.Mana,
 				Rank:    student.Rank.Name,
 			},
-			Avatar: items,
+			Avatar: convertItemsToDTO(items),
 		},
 		Missions:    convertMissionsToDTO(missions),
 		Courses:     convertCoursesToDTO(courses),
@@ -120,6 +120,19 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 }
 
 // Вспомогательные функции для преобразования моделей в DTO
+func convertItemsToDTO(items []*models.Item) []*student.ItemInfo {
+	var result []*student.ItemInfo
+	for _, i := range items {
+		result = append(result, &student.ItemInfo{
+			Name:     i.Name,
+			FilePath: i.FilePath,
+			MinExp:   i.MinExp,
+			TypeName: i.Type.Name,
+		})
+	}
+	return result
+}
+
 func convertMissionsToDTO(missions []*models.Mission) []*student.MissionInfo {
 	var result []*student.MissionInfo
 	for _, m := range missions {

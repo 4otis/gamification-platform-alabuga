@@ -54,17 +54,16 @@ func (r *StudentsItemsRepository) ReadAll(ctx context.Context) ([]*models.Item, 
 // 	return availableCourses, nil /// !!! nil исправить на err
 // }
 
-func (r *ItemsStudentsRepository) GetEquipedItems(ctx context.Context, studentID uint) ([]*models.Item, error) {
+func (r *StudentsItemsRepository) GetEquipedItems(ctx context.Context, studentID uint) ([]*models.Item, error) {
 	var equipedItems []*models.Item
 
 	err := r.db.WithContext(ctx).
 		Joins("JOIN students_items si ON student.id = si.student_id").
 		Where("si.student_id = ? AND item.is_equiped = ?", studentID, true).
-		Find(&availableItems).Error
+		Find(&equipedItems).Error
 	if err != nil {
 		return nil, err
 	}
 
 	return equipedItems, nil
 }
-

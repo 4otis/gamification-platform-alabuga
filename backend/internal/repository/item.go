@@ -51,6 +51,7 @@ func (r *ItemRepository) GetAvailableItems(ctx context.Context, studentExp uint)
 	var availableItems []*models.Item
 
 	err := r.db.WithContext(ctx).
+		Preload("item_types").
 		Joins("JOIN students_items si ON item.id = si.item_id").
 		Where("item.min_exp <= ?", studentExp).
 		Find(&availableItems).Error
@@ -58,5 +59,5 @@ func (r *ItemRepository) GetAvailableItems(ctx context.Context, studentExp uint)
 		return nil, err
 	}
 
-	return availableCourses, nil
+	return availableItems, nil
 }
