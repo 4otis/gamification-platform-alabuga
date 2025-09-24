@@ -46,3 +46,16 @@ func (r *ItemRepository) Delete(ctx context.Context, id uint) error {
 	result := r.db.WithContext(ctx).Delete(&models.Item{}, id)
 	return result.Error
 }
+
+func (r *StudentsCoursesRepository) GetAvailableItems(ctx context.Context, studentID uint) ([]*models.Item, error) {
+	var availableItems []*models.Item
+	err := r.db.WithContext(ctx).
+		Joins("JOIN students_courses sc ON courses.id = sc.course_id").
+		Where("sc.student_id = ? AND sc.is_completed = ?", studentID, false).
+		Find(&availableCourses).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return availableCourses, err
+}
