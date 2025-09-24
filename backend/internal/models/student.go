@@ -12,5 +12,5 @@ type Student struct {
 	RankID     uint        `gorm:"not null" json:"rank_id"`
 	Rank       StudentRank `gorm:"foreignKey:RankID"`
 
-	Artifacts []*Artifact `gorm:"many2many" json:"artifacts"`
+	Artifacts []*Artifact `gorm:"many2many:students_artifacts" json:"artifacts"`
 }

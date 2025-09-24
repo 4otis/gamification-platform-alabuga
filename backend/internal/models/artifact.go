@@ -8,5 +8,5 @@ type Artifact struct {
 	RarityID uint   `gorm:"not null" json:"rarity_id"`
 	Rarity   Rarity `gorm:"foreignKey:RarityID"`
 
-	Students []*Student `gorm:"many2many" json:"students"`
+	Students []*Student `gorm:"many2many:students_artifacts" json:"students"`
 }
