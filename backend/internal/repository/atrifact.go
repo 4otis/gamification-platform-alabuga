@@ -37,3 +37,14 @@ func (r *ArtifactRepository) Delete(ctx context.Context, id uint) error {
 	result := r.db.WithContext(ctx).Delete(&models.Artifact{}, id)
 	return result.Error
 }
+
+func (r *ArtifactRepository) GetArtifactsByStudentID(ctx context.Context, studentID uint) ([]*models.Artifact, error) {
+	var artifacts []*models.Artifact
+	err := r.db.WithContext(ctx).
+		Preload("Student").Find(&artifacts).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return artifacts, nil
+}

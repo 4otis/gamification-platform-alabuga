@@ -14,6 +14,7 @@ type RankingService interface {
 	GetStudentPosition(ctx context.Context, studentID uint) (int, error)
 	GetTopStudentsByExp(ctx context.Context, limit int) ([]*models.Student, error)
 	GetSkills(ctx context.Context, studentID uint) ([]*models.Skill, error)
+	GetArtifactsByStudentID(ctx context.Context, studentID uint) ([]*models.Artifact, error)
 }
 
 type rankingService struct {

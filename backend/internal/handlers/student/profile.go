@@ -74,6 +74,12 @@ func (h *ProfileHandler) GetProfile(c *gin.Context) {
 		return
 	}
 
+	artifacts, err := h.rankingService.GetArtifactsByStudentID(c.Request.Context(), uint(studentID))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
 	response := student.ProfileResponse{
 		Profile: &student.ProfileInfo{
 			Student: &student.StudentInfo{
@@ -85,7 +91,8 @@ func (h *ProfileHandler) GetProfile(c *gin.Context) {
 			},
 			EquipedItems: convertItemsToDTO(items),
 		},
-		Skills: convertSkillsToDTO(skills),
+		Skills:    convertSkillsToDTO(skills),
+		Artifacts: convertArtifactsToDTO(artifacts),
 	}
 
 	c.JSON(http.StatusOK, response)
@@ -107,14 +114,17 @@ func convertSkillsToDTO(skills []*models.Skill) []*student.SkillInfo {
 	return result
 }
 
-// func convertCoursesToDTO(courses []*models.Course) []*student.CourseInfo {
-// 	var result []*student.CourseInfo
-// 	for _, c := range courses {
-// 		result = append(result, &student.CourseInfo{
-// 			ID:    c.ID,
-// 			Title: c.Title,
-// 			Descr: c.Descr,
-// 		})
-// 	}
-// 	return result
-// }
+func convertArtifactsToDTO(artifacts []*models.Artifact) []*student.ArtifactInfo {
+	var result []*student.ArtifactInfo
+	for _, a := range artifacts {
+		result = append(result, &student.ArtifactInfo{
+			ID:       a.ID,
+			Title:    a.Title,
+			Descr:    a.Descr,
+			FilePath: a.FilePath,
+			RarityID: a.RarityID,
+			Rarity:   a.Rarity.Name,
+		})
+	}
+	return result
+}
