@@ -17,8 +17,10 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	skillRepo := repository.NewSkillRepository(db)
 	missionRepo := repository.NewMissionRepository(db)
 	courseRepo := repository.NewCourseRepository(db)
+	itemRepo := repository.NewItemRepository(db)
 	studentsMissionsRepo := repository.NewStudentsMissionsRepository(db)
 	studentsCoursesRepo := repository.NewStudentsCoursesRepository(db)
+	studentsItemsRepo := repository.NewStudentsItemsRepository(db)
 
 	studentService := services.NewStudentService(*studentRepo, *studentRankRepo, *skillRepo, *missionRepo, *studentsMissionsRepo, *studentsCoursesRepo)
 	missionService := services.NewMissionService(*missionRepo, *studentRepo, *studentsMissionsRepo, studentService)
@@ -26,7 +28,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	rankingService := services.NewRankingService(*studentRepo)
 	inventoryService := services.NewInventoryService()
 
-	mainHandler := student.NewMainHandler(studentService, missionService, courseService, rankingService)
+	mainHandler := student.NewMainHandler(studentService, missionService, courseService, rankingService, inventoryService)
 	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService)
 
 	// g.StaticFile("/", "./index.html")

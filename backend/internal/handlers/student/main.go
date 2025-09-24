@@ -14,21 +14,24 @@ import (
 )
 
 type MainHandler struct {
-	studentService services.StudentService
-	missionService services.MissionService
-	courseService  services.CourseService
-	rankingService services.RankingService
+	studentService   services.StudentService
+	missionService   services.MissionService
+	courseService    services.CourseService
+	rankingService   services.RankingService
+	inventoryService services.InventoryService
 }
 
 func NewMainHandler(studentService services.StudentService,
 	missionService services.MissionService,
 	courseService services.CourseService,
-	rankingService services.RankingService) *MainHandler {
+	rankingService services.RankingService,
+	inventoryService services.InventoryService) *MainHandler {
 	return &MainHandler{
-		studentService: studentService,
-		missionService: missionService,
-		courseService:  courseService,
-		rankingService: rankingService,
+		studentService:   studentService,
+		missionService:   missionService,
+		courseService:    courseService,
+		rankingService:   rankingService,
+		inventoryService: inventoryService,
 	}
 }
 
@@ -52,7 +55,7 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		return
 	}
 
-	studentData, err := h.studentService.GetStudentByID(c.Request.Context(), uint(studentID))
+	student, err := h.studentService.GetStudentByID(c.Request.Context(), uint(studentID))
 	if err != nil {
 		if errors.Is(err, repository.ErrNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{
@@ -61,6 +64,12 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 			})
 			return
 		}
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	items, err := h.inventoryService.GetEquipedItems(c.Request.Context(), uint(studentID))
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -83,12 +92,6 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		return
 	}
 
-	// rank, err := h.studentService.GetStudentRank(c.Request.Context(), studentID)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
 	leaderboard, err := h.rankingService.GetLeaderboard(c.Request.Context(), 0, 10) // топ-10
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -96,19 +99,19 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 	}
 
 	response := student.MainResponse{
-		Student: &student.StudentInfo{
-			ID:      studentData.ID,
-			Name:    studentData.Name,
-			Surname: studentData.Surname,
-			Exp:     studentData.Exp,
-			Mana:    studentData.Mana,
+		Profile: &student.ProfileInfo{
+			Student: &student.StudentInfo{
+				ID:      student.ID,
+				Name:    student.Name,
+				Surname: student.Surname,
+				Exp:     student.Exp,
+				Mana:    student.Mana,
+				Rank:    student.Rank.Name,
+			},
+			Avatar: items,
 		},
-		Missions: convertMissionsToDTO(missions),
-		Courses:  convertCoursesToDTO(courses),
-		CurRank:  &student.RankInfo{
-			// ID:   rank.ID,
-			// Name: rank.Name,
-		},
+		Missions:    convertMissionsToDTO(missions),
+		Courses:     convertCoursesToDTO(courses),
 		CurPosition: position,
 		Leaderboard: convertLeaderboardToDTO(leaderboard),
 	}
