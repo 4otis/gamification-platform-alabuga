@@ -28,8 +28,8 @@ func NewStudentsItemsRepository(db *gorm.DB) *StudentsItemsRepository {
 // 	return &studentsItems, nil
 // }
 
-func (r *StudentsItemsRepository) ReadAll(ctx context.Context) ([]*models.StudentsItems, error) {
-	var studentsItems []*models.StudentsItems
+func (r *StudentsItemsRepository) ReadAll(ctx context.Context) ([]*models.Item, error) {
+	var studentsItems []*models.Item
 	err := r.db.WithContext(ctx).Find(&studentsItems).Error
 	if err != nil {
 		return nil, err
@@ -47,9 +47,24 @@ func (r *StudentsItemsRepository) ReadAll(ctx context.Context) ([]*models.Studen
 // 	return result.Error
 // }
 
-func (r *StudentsItemsRepository) GetAvailableItems(ctx context.Context, studentExp int) ([]*models.Course, error) {
+// func (r *StudentsItemsRepository) GetAvailableItems(ctx context.Context, studentExp int) ([]*models.Course, error) {
 
-	var availableCourses []*models.Course
+// 	var availableCourses []*models.Course
 
-	return availableCourses, nil /// !!! nil исправить на err
+// 	return availableCourses, nil /// !!! nil исправить на err
+// }
+
+func (r *ItemsStudentsRepository) GetEquipedItems(ctx context.Context, studentID uint) ([]*models.Item, error) {
+	var equipedItems []*models.Item
+
+	err := r.db.WithContext(ctx).
+		Joins("JOIN students_items si ON student.id = si.student_id").
+		Where("si.student_id = ? AND item.is_equiped = ?", studentID, true).
+		Find(&availableItems).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return equipedItems, nil
 }
+

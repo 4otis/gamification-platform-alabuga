@@ -47,15 +47,16 @@ func (r *ItemRepository) Delete(ctx context.Context, id uint) error {
 	return result.Error
 }
 
-func (r *StudentsCoursesRepository) GetAvailableItems(ctx context.Context, studentID uint) ([]*models.Item, error) {
+func (r *ItemRepository) GetAvailableItems(ctx context.Context, studentExp uint) ([]*models.Item, error) {
 	var availableItems []*models.Item
+
 	err := r.db.WithContext(ctx).
-		Joins("JOIN students_courses sc ON courses.id = sc.course_id").
-		Where("sc.student_id = ? AND sc.is_completed = ?", studentID, false).
-		Find(&availableCourses).Error
+		Joins("JOIN students_items si ON item.id = si.item_id").
+		Where("item.min_exp <= ?", studentExp).
+		Find(&availableItems).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return availableCourses, err
+	return availableCourses, nil
 }
