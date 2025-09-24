@@ -13,16 +13,31 @@ type RankingService interface {
 	GetLeaderboard(ctx context.Context, limit int) ([]*LeaderboardEntry, error)
 	GetStudentPosition(ctx context.Context, studentID uint) (int, error)
 	GetTopStudentsByExp(ctx context.Context, limit int) ([]*models.Student, error)
+	GetSkills(ctx context.Context, studentID uint) ([]*models.Skill, error)
 }
 
 type rankingService struct {
-	studentRepo repository.StudentRepository
+	studentRepo        repository.StudentRepository
+	skillRepo          repository.SkillRepository
+	artifactRepo       repository.ArtifactRepository
+	studentsSkillsRepo repository.StudentsSkillsRepository
 }
 
-func NewRankingService(studentRepo repository.StudentRepository) RankingService {
+func NewRankingService(studentRepo repository.StudentRepository,
+	skillRepo repository.SkillRepository,
+	artifactRepo repository.ArtifactRepository,
+	studentsSkillsRepo repository.StudentsSkillsRepository) RankingService {
 	return &rankingService{
-		studentRepo: studentRepo,
+		studentRepo:        studentRepo,
+		skillRepo:          skillRepo,
+		artifactRepo:       artifactRepo,
+		studentsSkillsRepo: studentsSkillsRepo,
 	}
+}
+
+type LeaderboardEntry struct {
+	Position int
+	Student  *models.Student
 }
 
 func (s *rankingService) GetLeaderboard(ctx context.Context, limit int) ([]*LeaderboardEntry, error) {
@@ -82,7 +97,6 @@ func (s *rankingService) GetTopStudentsByExp(ctx context.Context, limit int) ([]
 	return students[:limit], nil
 }
 
-type LeaderboardEntry struct {
-	Position int
-	Student  *models.Student
+func (s *rankingService) GetSkills(ctx context.Context, studentID uint) ([]*models.Skill, error) {
+	return s.studentsSkillsRepo.GetAllSkillsByStudentID(ctx, studentID)
 }

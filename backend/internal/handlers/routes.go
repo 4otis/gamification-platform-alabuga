@@ -15,6 +15,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	studentRepo := repository.NewStudentRepository(db)
 	studentRankRepo := repository.NewStudentRankRepository(db)
 	skillRepo := repository.NewSkillRepository(db)
+	artifactRepo := repository.NewArtifactRepository(db)
 	missionRepo := repository.NewMissionRepository(db)
 	courseRepo := repository.NewCourseRepository(db)
 	itemRepo := repository.NewItemRepository(db)
@@ -22,29 +23,30 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	studentsMissionsRepo := repository.NewStudentsMissionsRepository(db)
 	studentsCoursesRepo := repository.NewStudentsCoursesRepository(db)
 	studentsItemsRepo := repository.NewStudentsItemsRepository(db)
+	studentsSkillsRepo := repository.NewStudentsSkillsRepository(db)
 
 	studentService := services.NewStudentService(*studentRepo, *studentRankRepo, *skillRepo, *missionRepo, *studentsMissionsRepo, *studentsCoursesRepo)
 	missionService := services.NewMissionService(*missionRepo, *studentRepo, *studentsMissionsRepo, studentService)
 	courseService := services.NewCourseService(*courseRepo, *missionRepo, *studentRepo, *studentsCoursesRepo)
-	rankingService := services.NewRankingService(*studentRepo)
+	rankingService := services.NewRankingService(*studentRepo, *skillRepo, *artifactRepo, *studentsSkillsRepo)
 	inventoryService := services.NewInventoryService(*itemRepo, *itemTypeRepo, *studentsItemsRepo, *studentRepo)
 
 	mainHandler := student.NewMainHandler(studentService, missionService, courseService, rankingService, inventoryService)
-	// profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService)
+	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService)
 
 	// g.StaticFile("/", "./index.html")
 	// g.StaticFile("/index.html", "./index.html")
 
 	g.GET("/student/:student_id/main", mainHandler.GetMainPage)
 
-	// g.GET("/student/:student_id/profile", profileHandler.GetProfile)
-	// g.GET("/student/profile/history/:student_id", profileHandler.GetMissionHistory)
+	g.GET("/student/:student_id/profile", profileHandler.GetProfile)
+	g.GET("/student/profile/history/:student_id", profileHandler.GetMissionHistory)
 
 	// g.GET("/student/profile/items/:student_id", itemsHandler.GetProfile)
 	// g.GET("/student/profile/items/:student_id", itemsHandler.GetAllItems)
 	// g.GET("/student/profile/items/:student_id", itemsHandler.GetAvailableItems)
 	// g.GET("/student/profile/items", itemsHandler.GetItemTypes)
-	// g.PATCH("/student/profile/items/:student_id", itemsHandler.EquipItems) // ожидаем пачку
+	// g.PATCH("/student/profile/items/:student_id", itemsHandler.EquipItem) // ожидаем пачку
 
 	// g.GET("/hr/analytic/courses/", analyticHandler.GetAllCoursesConversion)
 	// g.GET("/hr/:hr_id/analytic/courses/", analyticHandler.GetAllCoursesConversionByHRID)
