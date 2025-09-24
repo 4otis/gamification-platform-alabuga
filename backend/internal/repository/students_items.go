@@ -68,3 +68,25 @@ func (r *StudentsItemsRepository) GetEquipedItems(ctx context.Context, studentID
 
 	return equipedItems, nil
 }
+
+func (r *StudentsItemsRepository) EquipItem(ctx context.Context, studentID uint, itemID uint, typeID uint) error {
+	err := r.db.WithContext(ctx).
+		Model(&models.StudentsItems{}).
+		Joins("JOIN items ON items.id = students_items.item_id").
+		Where("students_items.student_id = ? AND items.type_id = ? AND students_items.is_equiped = ?",
+			studentID, typeID, true).
+		Update("is_equiped", false).Error
+	if err != nil {
+		return err
+	}
+
+	err = r.db.WithContext(ctx).
+		Model(&models.StudentsItems{}).
+		Where("student_id = ? AND item_id = ?", studentID, itemID).
+		Update("is_equiped", true).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

@@ -126,6 +126,7 @@ func convertItemsToDTO(items []*models.Item) []*student.ItemInfo {
 			Name:     i.Name,
 			FilePath: i.FilePath,
 			MinExp:   i.MinExp,
+			TypeID:   i.Type.ID,
 			TypeName: i.Type.Name,
 		})
 	}
