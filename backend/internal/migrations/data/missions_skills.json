@@ -1,62 +1,38 @@
 [
     {
         "id": 1,
-        "score_reward": 15.0,
+        "score_reward": 10.0,
         "mission_id": 1,
         "skill_id": 1
     },
     {
         "id": 2,
-        "score_reward": 20.0,
-        "mission_id": 1,
-        "skill_id": 2
+        "score_reward": 15.0,
+        "mission_id": 2,
+        "skill_id": 1
     },
     {
         "id": 3,
-        "score_reward": 25.0,
+        "score_reward": 12.0,
         "mission_id": 2,
-        "skill_id": 3
+        "skill_id": 2
     },
     {
         "id": 4,
-        "score_reward": 18.0,
-        "mission_id": 2,
+        "score_reward": 20.0,
+        "mission_id": 3,
         "skill_id": 4
     },
     {
         "id": 5,
-        "score_reward": 30.0,
-        "mission_id": 3,
+        "score_reward": 25.0,
+        "mission_id": 4,
         "skill_id": 5
     },
     {
         "id": 6,
-        "score_reward": 22.0,
-        "mission_id": 3,
-        "skill_id": 1
-    },
-    {
-        "id": 7,
-        "score_reward": 28.0,
+        "score_reward": 8.0,
         "mission_id": 4,
         "skill_id": 2
-    },
-    {
-        "id": 8,
-        "score_reward": 19.0,
-        "mission_id": 4,
-        "skill_id": 3
-    },
-    {
-        "id": 9,
-        "score_reward": 35.0,
-        "mission_id": 5,
-        "skill_id": 4
-    },
-    {
-        "id": 10,
-        "score_reward": 24.0,
-        "mission_id": 5,
-        "skill_id": 5
     }
 ]

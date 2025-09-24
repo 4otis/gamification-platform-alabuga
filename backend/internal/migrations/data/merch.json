@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "name": "Футболка с логотипом",
+        "descr": "Хлопковая футболка с фирменным логотипом",
+        "file_path": "/merch/tshirt_logo.jpg",
+        "price": 1500,
+        "amount_available": 50
+    },
+    {
+        "id": 2,
+        "name": "Термос",
+        "descr": "Термос для кофе с тематическим дизайном",
+        "file_path": "/merch/thermos.jpg",
+        "price": 2000,
+        "amount_available": 30
+    },
+    {
+        "id": 3,
+        "name": "Наклейки",
+        "descr": "Набор стикеров для ноутбука",
+        "file_path": "/merch/stickers.jpg",
+        "price": 300,
+        "amount_available": 100
+    },
+    {
+        "id": 4,
+        "name": "Книга по программированию",
+        "descr": "Авторская книга от менторов платформы",
+        "file_path": "/merch/programming_book.jpg",
+        "price": 2500,
+        "amount_available": 20
+    }
+]

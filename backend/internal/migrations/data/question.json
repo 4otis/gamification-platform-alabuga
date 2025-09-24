@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "content": "Что такое переменная в программировании?",
+        "question_type_id": 1,
+        "mission_id": 1
+    },
+    {
+        "id": 2,
+        "content": "Какие типы данных вы знаете?",
+        "question_type_id": 2,
+        "mission_id": 1
+    },
+    {
+        "id": 3,
+        "content": "Напишите функцию сложения двух чисел",
+        "question_type_id": 4,
+        "mission_id": 2
+    },
+    {
+        "id": 4,
+        "content": "Что такое медиа-запросы в CSS?",
+        "question_type_id": 3,
+        "mission_id": 3
+    }
+]
