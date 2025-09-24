@@ -9,11 +9,11 @@ type StudentInfo struct {
 	Patronymic string `json:"patronymic"`
 	Exp        uint   `json:"exp"`
 	Mana       uint   `json:"mana"`
+	Rank       string `json:"rank"`
 }
 
 type ProfileInfo struct {
 	Student *StudentInfo `json:"student"`
-	Rank    *RankInfo    `json:"rank"`
 	Avatar  *AvatarInfo  `json:"avatar"`
 }
 
@@ -44,13 +44,6 @@ type CourseInfo struct {
 	ID    uint   `json:"id"`
 	Title string `json:"title"`
 	Descr string `json:"descr"`
-}
-
-// RankInfo информация о ранге
-// swagger:model RankInfo
-type RankInfo struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
 }
 
 type SkillInfo struct {
