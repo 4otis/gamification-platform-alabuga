@@ -21,7 +21,12 @@ func (r *MissionRepository) Create(ctx context.Context, mission *models.Mission)
 
 func (r MissionRepository) Read(ctx context.Context, id uint) (*models.Mission, error) {
 	var mission models.Mission
-	err := r.db.WithContext(ctx).First(&mission, id).Error
+	err := r.db.WithContext(ctx).
+		Preload("Artifact").
+		Preload("MissionType").
+		Preload("Course").
+		Preload("Questions").
+		First(&mission, id).Error
 	if err != nil {
 		return nil, err
 	}

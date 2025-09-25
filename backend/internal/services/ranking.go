@@ -13,7 +13,8 @@ type RankingService interface {
 	GetLeaderboard(ctx context.Context, limit int) ([]*LeaderboardEntry, error)
 	GetStudentPosition(ctx context.Context, studentID uint) (int, error)
 	GetTopStudentsByExp(ctx context.Context, limit int) ([]*models.Student, error)
-	GetSkills(ctx context.Context, studentID uint) ([]*models.Skill, error)
+	GetSkillsByStudentID(ctx context.Context, studentID uint) ([]*models.Skill, error)
+	GetSkillsByMissionID(ctx context.Context, missionID uint) ([]*models.Skill, error)
 	GetArtifactsByStudentID(ctx context.Context, studentID uint) ([]*models.Artifact, error)
 }
 
@@ -98,10 +99,14 @@ func (s *rankingService) GetTopStudentsByExp(ctx context.Context, limit int) ([]
 	return students[:limit], nil
 }
 
-func (s *rankingService) GetSkills(ctx context.Context, studentID uint) ([]*models.Skill, error) {
+func (s *rankingService) GetSkillsByStudentID(ctx context.Context, studentID uint) ([]*models.Skill, error) {
 	return s.studentsSkillsRepo.GetAllSkillsByStudentID(ctx, studentID)
 }
 
 func (s *rankingService) GetArtifactsByStudentID(ctx context.Context, studentID uint) ([]*models.Artifact, error) {
 	return s.artifactRepo.GetArtifactsByStudentID(ctx, studentID)
+}
+
+func (s *rankingService) GetSkillsByMissionID(ctx context.Context, missionID uint) ([]*models.Skill, error) {
+	return s.skillRepo.GetSkillsByMissionID(ctx, missionID)
 }

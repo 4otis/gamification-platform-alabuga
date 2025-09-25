@@ -68,13 +68,19 @@ func (h *ProfileHandler) GetProfile(c *gin.Context) {
 		return
 	}
 
-	skills, err := h.rankingService.GetSkills(c.Request.Context(), uint(studentID))
+	skills, err := h.rankingService.GetSkillsByStudentID(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
 	artifacts, err := h.rankingService.GetArtifactsByStudentID(c.Request.Context(), uint(studentID))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	transactions, err := h.rankingService.GetArtifactsByStudentID(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -91,8 +97,9 @@ func (h *ProfileHandler) GetProfile(c *gin.Context) {
 			},
 			EquipedItems: convertItemsToDTO(items),
 		},
-		Skills:    convertSkillsToDTO(skills),
-		Artifacts: convertArtifactsToDTO(artifacts),
+		Skills:       convertSkillsToDTO(skills),
+		Artifacts:    convertArtifactsToDTO(artifacts),
+		Transactions: converTranscationsToDTO(transactions),
 	}
 
 	c.JSON(http.StatusOK, response)
