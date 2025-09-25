@@ -11,4 +11,6 @@ type Student struct {
 	Mana       uint        `gorm:"not null;default:0;check:mana>=0" json:"mana"`
 	RankID     uint        `gorm:"not null" json:"rank_id"`
 	Rank       StudentRank `gorm:"foreignKey:RankID"`
+
+	Artifacts []*Artifact `gorm:"many2many:students_artifacts" json:"artifacts"`
 }
