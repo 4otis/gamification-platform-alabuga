@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	studentRequest "github.com/4otis/gamification-platform-alabuga/internal/dto/request/student"
-	"github.com/4otis/gamification-platform-alabuga/internal/dto/response/student"
+	"github.com/4otis/gamification-platform-alabuga/internal/dto/response/student" // автоматом дополняет
 	studentResponse "github.com/4otis/gamification-platform-alabuga/internal/dto/response/student"
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
 	"github.com/4otis/gamification-platform-alabuga/internal/repository"
@@ -18,24 +18,15 @@ import (
 type InventoryHandler struct {
 	inventoryService services.InventoryService
 	studentService   services.StudentService
-	// missionService   services.MissionService
-	// courseService    services.CourseService
-	// rankingService   services.RankingService
 }
 
 func NewInventoryHandler(
 	inventoryService services.InventoryService,
 	studentService services.StudentService,
-	// missionService services.MissionService,
-	// courseService services.CourseService,
-	// rankingService services.RankingService
 ) *InventoryHandler {
 	return &InventoryHandler{
 		inventoryService: inventoryService,
 		studentService:   studentService,
-		// missionService:   missionService,
-		// courseService:    courseService,
-		// rankingService:   rankingService,
 	}
 }
 
@@ -115,26 +106,33 @@ func (h *InventoryHandler) GetInventoryPage(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param student_id path int true "ID студента"
-// @Param item_id path int true "ID предмета"
+// @Param request body studentRequest.EquipItemRequest true "Данные для экипировки"
 // @Success 200 {object} student.EquipItemResponse "Успешный ответ"
 // @Failure 400 {object} dto.ErrorResponse "Неверные параметры"
 // @Failure 404 {object} dto.ErrorResponse "Студент или предмет не найден"
 // @Failure 500 {object} dto.ErrorResponse "Внутренняя ошибка сервера"
 // @Security ApiKeyAuth
-// @Router /student/{student_id}/inventory/equip/{item_id} [patch]
+// @Router /student/{student_id}/inventory/equip/ [patch]
 func (h *InventoryHandler) EquipItem(c *gin.Context) {
+	studentID, err := strconv.Atoi(c.Param("student_id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid student ID"})
+		return
+	}
+
 	var req studentRequest.EquipItemRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
+	err = c.ShouldBindJSON(&req)
+	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	_, err := h.studentService.GetStudentByID(c.Request.Context(), uint(req.StudentID))
+	_, err = h.studentService.GetStudentByID(c.Request.Context(), uint(studentID))
 	if err != nil {
 		if errors.Is(err, repository.ErrNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{
 				"error":   err.Error(),
-				"message": fmt.Sprintf("Student by (id:%d) not found", req.StudentID),
+				"message": fmt.Sprintf("Student by (id:%d) not found", studentID),
 			})
 			return
 		}
@@ -155,7 +153,8 @@ func (h *InventoryHandler) EquipItem(c *gin.Context) {
 		return
 	}
 
-	err = h.inventoryService.EquipItem(c.Request.Context(), uint(req.StudentID), uint(req.ItemID), uint(req.TypeID))
+	// Обновляем данные
+	err = h.inventoryService.EquipItem(c.Request.Context(), uint(studentID), uint(req.ItemID), uint(req.TypeID))
 	if err != nil {
 		if errors.Is(err, repository.ErrNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{
@@ -169,7 +168,7 @@ func (h *InventoryHandler) EquipItem(c *gin.Context) {
 	}
 
 	// Получаем обновлённые данные для ответа
-	equipedItems, err := h.inventoryService.GetEquipedItems(c.Request.Context(), uint(req.StudentID))
+	equipedItems, err := h.inventoryService.GetEquipedItems(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -187,6 +186,7 @@ func convertItemTypesToDTO(items []*models.ItemType) []*student.ItemTypeInfo {
 	var result []*student.ItemTypeInfo
 	for _, i := range items {
 		result = append(result, &student.ItemTypeInfo{
+			ID:   i.ID,
 			Name: i.Name,
 		})
 	}

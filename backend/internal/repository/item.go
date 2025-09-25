@@ -52,8 +52,7 @@ func (r *ItemRepository) GetAvailableItems(ctx context.Context, studentExp uint)
 
 	err := r.db.WithContext(ctx).
 		Preload("Type").
-		Joins("JOIN students_items si ON item.id = si.item_id").
-		Where("item.min_exp <= ?", studentExp).
+		Where("items.min_exp <= ?", studentExp).
 		Find(&availableItems).Error
 	if err != nil {
 		return nil, err
