@@ -52,6 +52,10 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	// g.GET("/student/profile/items", itemsHandler.GetItemTypes)
 	// g.PATCH("/student/profile/items/:student_id", itemsHandler.EquipItem) // ожидаем пачку
 
+	inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
+	g.GET("/student/:student_id/inventory", inventoryHandler.GetInventoryPage)
+	g.PATCH("/student/:student_id/inventory/equip", inventoryHandler.EquipItem)
+
 	// g.GET("/hr/analytic/courses/", analyticHandler.GetAllCoursesConversion)
 	// g.GET("/hr/:hr_id/analytic/courses/", analyticHandler.GetAllCoursesConversionByHRID)
 	// g.GET("/hr/analytic/courses/detailed/:course_id", analyticHandler.GetDetailedCourse) // student + course + mission + students_missions + students_courses

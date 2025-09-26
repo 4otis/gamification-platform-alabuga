@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
 	"gorm.io/gorm"
@@ -15,19 +16,6 @@ func NewStudentsItemsRepository(db *gorm.DB) *StudentsItemsRepository {
 	return &StudentsItemsRepository{db: db}
 }
 
-// func (r *StudentsItemsRepository) Create(ctx context.Context, studentsItems *models.StudentsItems) error {
-// 	return r.db.WithContext(ctx).Create(studentsItems).Error
-// }
-
-// func (r *StudentsItemsRepository) Read(ctx context.Context, id uint) (*models.StudentsItems, error) {
-// 	var studentsItems models.StudentsItems
-// 	err := r.db.WithContext(ctx).First(&studentsItems, id).Error
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return &studentsItems, nil
-// }
-
 func (r *StudentsItemsRepository) ReadAll(ctx context.Context) ([]*models.Item, error) {
 	var studentsItems []*models.Item
 	err := r.db.WithContext(ctx).Find(&studentsItems).Error
@@ -37,22 +25,28 @@ func (r *StudentsItemsRepository) ReadAll(ctx context.Context) ([]*models.Item, 
 	return studentsItems, nil
 }
 
-// func (r *StudentsItemsRepository) UpdateFields(ctx context.Context, id uint, updates map[string]interface{}) error {
-// 	result := r.db.WithContext(ctx).Model(&models.StudentsItems{}).Where("id = ?", id).Updates(updates)
-// 	return result.Error
-// }
+func (r *StudentsItemsRepository) AssignAvailableItemsToStudent(ctx context.Context, studentID uint, studentExp uint) error {
+	// Сначала восстанавливаем sequence
+	err := r.db.Exec("SELECT setval('students_items_id_seq', (SELECT COALESCE(MAX(id), 1) FROM students_items))").Error
+	if err != nil {
+		return err
+	}
 
-// func (r *StudentsItemsRepository) Delete(ctx context.Context, id uint) error {
-// 	result := r.db.WithContext(ctx).Delete(&models.StudentsItems{}, id)
-// 	return result.Error
-// }
+	// Прямая вставка только тех предметов, которых еще нет у студента
+	err = r.db.WithContext(ctx).Exec(`
+        INSERT INTO students_items (id, student_id, item_id, is_equiped)
+        SELECT nextval('students_items_id_seq'), ?, items.id, false
+        FROM items
+        WHERE items.min_exp <= ?
+        AND items.id NOT IN (
+            SELECT item_id FROM students_items WHERE student_id = ?
+        )
+    `, studentID, studentExp, studentID).Error
 
-// func (r *StudentsItemsRepository) GetAvailableItems(ctx context.Context, studentExp int) ([]*models.Course, error) {
+	fmt.Errorf("%w\n", err)
 
-// 	var availableCourses []*models.Course
-
-// 	return availableCourses, nil /// !!! nil исправить на err
-// }
+	return err
+}
 
 func (r *StudentsItemsRepository) GetEquipedItems(ctx context.Context, studentID uint) ([]*models.Item, error) {
 	var equipedItems []*models.Item
@@ -63,8 +57,39 @@ func (r *StudentsItemsRepository) GetEquipedItems(ctx context.Context, studentID
 		Where("si.student_id = ? AND si.is_equiped = ?", studentID, true).
 		Find(&equipedItems).Error
 	if err != nil {
+		fmt.Println("lol")
 		return nil, err
 	}
 
 	return equipedItems, nil
+}
+
+func (r *StudentsItemsRepository) EquipItem(ctx context.Context, studentID uint, itemID uint, typeID uint) error {
+	// Проверка на наличие в students_items
+	var studentsItem models.StudentsItems
+	err := r.db.WithContext(ctx).
+		Where("student_id = ? AND item_id = ?", studentID, itemID).
+		First(&studentsItem).Error
+	if err != nil {
+		return err
+	}
+
+	err = r.db.WithContext(ctx).
+		Model(&models.StudentsItems{}).
+		Where("student_id = ? AND is_equiped = true AND item_id IN (SELECT id FROM items WHERE type_id = ?)",
+			studentID, typeID).
+		Update("is_equiped", false).Error
+	if err != nil {
+		return err
+	}
+
+	err = r.db.WithContext(ctx).
+		Model(&models.StudentsItems{}).
+		Where("student_id = ? AND item_id = ?", studentID, itemID).
+		Update("is_equiped", true).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
