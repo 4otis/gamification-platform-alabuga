@@ -21,7 +21,7 @@ func NewShopService(
 	studentRepo repository.StudentRepository,
 	studentsMerchesRepo repository.StudentsMerchesRepository,
 ) ShopService {
-	return &ShopService{
+	return &shopService{
 		studentRepo:         studentRepo,
 		studentsMerchesRepo: studentsMerchesRepo,
 	}
