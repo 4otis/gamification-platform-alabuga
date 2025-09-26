@@ -57,6 +57,23 @@ func (h *CourseHandler) GetCoursePage(c *gin.Context) {
 		return
 	}
 
+	isAvailable, err := h.courseService.IsCourseAvailableForStudent(
+		c.Request.Context(),
+		uint(studentID),
+		uint(courseID),
+	)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	if !isAvailable {
+		c.JSON(http.StatusForbidden, gin.H{
+			"error": "Course is not available for this student (insufficient rank)",
+		})
+		return
+	}
+
 	courseData, err := h.courseService.GetCourseByID(c.Request.Context(), uint(courseID))
 	if err != nil {
 		if errors.Is(err, repository.ErrNotFound) {
@@ -82,37 +99,6 @@ func (h *CourseHandler) GetCoursePage(c *gin.Context) {
 		return
 	}
 
-	// studentData, err := h.studentService.GetStudentByID(c.Request.Context(), uint(studentID))
-	// if err != nil {
-	// 	if errors.Is(err, repository.ErrNotFound) {
-	// 		c.JSON(http.StatusNotFound, gin.H{
-	// 			"error":   err.Error(),
-	// 			"message": fmt.Sprintf("Student by (id:%d) not found", studentID),
-	// 		})
-	// 		return
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	// 	return
-	// }
-
-	// equipedItems, err := h.inventoryService.GetEquipedItems(c.Request.Context(), uint(studentID))
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	// 	return
-	// }
-
-	// availableItems, err := h.inventoryService.GetAvailableItems(c.Request.Context(), uint(studentID))
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	// 	return
-	// }
-
-	// itemTypes, err := h.inventoryService.GetItemTypes(c.Request.Context())
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	// 	return
-	// }
-
 	response := studentResponse.CourseResponse{
 		Course: &studentResponse.DetailedCourseInfo{
 			ID:          courseData.ID,
@@ -130,7 +116,7 @@ func (h *CourseHandler) GetCoursePage(c *gin.Context) {
 				Rarity:   artifactData.Rarity.Name,
 			},
 		},
-		Missions: convertMissionsToDTO(missions),
+		Missions: convertMissionsToStructedTreeMissionsDTO(missions),
 	}
 
 	c.JSON(http.StatusOK, response)
