@@ -1,0 +1,119 @@
+.header {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Fixedsys Excelsior 3.01";
+  background-image:url("../img/Union (3).svg");
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+
+}
+
+.header-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin-top:1vw;
+  margin-bottom:1vw;
+  display: flex;
+  justify-content: center;
+}
+
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.header-background svg {
+  width: 100%;
+  height: 100%;
+}
+.icons2, .icons1{
+  transform: scale(50%) rotateX(0);
+  transition: rotate 0.6s ease-out;
+  z-index: 2;
+}
+.icons1{
+  left:20%;
+
+}
+.header-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 100px;
+}
+
+.logo-image {
+  width: 15vw;
+  max-width: 200px;
+  min-width: 60px;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  color: white;
+}
+.container, .container-mini-game{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.container-mini-game{
+  flex-direction: row-reverse;
+}
+.icons1:hover + .tooltip1{
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+}
+.icons2:hover + .tooltip2{
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+.icons1:hover{
+  rotate: -360deg;
+}
+.icons2:hover{
+  rotate: 360deg;
+}
+.tooltip2 {
+  left: calc(100%);
+  white-space: nowrap;
+  color: white;
+  font-size: 3vw;
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateX(-3vw);
+  visibility: hidden;
+}
+
+.tooltip1{
+  left: calc(100% - 100px);
+  white-space: nowrap;
+  color: white;
+  font-size: 3vw;
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateX(80px);
+  visibility: hidden;
+}

@@ -1,0 +1,97 @@
+.header {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.main-header {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 100px;
+  margin-top: 1vw;
+}
+
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.header-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* УДАЛИТЬ этот блок - он конфликтует */
+/* .header-content {
+  position: absolute;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+} */
+
+/* ДОБАВИТЬ эти стили */
+.header-center {
+  position: relative;
+  z-index: 2; /* Должен быть выше чем у SVG */
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-title {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.header-left {
+  position: relative;
+  z-index: 2; /* Должен быть выше чем у SVG */
+  display: flex;
+  gap: 15px;
+}
+
+.header-button {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.header-right {
+  position: relative;
+  z-index: 2; /* Должен быть выше чем у SVG */
+  display: flex;
+  gap: 15px;
+}
+
+.header-right p {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  backdrop-filter: blur(10px);
+  margin: 0;
+}

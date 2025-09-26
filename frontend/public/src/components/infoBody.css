@@ -1,0 +1,44 @@
+.about {
+    margin-top:-1vw;
+    font-family: "Fixedsys Excelsior 3.01";
+}
+
+.about-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.about-picture {
+    width: 40%;
+    height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.about-picture-mirrored{
+    transform: scaleX(-1)
+}
+
+.about-picture-blue {
+    background-image: url("../img/Vector 63.svg");
+}
+
+.about-picture-gray {
+    background-image: url("../img/Vector 63 (1).svg");
+}
+
+.info-text-gray{
+    font-size:32px;
+    margin:20px 30px;
+}
+
+.info-text-blue{
+    font-size:32px;
+    margin:40px 30px;
+}
+
+.revert{
+    transform: scaleX(-1)
+}

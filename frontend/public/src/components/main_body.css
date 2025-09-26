@@ -1,0 +1,276 @@
+.main-container{
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    padding-top:2vw;
+    font-family: "Fixedsys Excelsior 3.01";
+}
+
+.profile{
+    position:relative;
+    width:45vw;
+}
+.profile-picture{
+    position:absolute;
+    top: 27%;
+    left: 40%;
+    width:20%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 10;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 48% 100%, 0 50%);
+}
+.profile-button{
+    display: inline-block;
+    text-decoration: none;
+    color:white;
+    padding:0.5vw;
+    background: #001F2F;
+    border-radius: 10px;
+    font-size:3vw;
+    position:absolute;
+    top: 70%;
+    left: 25%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.missions-list-scroll {
+    flex: 1;
+    z-index:3;
+    overflow-y: auto;
+    max-height: 400px;
+    width:600px;
+}
+
+.missions-list-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.missions-list-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.missions-list-scroll::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+.missions-list-scroll.has-top-content {
+    box-shadow: 0 -4px 0 0 #000000;
+}
+
+.missions-list-scroll.has-bottom-content {
+    box-shadow: 0 4px 0 0 #000000;
+}
+.missions-list-scroll.has-top-content.has-bottom-content {
+    box-shadow: 0 -4px 0 0 #000000,0 4px 0 0 #000000;
+}
+.missions-list-scroll::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.mission-card {
+    position: relative;
+    padding: 20px;
+    margin-bottom: -25px;
+    overflow: hidden;
+    min-height: 150px;
+    display: flex;
+    align-items: start;
+}
+
+.mission-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+.mission-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left center;
+}
+.mission-bg.mirrored img {
+    transform: scaleX(-1);
+    object-position: right center;
+}
+.mission-content {
+    z-index: 2;
+    width: 60%;
+}
+.mission-title{
+    position: absolute;
+    top:-4%;
+    font-size:24px;
+}
+.mission-title.mirrored{
+    left:60%;
+}
+.mission-description{
+    position: absolute;
+    top:25%;
+    font-size:24px;
+    padding-right:40px;
+}
+.mission-about{
+    position: absolute;
+    top:80%;
+    left:10%;
+    font-size:24px;
+    padding-right:40px;
+    text-decoration: underline;
+    color:black;
+}
+.mission-about.mirrored{
+    left:55%;
+}
+.new-course{
+    background-image: url("../img/Union (4).svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 100%;
+    height: 5vw;
+    margin-top:1vw;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.button-text{
+    font-family: "Fixedsys Excelsior 3.01";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    color: #000;
+    font-size:3vw;
+}
+
+.leader-board-container{
+    background-image: url("../img/Rectangle 412 (1).svg");
+    background-size:100%;
+    background-repeat: no-repeat;
+    max-height:45vw;
+    justify-content: center;
+    margin-top:1vw;
+    display:flex;
+    position: relative;
+    font-family: "Fixedsys Excelsior 3.01";
+}
+
+.leader-board-container svg {
+    width: 100%;
+    margin-top: -6vw;
+    max-width: 80vw;
+}
+
+.leaderboard {
+    position: absolute;
+    top: 7%;
+    left: 13%;
+    width: 75%;
+    height: 50%;
+    background: transparent;
+    z-index: 10;
+}
+.info-legend{
+    font-size:52px;
+    margin-left:9vw;
+
+}
+.leaderboard-scroll{
+    margin-top:1vw;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right:1vw;
+}.leaderboard-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.leaderboard-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.leaderboard-scroll::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.leaderboard-scroll::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}.leaderboard-scroll.has-top-content {
+    box-shadow: 0 -4px 0 0 #000000;
+}
+
+.leaderboard-scroll.has-bottom-content {
+    box-shadow: 0 4px 0 0 #000000;
+}
+.leaderboard-scroll.has-top-content.has-bottom-content {
+    box-shadow: 0 -4px 0 0 #000000,0 4px 0 0 #000000;
+}
+.leaderboard-bg{
+
+}
+
+.leaderboard-index{
+    margin:1vw 0 1vw 3vw;
+    font-size:3.5vw;
+}
+.leaderboard-name {
+    font-size: 2vw;
+    color: #001F2F;
+    margin-left:10vw;
+    flex: 1;
+}
+.leaderboard-mana {
+    font-size: 2vw;
+    color: #001F2F;
+    margin-left:1vw;
+    flex: 1;
+}
+
+.leaderboard-exp {
+    font-size: 3vw;
+    font-weight: bold;
+    color: #001F2F;
+    margin-left:15vw;
+}
+.leaderboard span{
+    font-size:3vw;
+    margin-left:45vw;
+}
+.user-board-content{
+    display:flex;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: space-between;
+    background-image: url("../img/все.svg");
+    background-size: 100% 11vh;
+    background-repeat: no-repeat;
+    height:11vh;
+}
+.user-board-content.alpha{
+    background-size: 98% 11vh;
+    margin-top:1vw;
+}
+.user-board-content.golden{
+    background-image: url("../img/золото.svg");
+}
+.user-board-content.serebro{
+    background-image: url("../img/серебро.svg");
+}
+.user-board-content.bronze{
+    background-image: url("../img/бронза.svg");
+}

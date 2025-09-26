@@ -1,0 +1,139 @@
+.feedback-background{
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    margin-top: -100px;
+    align-items: center;
+    font-family: "Fixedsys Excelsior 3.01";
+}
+
+.feedback-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../img/фон.svg");
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+}
+
+.feedback-background::after {
+    margin-top:100px;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    background-image: url("../img/меньшийфон.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1;
+}
+
+.feedback-second-background {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.feedback-title{
+    margin-left:10vw;
+    margin-top: -8vw;
+    font-size:3.5vw;
+    position: relative;
+    z-index: 1;
+}
+
+.feedback-textarea{
+    background-image: url("../img/Rectangle 396.svg");
+    background-color: transparent;
+    background-size:100% 100%;
+    background-position: center;
+    resize: none;
+    border:none;
+    width: 45vw;
+    max-height: 45vh;
+    overflow: hidden;
+    padding: 4vh 6vw 10vh 2vw;
+    font-family: inherit;
+    font-size: 24px;
+    box-sizing: border-box;
+}
+.feedback-textarea{
+    background-image: url("../img/Rectangle 396.svg");
+    background-color: transparent;
+    background-size:100% 100%;
+    resize: none;
+    border: 1px solid red;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    max-width: 50vw;
+    height: 80vh;
+    font-family: "Fixedsys Excelsior 3.01";
+    font-size: 28px;
+    line-height: 1.5;
+    position: relative;
+}
+
+.feedback-textarea::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 30px 30px;
+    border-color: transparent transparent #f0f0f0 transparent;
+    pointer-events: none;
+}
+
+.input-container{
+    position: absolute;
+    right: 7%;
+    z-index: 1;
+    display:flex;
+}
+
+.info-input{
+    display: flex;
+    flex-direction: column;
+    gap:0.5vw;
+    align-items: flex-end;
+    font-family: "Fixedsys Excelsior 3.01";
+}
+
+.input{
+    background-color: transparent;
+    background-size:100% 100%;
+    resize: none;
+    border:none;
+    height:3.5vw;
+    font-family: "Fixedsys Excelsior 3.01";
+}
+.input text{
+}
+.name{
+    background-image: url("../img/Rectangle 397.svg");
+    width:30vw;
+}
+.second-name{
+    background-image: url("../img/Rectangle 399.svg");
+    width:29vw;
+}
+.email{
+    background-image: url("../img/Rectangle 400.svg");
+    width:28vw;
+}
+.job{
+    background-image: url("../img/Rectangle 401.svg");
+    width:27vw;
+}
