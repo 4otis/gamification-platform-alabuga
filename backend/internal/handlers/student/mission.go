@@ -113,6 +113,25 @@ func (h *MissionHandler) GetMission(c *gin.Context) {
 
 // g.POST("/student/:student_id/missions/:mission_id", missionHandler.CompleteMission)
 func CompleteMission(c *gin.Context) {
+	studentID, err := strconv.Atoi(c.Param("student_id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid student ID"})
+		return
+	}
+
+	missionID, err := strconv.Atoi(c.Param("mission_id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid mission ID"})
+		return
+	}
+
+	err := h.missionService.CompleteMission(c.Request.Context(), studentID, missionID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusNoContent, gin.H{}) // возможно, надо будет отправлять заново все данные для обновления
 
 }
 
