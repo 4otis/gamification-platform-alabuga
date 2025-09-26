@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"time"
 
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
 )
@@ -12,38 +13,85 @@ type LoggingService interface {
 
 type loggingService struct {
 	missionService MissionService
-	// studentRankRepo
+	rankingService RankingService
+	courseService  CourseService
+	shopService    ShopService
 }
 
 func NewLoggingService(
 	missionService MissionService,
-) CourseService {
-	return &courseService{
+	rankingService RankingService,
+	courseService CourseService,
+	shopService ShopService,
+) LoggingService {
+	return &loggingService{
 		missionService: missionService,
+		rankingService: rankingService,
+		courseService:  courseService,
+		shopService:    shopService,
 	}
 }
 
 type TransactionEntry struct {
-	Title    string           `json:"title"`
-	Descr    string           `json:"descr"`
-	Type     string           `json:"type"`
-	Mana     int              `json:"mana"`
-	Exp      int              `json:"exp"`
-	Skills   []*models.Skill  `json:"skills"`
-	Artifact *models.Artifact `json:"artifacts"`
+	Position  int              `json:"position"`
+	Timestamp time.Time        `json:"timestamp"`
+	Title     string           `json:"title"`
+	Descr     string           `json:"descr"`
+	Type      string           `json:"type"`
+	Mana      int              `json:"mana"`
+	Exp       int              `json:"exp"`
+	Skills    []*models.Skill  `json:"skills"`
+	Artifact  *models.Artifact `json:"artifacts"`
 }
 
-func (s *loggingService) GetTransactionByStudentID(context context.Context, StudentID uint) ([]*TransactionEntry, error) {
+func (s *loggingService) GetTransactionByStudentID(ctx context.Context, StudentID uint) ([]*TransactionEntry, error) {
+	var transactions []*TransactionEntry
 	// TODO: получить все CompletedMissions для конкретного студента StudentID
-	completedMissions, err := ...
+	completedMissions, err := s.missionService.GetCompletedMissions(ctx, StudentID)
 	if err != nil {
 		return nil, err
 	}
 
 	// TODO: начинаем формировать TransactionEntry заполняя миссиями
-	var transactions []*TransactionEntry
 	for _, mission := range completedMissions {
-		
+		var skills []*models.Skill
+		skills, err := s.rankingService.GetSkillsByMissionID(ctx, mission.ID)
+		if err != nil {
+			return nil, err
+		}
+
+		transactions = append(transactions, &TransactionEntry{
+			Position:  0,
+			Timestamp: mission.DeletedTime,
+			Title:     mission.Title,
+			Descr:     mission.Descr,
+			Type:      "mission",
+			Mana:      int(mission.ManaReward),
+			Exp:       int(mission.ExpReward),
+			Skills:    skills,
+			Artifact:  &mission.Artifact,
+		})
 	}
 
+	// TODO: получить все CompletedCourses для конкретного студента StudentID
+	completedCourses, err := s.courseService.GetCompletedCourses(ctx, StudentID)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, course := range completedCourses {
+		transactions = append(transactions, &TransactionEntry{
+			Position:  0,
+			Timestamp: course.DeletedTime,
+			Title:     course.Title,
+			Descr:     course.Descr,
+			Type:      "course",
+			Mana:      0,
+			Exp:       0,
+			Skills:    nil,
+			Artifact:  &course.Artifact,
+		})
+	}
+
+	return transactions, nil
 }

@@ -7,6 +7,7 @@ type StudentsMerches struct {
 	StudentID   uint      `gorm:"not null" json:"student_id"`
 	MerchID     uint      `gorm:"not null" json:"merch_id"`
 	CreatedTime time.Time `gorm:"not null;default:now()" json:"created_time"`
+	DeletedTime time.Time `gorm:"not null;default:now()" json:"deleted_time"`
 	IsDone      bool      `gorm:"not null;default:false" json:"is_done"`
 	Student     Student   `gorm:"foreignKey:StudentID"`
 	Merch       Merch     `gorm:"foreignKey:MerchID"`

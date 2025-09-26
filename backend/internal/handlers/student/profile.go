@@ -17,15 +17,18 @@ type ProfileHandler struct {
 	studentService   services.StudentService
 	inventoryService services.InventoryService
 	rankingService   services.RankingService
+	loggingService   services.LoggingService
 }
 
 func NewProfileHandler(studentService services.StudentService,
 	inventoryService services.InventoryService,
-	rankingService services.RankingService) *ProfileHandler {
+	rankingService services.RankingService,
+	loggingService services.LoggingService) *ProfileHandler {
 	return &ProfileHandler{
 		studentService:   studentService,
 		inventoryService: inventoryService,
 		rankingService:   rankingService,
+		loggingService:   loggingService,
 	}
 }
 
@@ -80,7 +83,7 @@ func (h *ProfileHandler) GetProfile(c *gin.Context) {
 		return
 	}
 
-	transactions, err := h.rankingService.GetArtifactsByStudentID(c.Request.Context(), uint(studentID))
+	transactions, err := h.loggingService.GetTransactionByStudentID(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -99,7 +102,7 @@ func (h *ProfileHandler) GetProfile(c *gin.Context) {
 		},
 		Skills:       convertSkillsToDTO(skills),
 		Artifacts:    convertArtifactsToDTO(artifacts),
-		Transactions: converTranscationsToDTO(transactions),
+		Transactions: convertTransactionsToDTO(transactions),
 	}
 
 	c.JSON(http.StatusOK, response)
@@ -131,6 +134,30 @@ func convertArtifactsToDTO(artifacts []*models.Artifact) []*student.ArtifactInfo
 			FilePath: a.FilePath,
 			RarityID: a.RarityID,
 			Rarity:   a.Rarity.Name,
+		})
+	}
+	return result
+}
+
+func convertTransactionsToDTO(transactions []*services.TransactionEntry) []*student.TransactionInfo {
+	var result []*student.TransactionInfo
+	for _, t := range transactions {
+		result = append(result, &student.TransactionInfo{
+			Position:  t.Position,
+			Timestamp: t.Timestamp,
+			Title:     t.Title,
+			Descr:     t.Descr,
+			Type:      t.Type,
+			Mana:      t.Mana,
+			Skills:    convertSkillsToDTO(t.Skills),
+			Artifact: &student.ArtifactInfo{
+				ID:       t.Artifact.ID,
+				Title:    t.Artifact.Title,
+				Descr:    t.Artifact.Descr,
+				FilePath: t.Artifact.FilePath,
+				RarityID: t.Artifact.RarityID,
+				Rarity:   t.Artifact.Rarity.Name,
+			},
 		})
 	}
 	return result

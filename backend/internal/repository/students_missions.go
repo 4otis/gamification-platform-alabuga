@@ -18,6 +18,7 @@ func NewStudentsMissionsRepository(db *gorm.DB) *StudentsMissionsRepository {
 func (r *StudentsMissionsRepository) GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error) {
 	var availableMissions []*models.Mission
 	err := r.db.WithContext(ctx).
+		Preload("Artifact").
 		Joins("JOIN students_missions sm ON missions.id = sm.mission_id").
 		Where("sm.student_id = ? AND sm.is_active = ?", studentID, true).
 		Find(&availableMissions).Error
@@ -26,4 +27,18 @@ func (r *StudentsMissionsRepository) GetAvailableMissions(ctx context.Context, s
 	}
 
 	return availableMissions, err
+}
+
+func (r *StudentsMissionsRepository) GetCompletedMissions(ctx context.Context, studentID uint) ([]*models.Mission, error) {
+	var completedMissions []*models.Mission
+	err := r.db.WithContext(ctx).
+		Preload("Artifact").
+		Joins("JOIN students_missions sm ON missions.id = sm.mission_id").
+		Where("sm.student_id = ? AND sm.is_completed = ?", studentID, true).
+		Find(&completedMissions).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return completedMissions, err
 }

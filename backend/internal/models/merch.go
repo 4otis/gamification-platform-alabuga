@@ -11,6 +11,7 @@ type Merch struct {
 	AmountAvailable int    `gorm:"not null;check:amount_available>=0;" json:"amount_available"`
 
 	CreatedTime time.Time `gorm:"-" json:"created_time"`
+	DeletedTime time.Time `gorm:"-" json:"deleted_time"`
 	IsDone      bool      `gorm:"-" json:"is_done"`
 	StudentID   uint      `gorm:"-" json:"student_id,omitempty"`
 }

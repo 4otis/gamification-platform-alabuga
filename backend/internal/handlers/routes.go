@@ -24,15 +24,19 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	studentsCoursesRepo := repository.NewStudentsCoursesRepository(db)
 	studentsItemsRepo := repository.NewStudentsItemsRepository(db)
 	studentsSkillsRepo := repository.NewStudentsSkillsRepository(db)
+	missionsSkillsRepo := repository.NewMissionsSkillsRepository(db)
+	studentsMerchesRepo := repository.NewStudentsMerchesRepository(db)
 
 	studentService := services.NewStudentService(*studentRepo, *studentRankRepo, *skillRepo, *missionRepo, *studentsMissionsRepo, *studentsCoursesRepo)
-	missionService := services.NewMissionService(*missionRepo, *studentRepo, *studentsMissionsRepo, studentService)
+	missionService := services.NewMissionService(*missionRepo, *studentRepo, *studentsMissionsRepo, *missionsSkillsRepo, studentService)
 	courseService := services.NewCourseService(*courseRepo, *missionRepo, *studentRepo, *studentsCoursesRepo)
 	rankingService := services.NewRankingService(*studentRepo, *skillRepo, *artifactRepo, *studentsSkillsRepo)
 	inventoryService := services.NewInventoryService(*itemRepo, *itemTypeRepo, *studentsItemsRepo, *studentRepo)
+	shopService := services.NewShopService(*studentRepo, *studentsMerchesRepo)
+	loggingService := services.NewLoggingService(missionService, rankingService, courseService)
 
 	mainHandler := student.NewMainHandler(studentService, missionService, courseService, rankingService, inventoryService)
-	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService)
+	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService, loggingService)
 
 	// g.StaticFile("/", "./index.html")
 	// g.StaticFile("/index.html", "./index.html")

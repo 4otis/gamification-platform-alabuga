@@ -1,5 +1,7 @@
 package student
 
+import "time"
+
 // ProfileResponse структура ответа страницы профиля
 // swagger:model ProfileResponse
 type ProfileResponse struct {
@@ -10,11 +12,13 @@ type ProfileResponse struct {
 }
 
 type TransactionInfo struct {
-	Title    string        `json:"title"`
-	Descr    string        `json:"descr"`
-	Type     string        `json:"type"`
-	Mana     int           `json:"mana"`
-	Exp      int           `json:"exp"`
-	Skills   []*SkillInfo  `json:"skills"`
-	Artifact *ArtifactInfo `json:"artifacts"`
+	Position  int           `json:"postion"`
+	Timestamp time.Time     `json:"timestamp"`
+	Title     string        `json:"title"`
+	Descr     string        `json:"descr"`
+	Type      string        `json:"type"`
+	Mana      int           `json:"mana"`
+	Exp       int           `json:"exp"`
+	Skills    []*SkillInfo  `json:"skills"`
+	Artifact  *ArtifactInfo `json:"artifacts"`
 }

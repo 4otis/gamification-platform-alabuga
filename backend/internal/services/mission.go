@@ -11,6 +11,7 @@ import (
 type MissionService interface {
 	GetMissionByID(ctx context.Context, id uint) (*models.Mission, error)
 	GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error)
+	GetCompletedMissions(ctx context.Context, studentID uint) ([]*models.Mission, error)
 
 	// StartMission(ctx context.Context, studentID, missionID uint) error
 	// CompleteMission(ctx context.Context, studentID, missionID uint) error
@@ -31,14 +32,14 @@ func NewMissionService(
 	studentRepo repository.StudentRepository,
 	// courseRepo repository.CourseRepository,
 	studentsMissionsRepo repository.StudentsMissionsRepository,
-	missionsSkillsRepo repository.MissionsSkillsRepository
+	missionsSkillsRepo repository.MissionsSkillsRepository,
 	studentService StudentService,
 ) MissionService {
 	return &missionService{
 		missionRepo:          missionRepo,
 		studentRepo:          studentRepo,
 		studentsMissionsRepo: studentsMissionsRepo,
-		missionsSkillsRepo: missionsSkillsRepo,
+		missionsSkillsRepo:   missionsSkillsRepo,
 		// courseRepo:     courseRepo,
 		studentService: studentService,
 	}
@@ -52,10 +53,9 @@ func (s *missionService) GetAvailableMissions(ctx context.Context, studentID uin
 	return s.studentsMissionsRepo.GetAvailableMissions(ctx, studentID)
 }
 
-func (s *missionService) GetSkillsByMissionID(ctx context.Context, missionID uint) ([]*models.Skill, error) {
-	return s.missionsSkillsRepo.GetSkillsByMissionID(ctx, missionID)
+func (s *missionService) GetCompletedMissions(ctx context.Context, studentID uint) ([]*models.Mission, error) {
+	return s.studentsMissionsRepo.GetCompletedMissions(ctx, studentID)
 }
-
 
 // func (s *missionService) StartMission(ctx context.Context, studentID, missionID int) error {
 // 	// Проверяем доступность миссии для студента

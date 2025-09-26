@@ -11,6 +11,7 @@ import (
 type CourseService interface {
 	GetCourseByID(ctx context.Context, id uint) (*models.Course, error)
 	GetAvailableCourses(ctx context.Context, studentID uint) ([]*models.Course, error)
+	GetCompletedCourses(ctx context.Context, studentID uint) ([]*models.Course, error)
 	// GetCourseMissions(courseID uint) ([]*models.Mission, error)
 	// GetCourseProgress(studentID, courseID uint) (float64, error)
 }
@@ -46,4 +47,8 @@ func (s *courseService) GetCourseByID(ctx context.Context, id uint) (*models.Cou
 
 func (s *courseService) GetAvailableCourses(ctx context.Context, studentID uint) ([]*models.Course, error) {
 	return s.studentsCoursesRepo.GetAvailableCourses(ctx, studentID)
+}
+
+func (s *courseService) GetCompletedCourses(ctx context.Context, studentID uint) ([]*models.Course, error) {
+	return s.studentsCoursesRepo.GetCompletedCourses(ctx, studentID)
 }

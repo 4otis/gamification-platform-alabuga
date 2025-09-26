@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type Mission struct {
 	ID         uint   `gorm:"primaryKey;not null" json:"id"`
 	Title      string `gorm:"not null" json:"title"`
@@ -17,8 +19,10 @@ type Mission struct {
 	Questions   []Question  `gorm:"foreignKey:MissionID" json:"questions"`
 
 	// Статусные поля (не сохраняются в БД, заполняются из JOIN)
-	IsActive    bool    `gorm:"-" json:"is_active,omitempty"`
-	IsCompleted bool    `gorm:"-" json:"is_completed,omitempty"`
-	StudentID   uint    `gorm:"-" json:"student_id,omitempty"`
-	ScoreReward float64 `gorm:"-" json:"score_reward,omitempty"`
+	IsActive    bool      `gorm:"-" json:"is_active,omitempty"`
+	IsCompleted bool      `gorm:"-" json:"is_completed,omitempty"`
+	CreatedTime time.Time `gorm:"-" json:"created_time"`
+	DeletedTime time.Time `gorm:"-" json:"deleted_time"`
+	StudentID   uint      `gorm:"-" json:"student_id,omitempty"`
+	ScoreReward float64   `gorm:"-" json:"score_reward,omitempty"`
 }
