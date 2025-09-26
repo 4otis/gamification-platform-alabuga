@@ -33,9 +33,9 @@ func NewCourseService(
 	// missionService MissionService,
 ) CourseService {
 	return &courseService{
-		courseRepo:          courseRepo,
-		studentRepo:         studentRepo,
-		missionRepo:         missionRepo,
+		courseRepo:  courseRepo,
+		studentRepo: studentRepo,
+		// missionRepo:         missionRepo,
 		studentsCoursesRepo: studentsCoursesRepo,
 		// missionService: missionService,
 	}
@@ -52,3 +52,8 @@ func (s *courseService) GetAvailableCourses(ctx context.Context, studentID uint)
 func (s *courseService) GetCompletedCourses(ctx context.Context, studentID uint) ([]*models.Course, error) {
 	return s.studentsCoursesRepo.GetCompletedCourses(ctx, studentID)
 }
+
+// func (s *courseService) GetAllMissionByCourse()
+// {
+
+// }
