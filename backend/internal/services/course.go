@@ -12,31 +12,35 @@ type CourseService interface {
 	GetCourseByID(ctx context.Context, id uint) (*models.Course, error)
 	GetAvailableCourses(ctx context.Context, studentID uint) ([]*models.Course, error)
 	GetCompletedCourses(ctx context.Context, studentID uint) ([]*models.Course, error)
+	GetCourseArtifactByID(ctx context.Context, artifactID uint) (*models.Artifact, error)
 	// GetCourseMissions(courseID uint) ([]*models.Mission, error)
 	// GetCourseProgress(studentID, courseID uint) (float64, error)
 }
 
 type courseService struct {
 	courseRepo          repository.CourseRepository
-	missionRepo         repository.MissionRepository
-	studentRepo         repository.StudentRepository
 	studentsCoursesRepo repository.StudentsCoursesRepository
+	artifactRepo        repository.ArtifactRepository
+	// missionRepo         repository.MissionRepository
+	// studentRepo         repository.StudentRepository
 	// missionService MissionService
 	// studentRankRepo
 }
 
 func NewCourseService(
 	courseRepo repository.CourseRepository,
-	missionRepo repository.MissionRepository,
-	studentRepo repository.StudentRepository,
 	studentsCoursesRepo repository.StudentsCoursesRepository,
+	artifactRepo repository.ArtifactRepository,
+	// missionRepo repository.MissionRepository,
+	// studentRepo repository.StudentRepository,
+
 	// missionService MissionService,
 ) CourseService {
 	return &courseService{
 		courseRepo:          courseRepo,
-		studentRepo:         studentRepo,
-		missionRepo:         missionRepo,
 		studentsCoursesRepo: studentsCoursesRepo,
+		// studentRepo:         studentRepo,
+		// missionRepo:         missionRepo,
 		// missionService: missionService,
 	}
 }
@@ -51,4 +55,8 @@ func (s *courseService) GetAvailableCourses(ctx context.Context, studentID uint)
 
 func (s *courseService) GetCompletedCourses(ctx context.Context, studentID uint) ([]*models.Course, error) {
 	return s.studentsCoursesRepo.GetCompletedCourses(ctx, studentID)
+}
+
+func (s *courseService) GetCourseArtifactByID(ctx context.Context, artifactID uint) (*models.Artifact, error) {
+	return s.artifactRepo.Read(ctx, artifactID)
 }
