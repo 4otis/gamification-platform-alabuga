@@ -89,7 +89,7 @@ func (s *loggingService) GetTransactionByStudentID(ctx context.Context, StudentI
 			Type:      "course",
 			Mana:      0,
 			Exp:       0,
-			Skills:    nil,
+			Skills:    []*models.Skill{},
 			Artifact:  &course.Artifact,
 		})
 	}
@@ -108,8 +108,8 @@ func (s *loggingService) GetTransactionByStudentID(ctx context.Context, StudentI
 			Type:      "merch",
 			Mana:      -int(merch.Price),
 			Exp:       0,
-			Skills:    nil,
-			Artifact:  nil,
+			Skills:    []*models.Skill{},
+			Artifact:  &models.Artifact{},
 		})
 	}
 
