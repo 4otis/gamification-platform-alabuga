@@ -1,0 +1,126 @@
+:root {
+  --list-max-height: 600px;
+}
+
+/* контейнер */
+.ava-artif-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  width: 120%;
+  padding: 0 16px;
+  box-sizing: border-box;
+  align-items: flex-start;
+
+}
+
+/* левая колонка */
+.frame {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0;
+}
+
+.list-panel {
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;       /* убираем внешние зазоры сверху/снизу */
+}
+
+/* область прокрутки: растёт по контенту, но не выше clamp(...) */
+.list-scroll {
+  position: relative;
+  overflow: auto;
+  padding: 12px 8px 12px 0;
+  background: transparent;
+
+  /* было: max-height: var(--list-max-height); */
+  max-height: clamp(280px, 20vh, var(--list-max-height));
+}
+
+/* скроллбар */
+.list-scroll::-webkit-scrollbar { width: 10px; }
+.list-scroll::-webkit-scrollbar-track { background: transparent; }
+.list-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.0); border-radius: 8px; }
+.list-scroll:hover::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.25); }
+.list-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.35); }
+.list-scroll { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+.list-scroll:hover { scrollbar-color: rgba(0,0,0,0.25) transparent; transition: 1s; }
+
+/* элементы списка */
+.list-item {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 12px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='845' height='233' viewBox='0 0 845 233' fill='none'><path d='M562.103 2H837.5C840.261 2 842.5 4.23858 842.5 7V45.5929V97.9827V181.163L819.528 231H725.48H46.8315C43.6536 231 40.6649 229.49 38.7801 226.931L3.94861 179.645C2.6828 177.927 2 175.849 2 173.714V55.5929C2 50.0701 6.47717 45.5929 12 45.5929H509.121C511.723 45.5929 514.223 44.5785 516.09 42.765L555.134 4.82796C557 3.01447 559.5 2 562.103 2Z' fill='%23CACACA' stroke='black' stroke-width='4'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  padding: 24px 28px;
+  box-sizing: border-box;
+  display: flex; align-items: center; justify-content: flex-start;
+  cursor: pointer;
+}
+
+/* убираем «лишний хвост» от последнего элемента */
+.list-item:last-child { margin-bottom: 0; }
+
+.list-item__label {
+  font-weight: 700;
+  font-size: 20px;
+  color: #0b1f2a;
+}
+
+/* низ */
+.bottom-plate {
+  width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+.attribute-plate-svg { width: 100%; height: auto; display: block; }
+/* .mana-exp-plate{
+
+} */
+/* контейнер двух колонок */
+.atr-container{
+  display: grid;
+  grid-template-columns: 25% 75%; /* 1:3 */
+  gap: 16px;                      /* расстояние между ними */
+  width: 100%;
+  padding: 0 16px;
+  align-items: start;              /* прижать обе к верху */
+  box-sizing: border-box;
+}
+
+/* чтобы SVG не оставляли «хвост» снизу из-за baseline */
+.mana-col svg,
+.attr-col svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.atr-flex{
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  padding: 0 16px;
+  align-items: flex-start;   /* выровнять по верху */
+  box-sizing: border-box;
+}
+
+/* 25% / 75% через flex-basis */
+.mana-col  { flex: 25%; max-width: 25%; }
+.attr-col  { flex: 75%; max-width: 75%; }
+
+/* чтобы SVG не «висели» на baseline */
+.mana-col svg,
+.attr-col svg { width: 100%; height: auto; display: block; }
