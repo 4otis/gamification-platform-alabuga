@@ -21,6 +21,7 @@ type ItemInfo struct {
 	Name     string `json:"name"`
 	FilePath string `json:"file_path"`
 	MinExp   uint   `json:"min_exp"`
+	TypeID   uint   `json:"type_id"`
 	TypeName string `json:"type_name"`
 }
 
@@ -55,4 +56,9 @@ type ArtifactInfo struct {
 	FilePath string `json:"file_path"`
 	RarityID uint   `json:"rarity_id"`
 	Rarity   string `json:"rarity"`
+}
+
+type ItemTypeInfo struct {
+	ID   uint   `json:"id"`
+	Name string `json:"name"`
 }

@@ -12,8 +12,8 @@ type InventoryService interface {
 	GetAllItems(ctx context.Context) ([]*models.Item, error)
 	GetAvailableItems(ctx context.Context, studentID uint) ([]*models.Item, error)
 	GetEquipedItems(ctx context.Context, studentID uint) ([]*models.Item, error)
-	// GetItemTypes(ctx context.Context) (*models.ItemType, error)
-	// EquipItems(ctx context.Context, studentID uint) (*models.Item, error)
+	GetItemTypes(ctx context.Context) ([]*models.ItemType, error)
+	EquipItem(ctx context.Context, studentID uint, itemID uint, typeID uint) error
 }
 
 type inventoryService struct {
@@ -50,6 +50,11 @@ func (s *inventoryService) GetAvailableItems(ctx context.Context, studentID uint
 		return nil, err
 	}
 
+	err = s.studentsItemsRepo.AssignAvailableItemsToStudent(ctx, studentID, student.Exp)
+	if err != nil {
+		return nil, err
+	}
+
 	return s.itemRepo.GetAvailableItems(ctx, student.Exp)
 }
 
@@ -57,10 +62,10 @@ func (s *inventoryService) GetEquipedItems(ctx context.Context, studentID uint) 
 	return s.studentsItemsRepo.GetEquipedItems(ctx, studentID)
 }
 
-// func (s *inventoryService) GetItemTypes(ctx context.Context) (*models.ItemType, error) {
-// 	return s.itemTypeRepo.ReadAll(ctx)
-// }
+func (s *inventoryService) GetItemTypes(ctx context.Context) ([]*models.ItemType, error) {
+	return s.itemTypeRepo.ReadAll(ctx)
+}
 
-// func (s *inventoryService) EquipItems(ctx context.Context, req *EquipItemRequest) error {
-
-// }
+func (s *inventoryService) EquipItem(ctx context.Context, studentID uint, itemID uint, typeID uint) error {
+	return s.studentsItemsRepo.EquipItem(ctx, studentID, itemID, typeID)
+}
