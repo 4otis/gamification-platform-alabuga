@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"sort"
 	"time"
 
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
@@ -91,6 +92,33 @@ func (s *loggingService) GetTransactionByStudentID(ctx context.Context, StudentI
 			Skills:    nil,
 			Artifact:  &course.Artifact,
 		})
+	}
+
+	orderedMerches, err := s.shopService.GetOrderedMerchesByStudentID(ctx, StudentID)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, merch := range orderedMerches {
+		transactions = append(transactions, &TransactionEntry{
+			Position:  0,
+			Timestamp: merch.CreatedTime,
+			Title:     merch.Title,
+			Descr:     merch.Descr,
+			Type:      "merch",
+			Mana:      -int(merch.Price),
+			Exp:       0,
+			Skills:    nil,
+			Artifact:  nil,
+		})
+	}
+
+	sort.Slice(transactions, func(i, j int) bool {
+		return transactions[i].Timestamp.After(transactions[j].Timestamp)
+	})
+
+	for i := range transactions {
+		transactions[i].Position = i + 1
 	}
 
 	return transactions, nil
