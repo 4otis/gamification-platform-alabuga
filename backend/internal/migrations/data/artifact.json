@@ -1,37 +1,37 @@
 [
     {
         "id": 1,
-        "title": "Статуэтка программиста",
-        "descr": "Маленькая статуэтка для рабочего стола",
-        "file_path": "/artifacts/programmer_statue.png",
-        "rarity_id": 1
+        "title": "Кристалл мудрости",
+        "descr": "Древний кристалл, усиливающий интеллект владельца",
+        "file_path": "/artifacts/crystal_of_wisdom.png",
+        "rarity_id": 3
     },
     {
         "id": 2,
-        "title": "Книга алгоритмов",
-        "descr": "Древний фолиант с знаниями",
-        "file_path": "/artifacts/algorithms_book.png",
+        "title": "Свиток скорости",
+        "descr": "Магический свиток, увеличивающий скорость обучения",
+        "file_path": "/artifacts/scroll_of_speed.png",
         "rarity_id": 2
     },
     {
         "id": 3,
-        "title": "База данных",
-        "descr": "Миниатюрная модель сервера",
-        "file_path": "/artifacts/database_model.png",
-        "rarity_id": 3
-    },
-    {
-        "id": 4,
-        "title": "Веб-медальон",
-        "descr": "Магический артефакт веб-разработчика",
-        "file_path": "/artifacts/web_medallion.png",
+        "title": "Медальон упорства",
+        "descr": "Медальон, дающий силы для преодоления трудностей",
+        "file_path": "/artifacts/medallion_of_perseverance.png",
         "rarity_id": 4
     },
     {
-        "id": 5,
-        "title": "Легендарный компилятор",
-        "descr": "Артефакт легендарной силы",
-        "file_path": "/artifacts/legendary_compiler.png",
+        "id": 4,
+        "title": "Книга вечных знаний",
+        "descr": "Древняя книга, содержащая многовековые знания",
+        "file_path": "/artifacts/book_of_eternal_knowledge.png",
         "rarity_id": 5
+    },
+    {
+        "id": 5,
+        "title": "Амулет концентрации",
+        "descr": "Амулет, помогающий сфокусироваться на задачах",
+        "file_path": "/artifacts/amulet_of_concentration.png",
+        "rarity_id": 2
     }
 ]

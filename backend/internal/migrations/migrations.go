@@ -47,13 +47,20 @@ func AutoMigrateAll(db *gorm.DB) error {
 			&models.MissionType{},
 			&models.Skill{},
 			&models.Rarity{},
+			&models.QuestionType{},
+			&models.ItemType{},
 			&models.Student{},
 			&models.Artifact{},
 			&models.Course{},
 			&models.Mission{},
+			&models.Question{},
+			&models.Item{},
+			&models.Merch{},
 			&models.StudentsSkills{},
 			&models.StudentsCourses{},
 			&models.StudentsMissions{},
+			&models.StudentsItems{},
+			&models.StudentsMerches{},
 			&models.MissionsSkills{},
 		}
 
@@ -131,6 +138,14 @@ func InsertData(db *gorm.DB) error {
 	if err := InsertRarity(db); err != nil {
 		return err
 	}
+
+	if err := InsertQuestionType(db); err != nil {
+		return err
+	}
+
+	if err := InsertItemType(db); err != nil {
+		return err
+	}
 	// НИЖЕ таблицы с внешними ключами
 
 	if err := InsertStudent(db); err != nil {
@@ -149,6 +164,18 @@ func InsertData(db *gorm.DB) error {
 		return err
 	}
 
+	if err := InsertQuestion(db); err != nil {
+		return err
+	}
+
+	if err := InsertItem(db); err != nil {
+		return err
+	}
+
+	if err := InsertMerch(db); err != nil {
+		return err
+	}
+
 	if err := InsertStudentsSkills(db); err != nil {
 		return err
 	}
@@ -162,6 +189,14 @@ func InsertData(db *gorm.DB) error {
 	}
 
 	if err := InsertStudentsCourses(db); err != nil {
+		return err
+	}
+
+	if err := InsertStudentsItems(db); err != nil {
+		return err
+	}
+
+	if err := InsertStudentsMerches(db); err != nil {
 		return err
 	}
 
@@ -253,6 +288,40 @@ func InsertRarity(db *gorm.DB) error {
 	})
 }
 
+func InsertQuestionType(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "question_type.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
+		}
+
+		var qts []models.QuestionType
+		if err := json.Unmarshal(jsonBytes, &qts); err != nil {
+			return err
+		}
+
+		return tx.Create(&qts).Error
+	})
+}
+
+func InsertItemType(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "item_type.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
+		}
+
+		var its []models.ItemType
+		if err := json.Unmarshal(jsonBytes, &its); err != nil {
+			return err
+		}
+
+		return tx.Create(&its).Error
+	})
+}
+
 func InsertStudent(db *gorm.DB) error {
 	return db.Transaction(func(tx *gorm.DB) error {
 		jsonPath := filepath.Join("internal", "migrations", "data", "student.json")
@@ -321,6 +390,57 @@ func InsertMission(db *gorm.DB) error {
 	})
 }
 
+func InsertQuestion(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "question.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
+		}
+
+		var questions []models.Question
+		if err := json.Unmarshal(jsonBytes, &questions); err != nil {
+			return err
+		}
+
+		return tx.Create(&questions).Error
+	})
+}
+
+func InsertItem(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "item.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
+		}
+
+		var items []models.Item
+		if err := json.Unmarshal(jsonBytes, &items); err != nil {
+			return err
+		}
+
+		return tx.Create(&items).Error
+	})
+}
+
+func InsertMerch(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "merch.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
+		}
+
+		var merches []models.Merch
+		if err := json.Unmarshal(jsonBytes, &merches); err != nil {
+			return err
+		}
+
+		return tx.Create(&merches).Error
+	})
+}
+
 func InsertStudentsSkills(db *gorm.DB) error {
 	return db.Transaction(func(tx *gorm.DB) error {
 		jsonPath := filepath.Join("internal", "migrations", "data", "students_skills.json")
@@ -369,6 +489,40 @@ func InsertStudentsMissions(db *gorm.DB) error {
 		}
 
 		return tx.Create(&ss).Error
+	})
+}
+
+func InsertStudentsItems(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "students_items.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
+		}
+
+		var si []models.StudentsItems
+		if err := json.Unmarshal(jsonBytes, &si); err != nil {
+			return err
+		}
+
+		return tx.Create(&si).Error
+	})
+}
+
+func InsertStudentsMerches(db *gorm.DB) error {
+	return db.Transaction(func(tx *gorm.DB) error {
+		jsonPath := filepath.Join("internal", "migrations", "data", "students_merches.json")
+		jsonBytes, err := os.ReadFile(jsonPath)
+		if err != nil {
+			return err
+		}
+
+		var sm []models.StudentsMerches
+		if err := json.Unmarshal(jsonBytes, &sm); err != nil {
+			return err
+		}
+
+		return tx.Create(&sm).Error
 	})
 }
 

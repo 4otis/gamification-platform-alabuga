@@ -14,21 +14,24 @@ import (
 )
 
 type MainHandler struct {
-	studentService services.StudentService
-	missionService services.MissionService
-	courseService  services.CourseService
-	rankingService services.RankingService
+	studentService   services.StudentService
+	missionService   services.MissionService
+	courseService    services.CourseService
+	rankingService   services.RankingService
+	inventoryService services.InventoryService
 }
 
 func NewMainHandler(studentService services.StudentService,
 	missionService services.MissionService,
 	courseService services.CourseService,
-	rankingService services.RankingService) *MainHandler {
+	rankingService services.RankingService,
+	inventoryService services.InventoryService) *MainHandler {
 	return &MainHandler{
-		studentService: studentService,
-		missionService: missionService,
-		courseService:  courseService,
-		rankingService: rankingService,
+		studentService:   studentService,
+		missionService:   missionService,
+		courseService:    courseService,
+		rankingService:   rankingService,
+		inventoryService: inventoryService,
 	}
 }
 
@@ -65,6 +68,12 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		return
 	}
 
+	items, err := h.inventoryService.GetEquipedItems(c.Request.Context(), uint(studentID))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
 	missions, err := h.missionService.GetAvailableMissions(c.Request.Context(), uint(studentID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -83,32 +92,25 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 		return
 	}
 
-	// rank, err := h.studentService.GetStudentRank(c.Request.Context(), studentID)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	leaderboard, err := h.rankingService.GetLeaderboard(c.Request.Context(), 0, 10) // топ-10
+	leaderboard, err := h.rankingService.GetLeaderboard(c.Request.Context(), 10) // топ-10
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
 	response := student.MainResponse{
-		Student: &student.StudentInfo{
-			ID:      studentData.ID,
-			Name:    studentData.Name,
-			Surname: studentData.Surname,
-			Exp:     studentData.Exp,
-			Mana:    studentData.Mana,
+		Profile: &student.ProfileInfo{
+			Student: &student.StudentInfo{
+				ID:      studentData.ID,
+				Name:    studentData.Name,
+				Surname: studentData.Surname,
+				Exp:     studentData.Exp,
+				Rank:    studentData.Rank.Name,
+			},
+			EquipedItems: convertItemsToDTO(items),
 		},
-		Missions: convertMissionsToDTO(missions),
-		Courses:  convertCoursesToDTO(courses),
-		CurRank:  &student.RankInfo{
-			// ID:   rank.ID,
-			// Name: rank.Name,
-		},
+		Missions:    convertMissionsToDTO(missions),
+		Courses:     convertCoursesToDTO(courses),
 		CurPosition: position,
 		Leaderboard: convertLeaderboardToDTO(leaderboard),
 	}
@@ -117,6 +119,19 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 }
 
 // Вспомогательные функции для преобразования моделей в DTO
+func convertItemsToDTO(items []*models.Item) []*student.ItemInfo {
+	var result []*student.ItemInfo
+	for _, i := range items {
+		result = append(result, &student.ItemInfo{
+			Name:     i.Name,
+			FilePath: i.FilePath,
+			MinExp:   i.MinExp,
+			TypeName: i.Type.Name,
+		})
+	}
+	return result
+}
+
 func convertMissionsToDTO(missions []*models.Mission) []*student.MissionInfo {
 	var result []*student.MissionInfo
 	for _, m := range missions {
@@ -138,7 +153,6 @@ func convertCoursesToDTO(courses []*models.Course) []*student.CourseInfo {
 			ID:    c.ID,
 			Title: c.Title,
 			Descr: c.Descr,
-			// Progress:   calculateCourseProgress(m), // реализуем на уровне handler'ов, чтобы не тащить зависимость от DTO в сервисы
 		})
 	}
 	return result

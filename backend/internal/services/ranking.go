@@ -10,39 +10,54 @@ import (
 )
 
 type RankingService interface {
-	GetLeaderboard(ctx context.Context, limit, offset int) ([]*LeaderboardEntry, error)
+	GetLeaderboard(ctx context.Context, limit int) ([]*LeaderboardEntry, error)
 	GetStudentPosition(ctx context.Context, studentID uint) (int, error)
 	GetTopStudentsByExp(ctx context.Context, limit int) ([]*models.Student, error)
+	GetSkillsByStudentID(ctx context.Context, studentID uint) ([]*models.Skill, error)
+	GetSkillsByMissionID(ctx context.Context, missionID uint) ([]*models.Skill, error)
+	GetArtifactsByStudentID(ctx context.Context, studentID uint) ([]*models.Artifact, error)
 }
 
 type rankingService struct {
-	studentRepo repository.StudentRepository
+	studentRepo        repository.StudentRepository
+	skillRepo          repository.SkillRepository
+	artifactRepo       repository.ArtifactRepository
+	studentsSkillsRepo repository.StudentsSkillsRepository
 }
 
-func NewRankingService(studentRepo repository.StudentRepository) RankingService {
+func NewRankingService(studentRepo repository.StudentRepository,
+	skillRepo repository.SkillRepository,
+	artifactRepo repository.ArtifactRepository,
+	studentsSkillsRepo repository.StudentsSkillsRepository) RankingService {
 	return &rankingService{
-		studentRepo: studentRepo,
+		studentRepo:        studentRepo,
+		skillRepo:          skillRepo,
+		artifactRepo:       artifactRepo,
+		studentsSkillsRepo: studentsSkillsRepo,
 	}
 }
 
-func (s *rankingService) GetLeaderboard(ctx context.Context, limit, offset int) ([]*LeaderboardEntry, error) {
-	students, err := s.studentRepo.ReadAll(ctx)
+type LeaderboardEntry struct {
+	Position int
+	Student  *models.Student
+}
+
+func (s *rankingService) GetLeaderboard(ctx context.Context, limit int) ([]*LeaderboardEntry, error) {
+	students, err := s.studentRepo.GetSortedByExp(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	sort.Slice(students, func(i, j int) bool {
-		return students[i].Exp > students[j].Exp
-	})
-
 	var leaderboard []*LeaderboardEntry
-	for i, student := range students {
-		if i >= offset && i < offset+limit {
-			leaderboard = append(leaderboard, &LeaderboardEntry{
-				Position: i + 1,
-				Student:  student,
-			})
+
+	for i, s := range students {
+		if i == limit {
+			break
 		}
+		leaderboard = append(leaderboard, &LeaderboardEntry{
+			Position: i,
+			Student:  s,
+		})
 	}
 
 	return leaderboard, nil
@@ -84,7 +99,14 @@ func (s *rankingService) GetTopStudentsByExp(ctx context.Context, limit int) ([]
 	return students[:limit], nil
 }
 
-type LeaderboardEntry struct {
-	Position int
-	Student  *models.Student
+func (s *rankingService) GetSkillsByStudentID(ctx context.Context, studentID uint) ([]*models.Skill, error) {
+	return s.studentsSkillsRepo.GetAllSkillsByStudentID(ctx, studentID)
+}
+
+func (s *rankingService) GetArtifactsByStudentID(ctx context.Context, studentID uint) ([]*models.Artifact, error) {
+	return s.artifactRepo.GetArtifactsByStudentID(ctx, studentID)
+}
+
+func (s *rankingService) GetSkillsByMissionID(ctx context.Context, missionID uint) ([]*models.Skill, error) {
+	return s.skillRepo.GetSkillsByMissionID(ctx, missionID)
 }

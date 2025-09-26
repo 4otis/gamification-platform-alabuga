@@ -7,4 +7,6 @@ type Artifact struct {
 	FilePath string `gorm:"not null" json:"file_path"`
 	RarityID uint   `gorm:"not null" json:"rarity_id"`
 	Rarity   Rarity `gorm:"foreignKey:RarityID"`
+
+	Students []*Student `gorm:"many2many:students_artifacts" json:"students"`
 }

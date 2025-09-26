@@ -5,38 +5,25 @@
         "password": "hashed_password_1",
         "name": "Анна",
         "surname": "Иванова",
-        "patronymic": "Петровна"
+        "patronymic": "Петровна",
+        "has_root": true
     },
     {
         "id": 2,
-        "login": "sergey.smirnov",
+        "login": "sergey.petrov",
         "password": "hashed_password_2",
         "name": "Сергей",
-        "surname": "Смирнов",
-        "patronymic": "Александрович"
+        "surname": "Петров",
+        "patronymic": "Владимирович",
+        "has_root": false
     },
     {
         "id": 3,
-        "login": "ekaterina.popova",
+        "login": "olga.sidorova",
         "password": "hashed_password_3",
-        "name": "Екатерина",
-        "surname": "Попова",
-        "patronymic": "Владимировна"
-    },
-    {
-        "id": 4,
-        "login": "dmitry.kozlov",
-        "password": "hashed_password_4",
-        "name": "Дмитрий",
-        "surname": "Козлов",
-        "patronymic": "Игоревич"
-    },
-    {
-        "id": 5,
-        "login": "olga.volkova",
-        "password": "hashed_password_5",
         "name": "Ольга",
-        "surname": "Волкова",
-        "patronymic": "Сергеевна"
+        "surname": "Сидорова",
+        "patronymic": "Александровна",
+        "has_root": false
     }
 ]
