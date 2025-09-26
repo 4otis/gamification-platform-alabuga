@@ -37,6 +37,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 
 	mainHandler := student.NewMainHandler(studentService, missionService, courseService, rankingService, inventoryService)
 	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService, loggingService)
+	inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
 
 	// g.StaticFile("/", "./index.html")
 	// g.StaticFile("/index.html", "./index.html")
@@ -44,7 +45,6 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	g.GET("/student/:student_id/main", mainHandler.GetMainPage)
 
 	g.GET("/student/:student_id/profile", profileHandler.GetProfile)
-	g.GET("/student/profile/history/:student_id", profileHandler.GetMissionHistory)
 
 	// g.GET("/student/profile/items/:student_id", itemsHandler.GetProfile)
 	// g.GET("/student/profile/items/:student_id", itemsHandler.GetAllItems)
@@ -52,7 +52,6 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	// g.GET("/student/profile/items", itemsHandler.GetItemTypes)
 	// g.PATCH("/student/profile/items/:student_id", itemsHandler.EquipItem) // ожидаем пачку
 
-	inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
 	g.GET("/student/:student_id/inventory", inventoryHandler.GetInventoryPage)
 	g.PATCH("/student/:student_id/inventory/equip", inventoryHandler.EquipItem)
 
@@ -78,9 +77,9 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	// g.PATCH("/hr/:hr_id/courses/edit/mission_id", courseHandler.PatchMission)
 	// g.DELETE("/hr/:hr_id/courses/edit/mission_id", courseHandler.DeleteMission)
 
-	// g.GET("/student/:student_id/missions/:mission_id", missionHandler.GetMission)
-	// g.POST("/student/:student_id/missions/:mission_id", missionHandler.UploadFile)
-	// g.POST("/student/:student_id/missions/:mission_id", missionHandler.CompleteMission)
+	g.GET("/student/:student_id/missions/:mission_id", missionHandler.GetMission)
+	g.POST("/student/:student_id/missions/:mission_id", missionHandler.UploadFile)
+	g.POST("/student/:student_id/missions/:mission_id", missionHandler.CompleteMission)
 
 	// // ранги + артифакта
 	// g.GET("/hr/assets/rarities", coursesHandler.GetAllRarities)
