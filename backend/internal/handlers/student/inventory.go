@@ -7,7 +7,6 @@ import (
 	"strconv"
 
 	studentRequest "github.com/4otis/gamification-platform-alabuga/internal/dto/request/student"
-	"github.com/4otis/gamification-platform-alabuga/internal/dto/response/student" // автоматом дополняет
 	studentResponse "github.com/4otis/gamification-platform-alabuga/internal/dto/response/student"
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
 	"github.com/4otis/gamification-platform-alabuga/internal/repository"
@@ -174,7 +173,7 @@ func (h *InventoryHandler) EquipItem(c *gin.Context) {
 		return
 	}
 
-	response := student.EquipItemResponse{
+	response := studentResponse.EquipItemResponse{
 		EquipedItems: convertItemsToDTO(equipedItems),
 	}
 
@@ -182,10 +181,10 @@ func (h *InventoryHandler) EquipItem(c *gin.Context) {
 }
 
 // Вспомогательные функции для преобразования моделей в DTO
-func convertItemTypesToDTO(items []*models.ItemType) []*student.ItemTypeInfo {
-	var result []*student.ItemTypeInfo
+func convertItemTypesToDTO(items []*models.ItemType) []*studentResponse.ItemTypeInfo {
+	var result []*studentResponse.ItemTypeInfo
 	for _, i := range items {
-		result = append(result, &student.ItemTypeInfo{
+		result = append(result, &studentResponse.ItemTypeInfo{
 			ID:   i.ID,
 			Name: i.Name,
 		})

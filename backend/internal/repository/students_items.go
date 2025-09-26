@@ -25,6 +25,29 @@ func (r *StudentsItemsRepository) ReadAll(ctx context.Context) ([]*models.Item, 
 	return studentsItems, nil
 }
 
+func (r *StudentsItemsRepository) AssignAvailableItemsToStudent(ctx context.Context, studentID uint, studentExp uint) error {
+	// Сначала восстанавливаем sequence
+	err := r.db.Exec("SELECT setval('students_items_id_seq', (SELECT COALESCE(MAX(id), 1) FROM students_items))").Error
+	if err != nil {
+		return err
+	}
+
+	// Прямая вставка только тех предметов, которых еще нет у студента
+	err = r.db.WithContext(ctx).Exec(`
+        INSERT INTO students_items (id, student_id, item_id, is_equiped)
+        SELECT nextval('students_items_id_seq'), ?, items.id, false
+        FROM items
+        WHERE items.min_exp <= ?
+        AND items.id NOT IN (
+            SELECT item_id FROM students_items WHERE student_id = ?
+        )
+    `, studentID, studentExp, studentID).Error
+
+	fmt.Errorf("%w\n", err)
+
+	return err
+}
+
 func (r *StudentsItemsRepository) GetEquipedItems(ctx context.Context, studentID uint) ([]*models.Item, error) {
 	var equipedItems []*models.Item
 

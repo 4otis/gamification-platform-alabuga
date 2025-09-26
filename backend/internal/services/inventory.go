@@ -50,6 +50,11 @@ func (s *inventoryService) GetAvailableItems(ctx context.Context, studentID uint
 		return nil, err
 	}
 
+	err = s.studentsItemsRepo.AssignAvailableItemsToStudent(ctx, studentID, student.Exp)
+	if err != nil {
+		return nil, err
+	}
+
 	return s.itemRepo.GetAvailableItems(ctx, student.Exp)
 }
 
