@@ -12,20 +12,17 @@ type CourseService interface {
 	GetCourseByID(ctx context.Context, id uint) (*models.Course, error)
 	GetAvailableCourses(ctx context.Context, studentID uint) ([]*models.Course, error)
 	GetCompletedCourses(ctx context.Context, studentID uint) ([]*models.Course, error)
-	GetCourseArtifactByID(ctx context.Context, artifactID uint) (*models.Artifact, error)
 	IsCourseAvailableForStudent(ctx context.Context, studentID uint, courseID uint) (bool, error)
-	// GetCourseMissions(courseID uint) ([]*models.Mission, error)
-	// GetCourseProgress(studentID, courseID uint) (float64, error)
+	GetStudentCourseProgress(ctx context.Context, studentID uint, courseID uint) (float64, error)
 }
 
 type courseService struct {
-	courseRepo          repository.CourseRepository
-	studentsCoursesRepo repository.StudentsCoursesRepository
-	artifactRepo        repository.ArtifactRepository
-	studentRepo         repository.StudentRepository
-	// missionRepo         repository.MissionRepository
-	// missionService MissionService
-	// studentRankRepo
+	courseRepo           repository.CourseRepository
+	studentsCoursesRepo  repository.StudentsCoursesRepository
+	artifactRepo         repository.ArtifactRepository
+	studentRepo          repository.StudentRepository
+	missionRepo          repository.MissionRepository
+	studentsMissionsRepo repository.StudentsMissionsRepository
 }
 
 func NewCourseService(
@@ -33,18 +30,14 @@ func NewCourseService(
 	studentsCoursesRepo repository.StudentsCoursesRepository,
 	artifactRepo repository.ArtifactRepository,
 	studentRepo repository.StudentRepository,
-	// missionRepo repository.MissionRepository,
-	// missionService MissionService,
+	studentsMissionsRepo repository.StudentsMissionsRepository,
 ) CourseService {
 	return &courseService{
-		courseRepo:  courseRepo,
-		studentRepo: studentRepo,
-		// missionRepo:         missionRepo,
-		studentsCoursesRepo: studentsCoursesRepo,
-		artifactRepo:        artifactRepo,
-		studentRepo:         studentRepo,
-		// missionRepo:         missionRepo,
-		// missionService: missionService,
+		courseRepo:           courseRepo,
+		studentRepo:          studentRepo,
+		studentsCoursesRepo:  studentsCoursesRepo,
+		artifactRepo:         artifactRepo,
+		studentsMissionsRepo: studentsMissionsRepo,
 	}
 }
 
@@ -60,10 +53,6 @@ func (s *courseService) GetCompletedCourses(ctx context.Context, studentID uint)
 	return s.studentsCoursesRepo.GetCompletedCourses(ctx, studentID)
 }
 
-func (s *courseService) GetCourseArtifactByID(ctx context.Context, artifactID uint) (*models.Artifact, error) {
-	return s.artifactRepo.Read(ctx, artifactID)
-}
-
 func (s *courseService) IsCourseAvailableForStudent(ctx context.Context, studentID uint, courseID uint) (bool, error) {
 	student, err := s.studentRepo.Read(ctx, studentID)
 	if err != nil {
@@ -76,4 +65,28 @@ func (s *courseService) IsCourseAvailableForStudent(ctx context.Context, student
 	}
 
 	return student.RankID >= course.RankID, nil
+}
+
+func (s *courseService) GetStudentCourseProgress(ctx context.Context, studentID uint, courseID uint) (float64, error) {
+	missions, err := s.studentsMissionsRepo.GetStudentsMissionsByCourseID(ctx, studentID, courseID)
+	if err != nil {
+		return 0, err
+	}
+
+	// for _, mission := range missions {
+	// 	fmt.Printf("id: %d, is_completed: %t\n", mission.ID, mission.IsCompleted)
+	// }
+
+	if len(missions) == 0 {
+		return 0, nil
+	}
+
+	completedCount := 0
+	for _, mission := range missions {
+		if mission.IsCompleted {
+			completedCount++
+		}
+	}
+
+	return float64(completedCount) / float64(len(missions)), nil
 }

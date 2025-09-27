@@ -11,5 +11,5 @@ type StudentsMissions struct {
 	CreatedTime time.Time `gorm:"not null;default:now()" json:"created_time"`
 	DeletedTime time.Time `gorm:"not null;default:now()" json:"deleted_time"`
 	Student     Student   `gorm:"foreignKey:StudentID"`
-	Mission     Course    `gorm:"foreignKey:MissionID"`
+	Mission     Mission   `gorm:"foreignKey:MissionID"`
 }

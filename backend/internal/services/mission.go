@@ -12,7 +12,7 @@ type MissionService interface {
 	GetMissionByID(ctx context.Context, id uint) (*models.Mission, error)
 	GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error)
 	GetCompletedMissions(ctx context.Context, studentID uint) ([]*models.Mission, error)
-	GetStudentsMissionsByCourseID(ctx context.Context, studentID uint, courseID uint) ([]*models.Mission, error)
+	GetStudentsMissionsByCourseID(ctx context.Context, studentID uint, courseID uint) ([]*models.StudentsMissions, error)
 
 	// StartMission(ctx context.Context, studentID, missionID uint) error
 	// CompleteMission(ctx context.Context, studentID, missionID uint) error
@@ -58,7 +58,7 @@ func (s *missionService) GetCompletedMissions(ctx context.Context, studentID uin
 	return s.studentsMissionsRepo.GetCompletedMissions(ctx, studentID)
 }
 
-func (s *missionService) GetStudentsMissionsByCourseID(ctx context.Context, studentID uint, courseID uint) ([]*models.Mission, error) {
+func (s *missionService) GetStudentsMissionsByCourseID(ctx context.Context, studentID uint, courseID uint) ([]*models.StudentsMissions, error) {
 	err := s.studentsMissionsRepo.AssignCourseMissionsToStudent(ctx, studentID, courseID)
 	if err != nil {
 		return nil, err
@@ -122,4 +122,3 @@ func (s *missionService) GetStudentsMissionsByCourseID(ctx context.Context, stud
 // func (s *missionService) GetMissionChain(ctx context.Context, missionID int) ([]*models.Mission, error) {
 // 	return s.missionRepo.GetChainByMissionID(ctx, missionID)
 // }
-

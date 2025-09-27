@@ -23,6 +23,8 @@ func (r *CourseRepository) Read(ctx context.Context, id uint) (*models.Course, e
 	var course models.Course
 	err := r.db.WithContext(ctx).
 		Preload("Rank").
+		Preload("Artifact").
+		Preload("Artifact.Rarity").
 		First(&course, id).Error
 	if err != nil {
 		return nil, err
