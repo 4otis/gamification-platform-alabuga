@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
 	"gorm.io/gorm"
@@ -66,17 +67,42 @@ func (r *StudentsMissionsRepository) AssignCourseMissionsToStudent(ctx context.C
 	return err
 }
 
-func (r *StudentsMissionsRepository) GetStudentsMissionsByCourseID(ctx context.Context, studentID uint, courseID uint) ([]*models.Mission, error) {
-	var missions []*models.Mission
+func (r *StudentsMissionsRepository) GetStudentsMissionsByCourseID(ctx context.Context, studentID uint, courseID uint) ([]*models.StudentsMissions, error) {
+	var studentMissions []*models.StudentsMissions
 
 	err := r.db.WithContext(ctx).
-		Preload("Artifact").
-		Joins("JOIN students_missions sm ON sm.mission_id = missions.id").
-		Where("sm.student_id = ? AND missions.course_id = ?", studentID, courseID).
-		Find(&missions).Error
+		Preload("Mission").
+		Preload("Mission.Artifact").
+		Joins("JOIN missions m ON m.id = students_missions.mission_id").
+		Where("students_missions.student_id = ? AND m.course_id = ?", studentID, courseID).
+		Find(&studentMissions).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return missions, nil
+	for _, sm := range studentMissions {
+		fmt.Printf("mission_id: %d, is_completed: %t\n", sm.MissionID, sm.IsCompleted)
+	}
+
+	return studentMissions, nil
 }
+
+// func (r *StudentsMissionsRepository) GetStudentsMissionsByCourseID(ctx context.Context, studentID uint, courseID uint) ([]*models.Mission, error) {
+// 	var missions []*models.Mission
+
+// 	err := r.db.WithContext(ctx).
+// 		Preload("Artifact").
+// 		Select("missions.*, sm.is_completed, sm.is_active").
+// 		Joins("JOIN students_missions sm ON sm.mission_id = missions.id").
+// 		Where("sm.student_id = ? AND missions.course_id = ?", studentID, courseID).
+// 		Find(&missions).Error
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	for _, mission := range missions {
+// 		fmt.Printf("id: %d, is_completed: %t\n", mission.ID, mission.IsCompleted)
+// 	}
+
+// 	return missions, nil
+// }

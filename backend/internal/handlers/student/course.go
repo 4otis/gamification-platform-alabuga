@@ -6,7 +6,9 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/4otis/gamification-platform-alabuga/internal/dto/response/student"
 	studentResponse "github.com/4otis/gamification-platform-alabuga/internal/dto/response/student"
+	"github.com/4otis/gamification-platform-alabuga/internal/models"
 	"github.com/4otis/gamification-platform-alabuga/internal/repository"
 	"github.com/4otis/gamification-platform-alabuga/internal/services"
 	"github.com/gin-gonic/gin"
@@ -93,6 +95,12 @@ func (h *CourseHandler) GetCoursePage(c *gin.Context) {
 		return
 	}
 
+	progress, err := h.courseService.GetStudentCourseProgress(c.Request.Context(), uint(studentID), uint(courseID))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
 	response := studentResponse.CourseResponse{
 		Course: &studentResponse.DetailedCourseInfo{
 			ID:          courseData.ID,
@@ -109,9 +117,24 @@ func (h *CourseHandler) GetCoursePage(c *gin.Context) {
 				RarityID: courseData.Artifact.RarityID,
 				Rarity:   courseData.Artifact.Rarity.Name,
 			},
+			Progress: progress,
 		},
-		Missions: convertMissionsToStructedTreeMissionsDTO(missions),
+		Missions: convertStudentsMissionsToStructedTreeMissionsDTO(missions),
 	}
 
 	c.JSON(http.StatusOK, response)
+}
+
+func convertStudentsMissionsToStructedTreeMissionsDTO(missions []*models.StudentsMissions) []*student.StructedTreeMission {
+	var result []*student.StructedTreeMission
+	for _, m := range missions {
+		result = append(result, &student.StructedTreeMission{
+			ID:          m.ID,
+			Title:       m.Mission.Title,
+			IsActive:    m.IsActive,
+			IsCompleted: m.IsCompleted,
+		})
+	}
+
+	return result
 }

@@ -10,7 +10,7 @@ type DetailedCourseInfo struct {
 	Timeout     time.Duration `json:"timeout"`
 	Rank        string        `json:"rank"`
 	Artifact    *ArtifactInfo `json:"artifact"`
-	// RankID      uint          `json:"rank_id"`
+	Progress    float64       `json:"cur_progress"`
 }
 
 // CourseResponse структура ответа страницы одного курса
