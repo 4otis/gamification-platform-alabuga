@@ -36,7 +36,7 @@ func NewInventoryHandler(
 // @Accept  json
 // @Produce  json
 // @Param student_id path int true "ID студента"
-// @Success 200 {object} student.InventoryResponse "Успешный ответ"
+// @Success 200 {object} studentResponse.InventoryResponse "Успешный ответ"
 // @Failure 400 {object} dto.ErrorResponse "Неверный ID студента"
 // @Failure 404 {object} dto.ErrorResponse "Студент не найден"
 // @Failure 500 {object} dto.ErrorResponse "Внутренняя ошибка сервера"
@@ -106,7 +106,7 @@ func (h *InventoryHandler) GetInventoryPage(c *gin.Context) {
 // @Produce  json
 // @Param student_id path int true "ID студента"
 // @Param request body studentRequest.EquipItemRequest true "Данные для экипировки"
-// @Success 200 {object} student.EquipItemResponse "Успешный ответ"
+// @Success 200 {object} studentResponse.EquipItemResponse "Успешный ответ"
 // @Failure 400 {object} dto.ErrorResponse "Неверные параметры"
 // @Failure 404 {object} dto.ErrorResponse "Студент или предмет не найден"
 // @Failure 500 {object} dto.ErrorResponse "Внутренняя ошибка сервера"

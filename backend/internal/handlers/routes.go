@@ -29,7 +29,8 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 
 	studentService := services.NewStudentService(*studentRepo, *studentRankRepo, *skillRepo, *missionRepo, *studentsMissionsRepo, *studentsCoursesRepo)
 	missionService := services.NewMissionService(*missionRepo, *studentRepo, *studentsMissionsRepo, *missionsSkillsRepo, studentService)
-	courseService := services.NewCourseService(*courseRepo, *missionRepo, *studentRepo, *studentsCoursesRepo)
+	courseService := services.NewCourseService(*courseRepo, *studentsCoursesRepo, *artifactRepo, *studentRepo)
+	// courseService := services.NewCourseService(*courseRepo, *missionRepo, *studentRepo, *studentsCoursesRepo, *artifactRepo)
 	rankingService := services.NewRankingService(*studentRepo, *skillRepo, *artifactRepo, *studentsSkillsRepo)
 	inventoryService := services.NewInventoryService(*itemRepo, *itemTypeRepo, *studentsItemsRepo, *studentRepo)
 	shopService := services.NewShopService(*studentRepo, *studentsMerchesRepo)
@@ -51,6 +52,9 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	// g.GET("/student/profile/items/:student_id", itemsHandler.GetAvailableItems)
 	// g.GET("/student/profile/items", itemsHandler.GetItemTypes)
 	// g.PATCH("/student/profile/items/:student_id", itemsHandler.EquipItem) // ожидаем пачку
+
+	courseHandler := student.NewCourseHandler(courseService, missionService)
+	g.GET("/student/:student_id/courses/:course_id", courseHandler.GetCoursePage)
 
 	inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
 	g.GET("/student/:student_id/inventory", inventoryHandler.GetInventoryPage)
