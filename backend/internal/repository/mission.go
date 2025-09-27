@@ -43,6 +43,19 @@ func (r *MissionRepository) Delete(ctx context.Context, id uint) error {
 	return result.Error
 }
 
+// func (r *CourseRepository) GetCourseMissions(ctx context.Context, courseID uint) ([]*models.Mission, error) {
+// 	var courseMissions []*models.Mission
+
+// 	err := r.db.WithContext(ctx).
+// 		Where("course_id = ?", courseID).
+// 		Find(&courseMissions).Error
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	return courseMissions, nil
+// }
+
 // func (r *MissionRepository) GetAvailableMissions(ctx context.Context, studentID uint) ([]*models.Mission, error) {
 // 	var availableMissions []*models.Mission
 // 	err := r.db.WithContext().Jo

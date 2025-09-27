@@ -43,8 +43,6 @@ func (r *StudentsItemsRepository) AssignAvailableItemsToStudent(ctx context.Cont
         )
     `, studentID, studentExp, studentID).Error
 
-	fmt.Errorf("%w\n", err)
-
 	return err
 }
 

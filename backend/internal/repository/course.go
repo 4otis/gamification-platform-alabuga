@@ -21,7 +21,9 @@ func (r *CourseRepository) Create(ctx context.Context, course *models.Course) er
 
 func (r *CourseRepository) Read(ctx context.Context, id uint) (*models.Course, error) {
 	var course models.Course
-	err := r.db.WithContext(ctx).First(&course, id).Error
+	err := r.db.WithContext(ctx).
+		Preload("Rank").
+		First(&course, id).Error
 	if err != nil {
 		return nil, err
 	}
