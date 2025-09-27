@@ -37,7 +37,9 @@ func NewCourseService(
 	// missionService MissionService,
 ) CourseService {
 	return &courseService{
-		courseRepo:          courseRepo,
+		courseRepo:  courseRepo,
+		studentRepo: studentRepo,
+		// missionRepo:         missionRepo,
 		studentsCoursesRepo: studentsCoursesRepo,
 		artifactRepo:        artifactRepo,
 		studentRepo:         studentRepo,

@@ -122,3 +122,4 @@ func (s *missionService) GetStudentsMissionsByCourseID(ctx context.Context, stud
 // func (s *missionService) GetMissionChain(ctx context.Context, missionID int) ([]*models.Mission, error) {
 // 	return s.missionRepo.GetChainByMissionID(ctx, missionID)
 // }
+
