@@ -53,7 +53,7 @@ func (h *CourseHandler) GetCoursePage(c *gin.Context) {
 
 	courseID, err := strconv.Atoi(c.Param("course_id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid student ID"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid course ID"})
 		return
 	}
 
@@ -79,7 +79,7 @@ func (h *CourseHandler) GetCoursePage(c *gin.Context) {
 		if errors.Is(err, repository.ErrNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{
 				"error":   err.Error(),
-				"message": fmt.Sprintf("Student by (id:%d) not found", courseID),
+				"message": fmt.Sprintf("Course by (id:%d) not found", courseID),
 			})
 			return
 		}
@@ -88,12 +88,6 @@ func (h *CourseHandler) GetCoursePage(c *gin.Context) {
 	}
 
 	missions, err := h.missionService.GetStudentsMissionsByCourseID(c.Request.Context(), uint(studentID), uint(courseID))
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-
-	artifactData, err := h.courseService.GetCourseArtifactByID(c.Request.Context(), courseData.ArtifactID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -108,12 +102,12 @@ func (h *CourseHandler) GetCoursePage(c *gin.Context) {
 			Timeout:     courseData.Timeout,
 			Rank:        courseData.Rank.Name,
 			Artifact: &studentResponse.ArtifactInfo{
-				ID:       artifactData.ID,
-				Title:    artifactData.Title,
-				Descr:    artifactData.Descr,
-				FilePath: artifactData.FilePath,
-				RarityID: artifactData.RarityID,
-				Rarity:   artifactData.Rarity.Name,
+				ID:       courseData.Artifact.ID,
+				Title:    courseData.Artifact.Title,
+				Descr:    courseData.Artifact.Descr,
+				FilePath: courseData.Artifact.FilePath,
+				RarityID: courseData.Artifact.RarityID,
+				Rarity:   courseData.Artifact.Rarity.Name,
 			},
 		},
 		Missions: convertMissionsToStructedTreeMissionsDTO(missions),
