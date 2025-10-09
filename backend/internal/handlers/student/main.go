@@ -167,6 +167,7 @@ func convertLeaderboardToDTO(leaderboard []*services.LeaderboardEntry) []*studen
 			ID:       l.Student.ID,
 			Name:     l.Student.Name,
 			Exp:      l.Student.Exp,
+			Rank:     l.Student.Rank.Name,
 			Position: l.Position,
 		})
 	}
