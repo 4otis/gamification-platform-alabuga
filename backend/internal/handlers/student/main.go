@@ -101,11 +101,12 @@ func (h *MainHandler) GetMainPage(c *gin.Context) {
 	response := student.MainResponse{
 		Profile: &student.ProfileInfo{
 			Student: &student.StudentInfo{
-				ID:      studentData.ID,
-				Name:    studentData.Name,
-				Surname: studentData.Surname,
-				Exp:     studentData.Exp,
-				Rank:    studentData.Rank.Name,
+				ID:         studentData.ID,
+				Name:       studentData.Name,
+				Patronymic: studentData.Patronymic,
+				Surname:    studentData.Surname,
+				Exp:        studentData.Exp,
+				Rank:       studentData.Rank.Name,
 			},
 			EquipedItems: convertItemsToDTO(items),
 		},
