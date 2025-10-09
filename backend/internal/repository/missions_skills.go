@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"context"
+
 	"github.com/4otis/gamification-platform-alabuga/internal/models"
 	"gorm.io/gorm"
 )
@@ -32,4 +34,17 @@ func (r *MissionsSkillsRepository) UpdateFields(id uint, updates map[string]inte
 
 func (r *MissionsSkillsRepository) Delete(id uint) error {
 	return r.db.Delete(&models.MissionsSkills{}, id).Error
+}
+
+func (r *MissionsSkillsRepository) GetSkillsByMissionID(ctx context.Context, missionID uint) ([]*models.MissionsSkills, error) {
+	var skills []*models.MissionsSkills
+	err := r.db.WithContext(ctx).
+		Preload("Skill").
+		Where("mission_id = ?", missionID).
+		Find(&skills).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return skills, nil
 }

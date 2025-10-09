@@ -92,15 +92,16 @@ func (h *ProfileHandler) GetProfile(c *gin.Context) {
 	response := student.ProfileResponse{
 		Profile: &student.ProfileInfo{
 			Student: &student.StudentInfo{
-				ID:      studentData.ID,
-				Name:    studentData.Name,
-				Surname: studentData.Surname,
-				Exp:     studentData.Exp,
-				Rank:    studentData.Rank.Name,
+				ID:         studentData.ID,
+				Name:       studentData.Name,
+				Surname:    studentData.Surname,
+				Patronymic: studentData.Patronymic,
+				Exp:        studentData.Exp,
+				Rank:       studentData.Rank.Name,
 			},
 			EquipedItems: convertItemsToDTO(items),
 		},
-		Skills:       convertSkillsToDTO(skills),
+		Skills:       convertStudentsSkillsToDTO(skills),
 		Artifacts:    convertArtifactsToDTO(artifacts),
 		Transactions: convertTransactionsToDTO(transactions),
 	}
@@ -112,12 +113,24 @@ func (h *ProfileHandler) GetMissionHistory(c *gin.Context) {
 
 }
 
-func convertSkillsToDTO(skills []*models.Skill) []*student.SkillInfo {
+func convertMissionsSkillsToDTO(skills []*models.MissionsSkills) []*student.SkillInfo {
 	var result []*student.SkillInfo
 	for _, s := range skills {
 		result = append(result, &student.SkillInfo{
 			ID:    s.ID,
-			Name:  s.Name,
+			Name:  s.Skill.Name,
+			Score: s.ScoreReward,
+		})
+	}
+	return result
+}
+
+func convertStudentsSkillsToDTO(skills []*models.StudentsSkills) []*student.SkillInfo {
+	var result []*student.SkillInfo
+	for _, s := range skills {
+		result = append(result, &student.SkillInfo{
+			ID:    s.ID,
+			Name:  s.Skill.Name,
 			Score: s.Score,
 		})
 	}
@@ -149,7 +162,7 @@ func convertTransactionsToDTO(transactions []*services.TransactionEntry) []*stud
 			Descr:     t.Descr,
 			Type:      t.Type,
 			Mana:      t.Mana,
-			Skills:    convertSkillsToDTO(t.Skills),
+			Skills:    convertMissionsSkillsToDTO(t.Skills),
 			Artifact: &student.ArtifactInfo{
 				ID:       t.Artifact.ID,
 				Title:    t.Artifact.Title,
