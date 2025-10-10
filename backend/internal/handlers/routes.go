@@ -30,7 +30,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	studentService := services.NewStudentService(*studentRepo, *studentRankRepo, *skillRepo, *missionRepo, *studentsMissionsRepo, *studentsCoursesRepo)
 	missionService := services.NewMissionService(*missionRepo, *studentRepo, *studentsMissionsRepo, *missionsSkillsRepo, studentService)
 	courseService := services.NewCourseService(*courseRepo, *missionRepo, *studentRepo, *studentsCoursesRepo)
-	rankingService := services.NewRankingService(*studentRepo, *skillRepo, *artifactRepo, *studentsSkillsRepo)
+	rankingService := services.NewRankingService(*studentRepo, *skillRepo, *artifactRepo, *studentsSkillsRepo, *missionsSkillsRepo)
 	inventoryService := services.NewInventoryService(*itemRepo, *itemTypeRepo, *studentsItemsRepo, *studentRepo)
 	shopService := services.NewShopService(*studentRepo, *studentsMerchesRepo)
 	loggingService := services.NewLoggingService(missionService, rankingService, courseService, shopService)

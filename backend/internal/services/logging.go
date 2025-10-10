@@ -34,15 +34,15 @@ func NewLoggingService(
 }
 
 type TransactionEntry struct {
-	Position  int              `json:"position"`
-	Timestamp time.Time        `json:"timestamp"`
-	Title     string           `json:"title"`
-	Descr     string           `json:"descr"`
-	Type      string           `json:"type"`
-	Mana      int              `json:"mana"`
-	Exp       int              `json:"exp"`
-	Skills    []*models.Skill  `json:"skills"`
-	Artifact  *models.Artifact `json:"artifacts"`
+	Position  int                      `json:"position"`
+	Timestamp time.Time                `json:"timestamp"`
+	Title     string                   `json:"title"`
+	Descr     string                   `json:"descr"`
+	Type      string                   `json:"type"`
+	Mana      int                      `json:"mana"`
+	Exp       int                      `json:"exp"`
+	Skills    []*models.MissionsSkills `json:"skills"`
+	Artifact  *models.Artifact         `json:"artifacts"`
 }
 
 func (s *loggingService) GetTransactionByStudentID(ctx context.Context, StudentID uint) ([]*TransactionEntry, error) {
@@ -55,7 +55,7 @@ func (s *loggingService) GetTransactionByStudentID(ctx context.Context, StudentI
 
 	// TODO: начинаем формировать TransactionEntry заполняя миссиями
 	for _, mission := range completedMissions {
-		var skills []*models.Skill
+		var skills []*models.MissionsSkills
 		skills, err := s.rankingService.GetSkillsByMissionID(ctx, mission.ID)
 		if err != nil {
 			return nil, err
@@ -89,7 +89,7 @@ func (s *loggingService) GetTransactionByStudentID(ctx context.Context, StudentI
 			Type:      "course",
 			Mana:      0,
 			Exp:       0,
-			Skills:    []*models.Skill{},
+			Skills:    []*models.MissionsSkills{},
 			Artifact:  &course.Artifact,
 		})
 	}
@@ -108,7 +108,7 @@ func (s *loggingService) GetTransactionByStudentID(ctx context.Context, StudentI
 			Type:      "merch",
 			Mana:      -int(merch.Price),
 			Exp:       0,
-			Skills:    []*models.Skill{},
+			Skills:    []*models.MissionsSkills{},
 			Artifact:  &models.Artifact{},
 		})
 	}
