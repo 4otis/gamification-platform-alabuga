@@ -1,0 +1,62 @@
+/* TransactionJournal.css */
+
+.transaction-journal {
+  display:flex;
+  flex-direction: row;
+  width: 55%; 
+  justify-content: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  color: black;
+  gap:20px
+
+}
+.transaction-frame{
+    padding: 10px 10px 0 10px;
+    width: 40%;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.transaction-list {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-journal ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.transaction-journal ::-webkit-scrollbar-thumb {
+  background-color: #1976d2;
+  border-radius: 10px;
+}
+
+.transaction-item {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.transaction-item:hover {
+  background-color: #f0f0f0;
+}
+
+.transaction-item .MuiListItemText-primary {
+  font-weight: bold;
+}
+
+.transaction-item .MuiListItemText-secondary {
+  color: #555;
+}
+
+.transaction-info {
+  background-color: #ffffff;
+  padding: 20px 20px 0 20px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  width: 50%;
+}
+

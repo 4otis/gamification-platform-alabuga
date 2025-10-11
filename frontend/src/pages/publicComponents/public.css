@@ -1,0 +1,65 @@
+.root *::-webkit-scrollbar {
+  width: 8px;
+}
+
+.root *::-webkit-scrollbar-thumb {
+  background-color: #1976d2;
+  border-radius: 10px;
+}
+
+.app-bar {
+  width: 90% ;
+  background-color: #00A7D2 !important;
+  margin: 0;
+  padding: 1% 2%;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+/* Логотип */
+.logo {
+  width: 10vw;
+  max-width: 150px; /* Устанавливаем максимальную ширину для логотипа */
+  height: auto;
+}
+
+.icons-container{
+  padding:0 2%;
+}
+
+.icon{
+  min-width: 40px;
+  min-height: 40px;
+}
+.footer {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  position: relative;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+
+.footer-content {
+  font-size: 14px;
+  color: #bbb;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.footer-logo {
+  margin: 20px;
+  width: 10vw;
+  max-width: 150px; 
+  height: auto;
+}
