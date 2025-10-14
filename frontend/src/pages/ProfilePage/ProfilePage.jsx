@@ -34,6 +34,36 @@ function ProfilePage() {
     fetchProfileData();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="App">
+        <Header />
+        <div className="loading">Загрузка профиля...</div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="App">
+        <Header />
+        <div className="error">Ошибка: {error}</div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!profileData) {
+    return (
+      <div className="App">
+        <Header />
+        <div className="error">Данные профиля не найдены</div>
+        <Footer />
+      </div>
+    );
+  }
+
 
   return (
     <div className="App">
@@ -41,11 +71,14 @@ function ProfilePage() {
       <div className="main-content">
         <div className="prof-art-container">
           <UserProfile 
+            profile={profileData.profile}
           />
           <ArtifactList />
         </div>
         <div className="stats-trans-container">
-          <UserInfoPanel />
+          <UserInfoPanel 
+            artifacts={profileData.profile.artifacts}
+          />
           <TransactionJournal />
         </div>
       </div>
