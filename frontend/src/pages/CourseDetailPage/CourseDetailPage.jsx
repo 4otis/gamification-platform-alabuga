@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Footer } from "../publicComponents/publicComponents"; // Импортируем Header и Footer
+import { Header, Footer } from "../../shared/components/publicComponents"; // Импортируем Header и Footer
 import "./CourseDetailPage.css";
 
 const CourseDetailPage = () => {

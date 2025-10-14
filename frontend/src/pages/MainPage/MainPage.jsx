@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';  // Импортируем Link для создания ссылки
-import './App.css';
+import './MainPage.css';
 
-function App() {
+function MainPage() {
   return (
     <div className="App">
       <Link to="/profile">Перейти на страницу профиля</Link> {/* Ссылка на страницу профиля */}
@@ -11,4 +11,4 @@ function App() {
   );
 }
 
-export default App;
+export default MainPage;

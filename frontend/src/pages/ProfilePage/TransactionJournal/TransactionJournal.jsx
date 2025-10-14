@@ -29,7 +29,6 @@ function TransactionJournal() {
             <List>
               {transactions.map((transaction) => (
                 <ListItem 
-                  button 
                   key={transaction.id} 
                   onClick={() => handleTransactionClick(transaction)} 
                   className="transaction-item"
