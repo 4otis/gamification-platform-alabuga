@@ -50,8 +50,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	mainHandler := student.NewMainHandler(studentService, missionService, courseService, rankingService, inventoryService)
 	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService, loggingService)
 
-	// g.StaticFile("/", "./index.html")
-	// g.StaticFile("/index.html", "./index.html")
+	g.Static("/static", "./static")
 
 	g.GET("/student/:student_id/main", mainHandler.GetMainPage)
 

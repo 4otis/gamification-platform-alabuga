@@ -3,35 +3,35 @@
         "id": 1,
         "title": "Кристалл мудрости",
         "descr": "Древний кристалл, усиливающий интеллект владельца",
-        "file_path": "/artifacts/crystal_of_wisdom.png",
+        "file_path": "/artifacts/1.png",
         "rarity_id": 3
     },
     {
         "id": 2,
         "title": "Свиток скорости",
         "descr": "Магический свиток, увеличивающий скорость обучения",
-        "file_path": "/artifacts/scroll_of_speed.png",
+        "file_path": "/artifacts/2.png",
         "rarity_id": 2
     },
     {
         "id": 3,
         "title": "Медальон упорства",
         "descr": "Медальон, дающий силы для преодоления трудностей",
-        "file_path": "/artifacts/medallion_of_perseverance.png",
+        "file_path": "/artifacts/2.png",
         "rarity_id": 4
     },
     {
         "id": 4,
         "title": "Книга вечных знаний",
         "descr": "Древняя книга, содержащая многовековые знания",
-        "file_path": "/artifacts/book_of_eternal_knowledge.png",
+        "file_path": "/artifacts/2.png",
         "rarity_id": 5
     },
     {
         "id": 5,
         "title": "Амулет концентрации",
         "descr": "Амулет, помогающий сфокусироваться на задачах",
-        "file_path": "/artifacts/amulet_of_concentration.png",
+        "file_path": "/artifacts/2.png",
         "rarity_id": 2
     }
 ]
