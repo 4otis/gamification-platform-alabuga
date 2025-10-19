@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'; 
 import { Avatar, Button, Typography, Box } from '@mui/material';
-import defaultAvatar from "../../../../public/defaultavatar.png";
+import defaultAvatar from "../../../assets/defaultavatar.png";
 import './UserProfile.css';
 
 function UserProfile( {profile}) {

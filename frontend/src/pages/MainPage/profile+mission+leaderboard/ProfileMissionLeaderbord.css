@@ -18,6 +18,7 @@
     row-gap:20px ;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     border-radius:10px;    
+    background-color: #FFFFFF;
 }
 .user-info-container{
     display:flex;
@@ -25,11 +26,12 @@
     padding:20px;
     justify-content: space-around;
     margin-right: -180px;
+
 }
 
 .mp-avatar {
-    height: 90%;
-    width: 90%;
+    height: 95%;
+    width: 95%;
     object-fit: contain;
 }
 .MuiTypography-h6{

@@ -4,7 +4,8 @@ import './ProfileMissionLeaderbord.css';
 import missions from './missions.json';
 import users from './users.json';
 import {Typography, Button, Box } from "@mui/material";
-import defaultAvatar from "../../../../public/defaultavatar.png";
+import defaultAvatar from "../../../assets/defaultavatar.png";
+
 
 const MainBody = () => {
     const missionsScrollRef = useRef(null);
@@ -51,11 +52,14 @@ const MainBody = () => {
                                     </Button>
                                 </Link>
                             </div>
-                            <img
+                            <div>
+                                <img
                                 alt="User Avatar"
                                 src={  defaultAvatar}
                                 className="mp-avatar"
-                            />
+                                />
+                            </div>
+                            
                     </div>
     
 
