@@ -1,7 +1,6 @@
 import React , { useState, useEffect } from 'react';
 import './ProfilePage.css';
 import {Header, Footer} from "../../shared/components/publicComponents"
-
 import { studentApi } from '../../shared/api/endpoints/student-api';
 
 import UserProfile from './UserProfile/UserProfile'; 
@@ -38,7 +37,7 @@ function ProfilePage() {
     return (
       <div className="App">
         <Header />
-        <div className="loading">Загрузка профиля...</div>
+        <h2 className="loading">Загрузка профиля...</h2>
         <Footer />
       </div>
     );
@@ -48,7 +47,10 @@ function ProfilePage() {
     return (
       <div className="App">
         <Header />
-        <div className="error">Ошибка: {error}</div>
+        <div className='error'>
+          <h2>Ошибка</h2>
+          <p>Не удалось подключиться к серверу</p>
+        </div>
         <Footer />
       </div>
     );
@@ -73,11 +75,14 @@ function ProfilePage() {
           <UserProfile 
             profile={profileData.profile}
           />
-          <ArtifactList />
+          <ArtifactList 
+            artifacts={profileData.artifacts}
+          />
         </div>
         <div className="stats-trans-container">
           <UserInfoPanel 
-            artifacts={profileData.profile.artifacts}
+            profile={profileData.profile}
+            skills={profileData.skills}
           />
           <TransactionJournal />
         </div>

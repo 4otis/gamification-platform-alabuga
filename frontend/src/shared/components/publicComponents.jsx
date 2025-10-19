@@ -31,14 +31,13 @@ export const Footer = () =>{
         <footer className="footer">
                     
                 <div className="footer-content">
-                <a>
-                    <img src={logo} alt="Logo" className="footer-logo" />
-                </a>
-                <div>
-                    <p>«Hackathon Alabuga 2025 | MVP version».</p>
-                    <p>© 2025 Your Company. All rights reserved.</p>
-                </div>
-                
+                    <a>
+                        <img src={logo} alt="Logo" className="footer-logo" />
+                    </a>
+                    <div>
+                        <p>«Hackathon Alabuga 2025 | MVP version».</p>
+                        <p>© 2025 Your Company. All rights reserved.</p>
+                    </div>
                 </div>
         </footer>
     );

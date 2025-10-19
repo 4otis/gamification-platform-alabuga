@@ -1,12 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';  // Импортируем Link для создания ссылки
 import './MainPage.css';
+import { Link } from 'react-router-dom';  // Импортируем Link для создания ссылки
+import {Header, Footer} from "../../shared/components/publicComponents";
+import FeedBack from "./Feedback/Feeback.jsx";
+import MainBody from "./profile+mission+leaderboard/ProfileMissionLeaderbord.jsx";
+import InfoBody from "./Info/Info.jsx";
 
 function MainPage() {
   return (
     <div className="App">
-      <Link to="/profile">Перейти на страницу профиля</Link> {/* Ссылка на страницу профиля */}
-      <Link to="/cources">Перейти на страницу миссий</Link> {/* Ссылка на страницу профиля */}
+      <Header />
+      <MainBody />
+      <InfoBody />
+      <FeedBack />
+      <Footer />
     </div>
   );
 }

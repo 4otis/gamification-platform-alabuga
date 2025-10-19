@@ -35,13 +35,13 @@ function ArtifactList() {
   const getBackgroundColor = (rarity) => {
     switch (rarity) {
       case 'Обычная':
-        return '#cdcdcdff'; 
+        return '#d4d4d4ff'; 
       case 'Редкая':
-        return '#5caebfb6';
+        return '#6ac4d6b6';
       case 'Эпическая':
-        return '#3bbbd4b6'; 
+        return '#3b8fd4b6'; 
       case 'Легендарная':
-        return '#216afaaa';
+        return '#fabc21aa';
       default:
         return '#ffffff';
     }
@@ -53,27 +53,25 @@ function ArtifactList() {
         {/* Прокручиваемый список с двумя элементами в ряду */}
         <Grid container spacing={2} justifyContent="center">
           {items.map((item, index) => (
-            <Grid className="" width={200} item xs={6} key={index}> {/* xs=6: по 2 элемента в ряду */}
-              <Card
-                onClick={() => handleClickOpen(item)}
-                className="item-card"
-                style={{ backgroundColor: getBackgroundColor(item.rarity) }} // Изменение фона в зависимости от редкости
-              >
-                <img
-                  alt={item.name}
-                  src={item.imageUrl}
-                  className="item-image"
-                />
-                <CardContent>
-                  <Typography className='artifactName' variant="h6" gutterBottom>
-                    {item.name}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Редкость: {item.rarity} {/* Выводим редкость */}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+            <Card
+              onClick={() => handleClickOpen(item)}
+              className="item-card"
+              style={{ backgroundColor: getBackgroundColor(item.rarity) }} // Изменение фона в зависимости от редкости
+            >
+              <img
+                alt={item.name}
+                src={item.imageUrl}
+                className="item-image"
+              />
+              <CardContent>
+                <Typography className='artifactName' variant="h6" gutterBottom>
+                  {item.name}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Редкость: {item.rarity} {/* Выводим редкость */}
+                </Typography>
+              </CardContent>
+            </Card>
           ))}
         </Grid>
       </Box>

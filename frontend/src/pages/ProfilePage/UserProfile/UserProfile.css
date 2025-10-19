@@ -34,6 +34,10 @@
   max-width: auto;
 }
 
+.customization-link{
+  width: 100%;
+}
+
 .customization-button {
   width: 100%;
 }
