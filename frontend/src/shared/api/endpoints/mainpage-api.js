@@ -1,14 +1,14 @@
 import { httpClient } from '../client/http-client';
 
-class StudentApi {
+class MainPageApi {
   /**
    * Получить профиль студента
    * @param {number} studentId - ID студента
    * @returns {Promise} Promise с данными профиля
    */
-  async getProfile(studentId) {
+  async getMainPage(studentId) {
     // Используем наш httpClient вместо прямого fetch
-    return httpClient.get(`/student/${studentId}/profile`);
+    return httpClient.get(`/student/${studentId}/main`);
   }
 
   /**
@@ -17,8 +17,8 @@ class StudentApi {
    * @param {Object} profileData - данные профиля
    * @returns {Promise} Promise с обновленными данными
    */
-  async updateProfile(studentId, profileData) {
-    return httpClient.post(`/student/${studentId}/profile`, profileData);
+  async updateMainPage(studentId, profileData) {
+    return httpClient.post(`/student/${studentId}/main`, profileData);
   }
 
   // Позже можно добавить другие методы:
@@ -27,4 +27,4 @@ class StudentApi {
 }
 
 // Создаем и экспортируем экземпляр API
-export const studentApi = new StudentApi();
+export const mainPageApi = new MainPageApi();

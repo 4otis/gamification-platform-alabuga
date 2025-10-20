@@ -1,7 +1,7 @@
 import React , { useState, useEffect } from 'react';
 import './ProfilePage.css';
 import {Header, Footer} from "../../shared/components/publicComponents"
-import { studentApi } from '../../shared/api/endpoints/student-api';
+import { studentProfileApi } from '../../shared/api/endpoints/profile-api';
 
 import UserProfile from './UserProfile/UserProfile'; 
 import ArtifactList from './ArtifactList/ArtifactList'; 
@@ -20,7 +20,7 @@ function ProfilePage() {
         setError(null);
 
         const studentId = 1; 
-        const data = await studentApi.getProfile(studentId);
+        const data = await studentProfileApi.getProfile(studentId);
         setProfileData(data);
       } catch (err) {
         console.error("Fetch error:", err);

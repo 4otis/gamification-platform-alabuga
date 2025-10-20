@@ -96,7 +96,13 @@ export default function ChaoticPixelsBackground({
       ref={canvasRef}
       className={`pointer-events-none absolute inset-0 w-full h-full ${className}`}
       aria-hidden={true}
-      style={{ width:'100%',height:'100%', position: 'fixed'}}
+      style={{position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 0, // Вот ключевое изменение
+        }}
     />
   );
 }
