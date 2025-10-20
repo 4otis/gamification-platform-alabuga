@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header, Footer } from "../../shared/components/publicComponents"; // Импортируем Header и Footer
 import "./CourseDetailPage.css";
+import MissionMap from "./MissionMap/MissionMap"
 
 const CourseDetailPage = () => {
   // Основная информация о курсе
@@ -59,9 +60,8 @@ const CourseDetailPage = () => {
                 <li><strong>Требуемый ранг:</strong> {courseInfo.rang}</li>
               </ul>
             </div>
-            <div className="actifact-container">
-              
-            </div>
+
+            <MissionMap />
             
           </div>
           
