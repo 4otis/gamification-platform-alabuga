@@ -29,7 +29,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 
 	studentService := services.NewStudentService(*studentRepo, *studentRankRepo, *skillRepo, *missionRepo, *studentsMissionsRepo, *studentsCoursesRepo)
 	missionService := services.NewMissionService(*missionRepo, *studentRepo, *studentsMissionsRepo, *missionsSkillsRepo, studentService)
-	courseService := services.NewCourseService(*courseRepo, *studentsCoursesRepo, *artifactRepo, *studentRepo)
+	courseService := services.NewCourseService(*courseRepo, *studentsCoursesRepo, *artifactRepo, *studentRepo, *studentsMissionsRepo)
 	// courseService := services.NewCourseService(*courseRepo, *missionRepo, *studentRepo, *studentsCoursesRepo, *artifactRepo)
 	rankingService := services.NewRankingService(*studentRepo, *skillRepo, *artifactRepo, *studentsSkillsRepo)
 	inventoryService := services.NewInventoryService(*itemRepo, *itemTypeRepo, *studentsItemsRepo, *studentRepo)
@@ -38,7 +38,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 
 	mainHandler := student.NewMainHandler(studentService, missionService, courseService, rankingService, inventoryService)
 	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService, loggingService)
-	inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
+	// inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
 
 	// g.StaticFile("/", "./index.html")
 	// g.StaticFile("/index.html", "./index.html")
@@ -56,7 +56,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	courseHandler := student.NewCourseHandler(courseService, missionService)
 	g.GET("/student/:student_id/courses/:course_id", courseHandler.GetCoursePage)
 
-	inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
+	// inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
 
 	// g.GET("/hr/analytic/courses/", analyticHandler.GetAllCoursesConversion)
 	// g.GET("/hr/:hr_id/analytic/courses/", analyticHandler.GetAllCoursesConversionByHRID)
@@ -80,9 +80,9 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	// g.PATCH("/hr/:hr_id/courses/edit/mission_id", courseHandler.PatchMission)
 	// g.DELETE("/hr/:hr_id/courses/edit/mission_id", courseHandler.DeleteMission)
 
-	g.GET("/student/:student_id/missions/:mission_id", missionHandler.GetMission)
-	g.POST("/student/:student_id/missions/:mission_id", missionHandler.UploadFile)
-	g.POST("/student/:student_id/missions/:mission_id", missionHandler.CompleteMission)
+	// g.GET("/student/:student_id/missions/:mission_id", missionHandler.GetMission)
+	// g.POST("/student/:student_id/missions/:mission_id", missionHandler.UploadFile)
+	// g.POST("/student/:student_id/missions/:mission_id", missionHandler.CompleteMission)
 
 	// // ранги + артифакта
 	// g.GET("/hr/assets/rarities", coursesHandler.GetAllRarities)
