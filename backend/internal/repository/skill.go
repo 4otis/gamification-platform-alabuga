@@ -37,16 +37,3 @@ func (r *SkillRepository) Delete(ctx context.Context, id uint) error {
 	result := r.db.WithContext(ctx).Delete(&models.Skill{}, id)
 	return result.Error
 }
-
-func (r *SkillRepository) GetSkillsByMissionID(ctx context.Context, missionID uint) ([]*models.Skill, error) {
-	var skills []*models.Skill
-	err := r.db.WithContext(ctx).
-		Joins("JOIN missions_skills ms ON skills.id = ms.skill_id").
-		Where("ms.mission_id = ?", missionID).
-		Find(&skills).Error
-	if err != nil {
-		return nil, err
-	}
-
-	return skills, nil
-}

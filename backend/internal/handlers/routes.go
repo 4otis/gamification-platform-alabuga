@@ -1,10 +1,13 @@
 package handlers
 
 import (
+	"time"
+
 	_ "github.com/4otis/gamification-platform-alabuga/docs"
 	"github.com/4otis/gamification-platform-alabuga/internal/handlers/student"
 	"github.com/4otis/gamification-platform-alabuga/internal/repository"
 	"github.com/4otis/gamification-platform-alabuga/internal/services"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -12,6 +15,15 @@ import (
 )
 
 func SetupRoutes(g *gin.Engine, db *gorm.DB) {
+	g.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
+		AllowHeaders:     []string{"Origin", "Content-Type"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+
 	studentRepo := repository.NewStudentRepository(db)
 	studentRankRepo := repository.NewStudentRankRepository(db)
 	skillRepo := repository.NewSkillRepository(db)
@@ -29,9 +41,8 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 
 	studentService := services.NewStudentService(*studentRepo, *studentRankRepo, *skillRepo, *missionRepo, *studentsMissionsRepo, *studentsCoursesRepo)
 	missionService := services.NewMissionService(*missionRepo, *studentRepo, *studentsMissionsRepo, *missionsSkillsRepo, studentService)
-	courseService := services.NewCourseService(*courseRepo, *studentsCoursesRepo, *artifactRepo, *studentRepo, *studentsMissionsRepo)
-	// courseService := services.NewCourseService(*courseRepo, *missionRepo, *studentRepo, *studentsCoursesRepo, *artifactRepo)
-	rankingService := services.NewRankingService(*studentRepo, *skillRepo, *artifactRepo, *studentsSkillsRepo)
+	courseService := services.NewCourseService(*courseRepo, *missionRepo, *studentRepo, *studentsCoursesRepo)
+	rankingService := services.NewRankingService(*studentRepo, *skillRepo, *artifactRepo, *studentsSkillsRepo, *missionsSkillsRepo)
 	inventoryService := services.NewInventoryService(*itemRepo, *itemTypeRepo, *studentsItemsRepo, *studentRepo)
 	shopService := services.NewShopService(*studentRepo, *studentsMerchesRepo)
 	loggingService := services.NewLoggingService(missionService, rankingService, courseService, shopService)
@@ -40,8 +51,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService, loggingService)
 	// inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
 
-	// g.StaticFile("/", "./index.html")
-	// g.StaticFile("/index.html", "./index.html")
+	g.Static("/static", "./static")
 
 	g.GET("/student/:student_id/main", mainHandler.GetMainPage)
 
@@ -105,13 +115,4 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	// g.PATCH("/hr/:hr_id/shop/:merch_id/edit", shopHandler.PatchMerch)
 
 	g.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-	// g.Use(cors.New(cors.Config{
-	// 	AllowOrigins:     []string{"*"},
-	// 	AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
-	// 	AllowHeaders:     []string{"Origin", "Content-Type"},
-	// 	ExposeHeaders:    []string{"Content-Length"},
-	// 	AllowCredentials: true,
-	// 	MaxAge:           12 * time.Hour,
-	// }))
 }

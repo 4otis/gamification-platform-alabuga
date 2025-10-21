@@ -36,10 +36,11 @@ func (r *StudentsSkillsRepository) Delete(id uint) error {
 	return r.db.Delete(&models.StudentsSkills{}, id).Error
 }
 
-func (r *StudentsSkillsRepository) GetAllSkillsByStudentID(ctx context.Context, studentID uint) ([]*models.Skill, error) {
-	var skills []*models.Skill
+func (r *StudentsSkillsRepository) GetAllSkillsByStudentID(ctx context.Context, studentID uint) ([]*models.StudentsSkills, error) {
+	var skills []*models.StudentsSkills
 	err := r.db.WithContext(ctx).
-		Joins("JOIN students_skills ss ON ss.skill_id = skills.id").
+		Preload("Skill").
+		Where("student_id = ?", studentID).
 		Find(&skills).Error
 	if err != nil {
 		return nil, err

@@ -1,0 +1,96 @@
+/* Общий стиль для страницы */
+.course-detail-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color:black;
+  align-items: center;
+}
+
+.course-detail-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.course-info {
+  width:70vw;
+  height: min-content;
+  background-color: #f1f1f1;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.additional-info-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+}
+.time-to-finish, .percent-finishing, .required-rank{
+  font-size: 1.2em ;
+  padding: 10px 0px;
+  border-radius: 10px;
+  background-color: #9aceea;
+  width: 30%;
+}
+
+/* Стили для бокового списка с прокруткой */
+
+.missions-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
+  max-width: 25vw;
+  overflow-y: auto;
+  border-left: 3px solid #ccc;
+  
+  padding-left: 20px;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Стили для каждого этапа */
+.stage-container {
+  margin-bottom: 20px;
+}
+
+.stage-container h3 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+/* Стили для каждой миссии */
+.mission-list {
+  list-style: none;
+  padding: 0;
+}
+
+.mission-item {
+  font-size: 1.1em;
+  padding: 8px;
+  border-bottom: 1px dashed #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+.mission-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* Стиль для выполненных миссий */
+.mission-item.completed {
+  opacity: 0.6; /* Уменьшаем прозрачность для выполненных миссий */
+  text-decoration: line-through; /* Перечеркиваем текст */
+}
+
+.mission-item.completed:hover {
+  background-color: #e0e0e0;
+}
