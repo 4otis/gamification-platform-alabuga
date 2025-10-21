@@ -21,7 +21,9 @@ func (r *ArtifactRepository) Create(ctx context.Context, artifact *models.Artifa
 
 func (r *ArtifactRepository) Read(ctx context.Context, id uint) (*models.Artifact, error) {
 	var artifact models.Artifact
-	err := r.db.WithContext(ctx).First(&artifact, id).Error
+	err := r.db.WithContext(ctx).
+		Preload("Rarity").
+		First(&artifact, id).Error
 	if err != nil {
 		return nil, err
 	}
