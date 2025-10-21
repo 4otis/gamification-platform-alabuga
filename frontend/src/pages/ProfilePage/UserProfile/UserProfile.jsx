@@ -8,10 +8,10 @@ function UserProfile( {profile}) {
   return (
     <Box className="user-profile-container">
       <div container='user-name-avatar'>
-        <Typography variant="h6" className="user-rank">
+        <Typography variant="h5" className="user-rank">
           {profile.student.rank}
         </Typography>
-        <Typography variant="h6" className="user-name">
+        <Typography variant="h5" className="user-name">
           {profile.student.name + " " + 
           profile.student.surname + " " + 
           profile.student.patronymic}

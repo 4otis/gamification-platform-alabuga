@@ -5,6 +5,7 @@
   min-height: 100vh;
   font-family: Arial, sans-serif;
   color:black;
+  align-items: center;
 }
 
 .course-detail-content {
@@ -17,20 +18,26 @@
 
 .course-info {
   width:70vw;
+  height: min-content;
   background-color: #f1f1f1;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-.course-info h1 {
-  font-size: 2em;
-  margin-bottom: 15px;
+.additional-info-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
 }
-
-.course-info p {
-  font-size: 1.1em;
-  line-height: 1.5;
+.time-to-finish, .percent-finishing, .required-rank{
+  font-size: 1.2em ;
+  padding: 10px 0px;
+  border-radius: 10px;
+  background-color: #9aceea;
+  width: 30%;
 }
 
 /* Стили для бокового списка с прокруткой */
@@ -39,8 +46,10 @@
   display: flex;
   flex-direction: column;
   max-height: 600px;
+  max-width: 25vw;
   overflow-y: auto;
-  border-left: 2px solid #ccc;
+  border-left: 3px solid #ccc;
+  
   padding-left: 20px;
   gap: 10px;
   margin-top: 10px;

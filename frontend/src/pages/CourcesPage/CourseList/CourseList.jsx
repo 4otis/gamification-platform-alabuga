@@ -93,7 +93,7 @@ const CourseList = ({name}) => {
       <div className="course-list">
         {courses.map(course => (
           <div key={course.id} className="course-item">
-            <h3><Link to="./cource-detail" style={{ textDecoration: 'none', color: "black" }}>{course.title}</Link></h3>
+            <h3><Link to="./detail" style={{ textDecoration: 'none', color: "black" }}>{course.title}</Link></h3>
             <p className='p-rank'><strong>Требуемый ранг:</strong> {course.requiredRank}</p>
             <div className="mana-exp-container">
               <p><strong>Мана: </strong>+{course.mana}</p>

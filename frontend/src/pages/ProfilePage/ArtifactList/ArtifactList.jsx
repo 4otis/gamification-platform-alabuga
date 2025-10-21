@@ -48,7 +48,7 @@ function ArtifactList() {
   };
 
   return (
-    <Box className="item-list-container">
+    <div className="item-list-container">
       <Box className="scrollable-list">
         {/* Прокручиваемый список с двумя элементами в ряду */}
         <Grid container spacing={2} justifyContent="center">
@@ -64,7 +64,7 @@ function ArtifactList() {
                 className="item-image"
               />
               <CardContent>
-                <Typography className='artifactName' variant="h6" gutterBottom>
+                <Typography className='artifactName' variant="h5" gutterBottom>
                   {item.name}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
@@ -90,7 +90,7 @@ function ArtifactList() {
           </Button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </div>
   );
 }
 

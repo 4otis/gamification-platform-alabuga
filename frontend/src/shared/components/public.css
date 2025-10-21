@@ -1,12 +1,3 @@
-.root *::-webkit-scrollbar {
-  width: 8px;
-}
-
-.root *::-webkit-scrollbar-thumb {
-  background-color: #1976d2;
-  border-radius: 10px;
-}
-
 .app-bar {
   width: 90% ;
   background-color: #00A7D2 !important;

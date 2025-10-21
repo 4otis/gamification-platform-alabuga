@@ -97,34 +97,9 @@ const rankIcon=()=>{
     )
 }
 
-const MainBody = ({profile, missions, leaderlist, currentPosition}) => {
-    const leaderboardScrollRef = useRef(null);
-    const [currentUser, setCurrentUser] = useState(null);
-
-    const findUserByName = (name) => {
-        const foundUser = users.users.find(user =>
-            user.name.toLowerCase().includes(name.toLowerCase())
-        );
-        setCurrentUser(foundUser || null);
-    };
-
-    useEffect(() => {
-        findUserByName("Петр Петров");
-    }, [])
-
-    return (
-        <div className="main-body">
-        
-
-            <div className="main-container">
-                <div className="profile-missions-section">
-                    <div className="mp-user-container">
-                            <Link className="profile-link"
-                                to='/profile'
-                                style={{top: 0, right: 0, position:"absolute", margin:"20px"}}
-                            >
-                                <Button variant="contained" color="primary" className="profile-button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="Interface-Essential-Expand-3--Streamline-Pixel" height="32" width="32">
+const profileIcon=()=>{
+    return(
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="Interface-Essential-Expand-3--Streamline-Pixel" height="32" width="32">
                                         <g>
                                             <path d="M30.47 18.29H32v12.19h-1.53Z" fill="#ffffff" stroke-width="1"></path>
                                             <path d="M30.47 1.52H32v12.19h-1.53Z" fill="#ffffff" stroke-width="1"></path>
@@ -175,6 +150,37 @@ const MainBody = ({profile, missions, leaderlist, currentPosition}) => {
                                             <path d="M0 1.52h1.52v12.19H0Z" fill="#ffffff" stroke-width="1"></path>
                                         </g>
                                         </svg>
+    )
+}
+
+const MainBody = ({profile, missions, leaderlist, currentPosition}) => {
+    const leaderboardScrollRef = useRef(null);
+    const [currentUser, setCurrentUser] = useState(null);
+
+    const findUserByName = (name) => {
+        const foundUser = users.users.find(user =>
+            user.name.toLowerCase().includes(name.toLowerCase())
+        );
+        setCurrentUser(foundUser || null);
+    };
+
+    useEffect(() => {
+        findUserByName("Петр Петров");
+    }, [])
+
+    return (
+        <div className="main-body">
+        
+
+            <div className="main-container">
+                <div className="profile-missions-section">
+                    <div className="mp-user-container">
+                            <Link className="profile-link"
+                                to='/profile'
+                                style={{top: 0, right: 0, position:"absolute", margin:"20px"}}
+                            >
+                                <Button variant="contained" color="primary" className="profile-button">
+                                    {profileIcon()}
                                 </Button>
                             </Link>
                             <div className='user-info-container'
@@ -232,14 +238,18 @@ const MainBody = ({profile, missions, leaderlist, currentPosition}) => {
                                         <div className="mission-content">
                                             <h3 className="mission-title">{mission.title}</h3>
                                             <p className="mission-description">{mission.descr}</p>
-                                            <a href="#" className="mission-link">Узнать подробнее</a>
+                                            <Link to="cources/detail" className="mission-link">Узнать подробнее</Link>
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                            <button className="new-course-button">
-                                На новый курс
-                            </button>
+                            <div className='to-cources-buttons'>
+                                <Link to="/cources" style={{width:"100%"}}>
+                                    <Button variant="contained" color="primary" className="new-course-button">
+                                        На новый курс
+                                    </Button>
+                                </Link>
+                            </div>
                     </div>
                 </div>
 

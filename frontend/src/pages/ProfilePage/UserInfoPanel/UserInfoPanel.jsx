@@ -21,16 +21,16 @@ function UserInfoPanel( {profile, skills}) {
       <Box className="user-stats">
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <Typography variant="h6" className="mana-text">Мана: {userStats.mana}</Typography>
+            <Typography variant="h5" className="mana-text">Мана: {userStats.mana}</Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography variant="h6" className="experience-text">Опыт: {userStats.experience}</Typography>
+            <Typography variant="h5" className="experience-text">Опыт: {userStats.experience}</Typography>
           </Grid>
         </Grid>
       </Box>
 
       {/* Прокручиваемый список компетенций */}
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" gutterBottom>
           Компетенции:
         </Typography>
       <Box className="competencies-list">
