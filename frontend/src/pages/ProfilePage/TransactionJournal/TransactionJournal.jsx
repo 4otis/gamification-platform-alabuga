@@ -21,15 +21,14 @@ function TransactionJournal() {
 
   return (
     <Box className="transaction-journal">
-      <Grid container spacing={2}>
         {/* Список транзакций */}
         <Grid className="transaction-frame" item xs={6}>
+          <Typography variant="h5" className='transaction-list-title'gutterBottom>Энергопоток</Typography>
+          <Divider />
           <Box className="transaction-list">
-            <Typography variant="h5" gutterBottom>Энергопоток</Typography>
             <List>
               {transactions.map((transaction) => (
                 <ListItem 
-                  button 
                   key={transaction.id} 
                   onClick={() => handleTransactionClick(transaction)} 
                   className="transaction-item"
@@ -47,7 +46,7 @@ function TransactionJournal() {
         {/* Панель с информацией о выбранной транзакции */}
           <Box className="transaction-info">
             {selectedTransaction ? (
-              <Box>
+              <div style={{height:"100%"}}>
                 <Typography variant="h6" gutterBottom>
                   Информация о транзакции
                 </Typography>
@@ -57,12 +56,11 @@ function TransactionJournal() {
                 <Typography variant="body1"><strong>Детали:</strong> {selectedTransaction.details}</Typography>
                 <Typography variant="body1"><strong>Mana:</strong> {selectedTransaction.amount}</Typography>
                 <Typography variant="body1"><strong>Опыт:</strong> {selectedTransaction.amount}</Typography>
-              </Box>
+              </div>
             ) : (
               <Typography variant="body2" color="textSecondary">Выберите транзакцию для просмотра информации</Typography>
             )}
           </Box>
-      </Grid>
     </Box>
   );
 }

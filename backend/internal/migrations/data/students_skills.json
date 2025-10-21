@@ -1,25 +1,25 @@
 [
     {
         "id": 1,
-        "score": 45.5,
+        "score": 5.5,
         "student_id": 1,
         "skill_id": 1
     },
     {
         "id": 2,
-        "score": 30.2,
+        "score": 9.2,
         "student_id": 1,
         "skill_id": 2
     },
     {
         "id": 3,
-        "score": 85.7,
+        "score": 5.7,
         "student_id": 2,
         "skill_id": 1
     },
     {
         "id": 4,
-        "score": 92.1,
+        "score": 2.1,
         "student_id": 2,
         "skill_id": 4
     },

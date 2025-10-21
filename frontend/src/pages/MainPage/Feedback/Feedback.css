@@ -1,0 +1,242 @@
+.feedback-background {
+    background: rgb(200,200,200,0.5  );
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0px;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+}
+
+.feedback-second-background {
+    background: #CACACA;
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 900px;
+    width: 100%;
+    position: relative;
+}
+
+.feedback-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #001F2F;
+    margin-bottom: 30px;
+}
+
+.input-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.info-input {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+    min-width: 250px;
+}
+
+.input {
+    background: white;
+    border: 2px solid #757575;
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 16px;
+    color: #001F2F;
+    font-weight: 600;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #00A7D2;
+}
+
+.input::placeholder {
+    color: #757575;
+    font-weight: 500;
+}
+
+.feedback-textarea {
+    background: white;
+    border: 2px solid #757575;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 16px;
+    color: #001F2F;
+    font-weight: 600;
+    resize: vertical;
+    min-height: 200px;
+    transition: border-color 0.3s ease;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.feedback-textarea:focus {
+    outline: none;
+    border-color: #00A7D2;
+}
+
+.feedback-textarea::placeholder {
+    color: #757575;
+    font-weight: 500;
+}
+
+.submit-button {
+    background: #00A7D2;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+}
+
+.submit-button:hover {
+    background: #008AAC;
+}
+
+@media (max-width: 1024px) {
+    .feedback-second-background {
+        max-width: 800px;
+        padding: 30px;
+    }
+
+    .input-container {
+        gap: 20px;
+    }
+
+    .info-input {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .feedback-second-background {
+        padding: 25px;
+        margin: 0 10px;
+        max-width: 600px;
+    }
+
+    .input-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .info-input {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .feedback-title {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
+
+    .input,
+    .feedback-textarea {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .submit-button {
+        padding: 12px 25px;
+        font-size: 16px;
+        width: 180px;
+    }
+
+    .feedback-textarea {
+        min-height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .feedback-background {
+        padding: 20px 10px;
+        align-items: flex-start;
+    }
+
+    .feedback-second-background {
+        padding: 20px 15px;
+        margin: 0;
+    }
+
+    .feedback-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .input-container {
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .info-input {
+        gap: 12px;
+    }
+
+    .input,
+    .feedback-textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .submit-button {
+        width: 100%;
+        max-width: 200px;
+        padding: 12px 20px;
+    }
+
+    .feedback-textarea {
+        min-height: 120px;
+    }
+}
+
+@media (max-width: 360px) {
+    .feedback-background {
+        padding: 15px 5px;
+    }
+
+    .feedback-second-background {
+        padding: 15px 10px;
+    }
+
+    .feedback-title {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .input-container {
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .info-input {
+        gap: 10px;
+    }
+
+    .input,
+    .feedback-textarea {
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+    .submit-button {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}

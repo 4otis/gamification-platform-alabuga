@@ -1,0 +1,259 @@
+.mission-map-container {
+  position: relative;
+  border: 2px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f1f2f3;;
+  user-select: none;
+  touch-action: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 55%;
+}
+
+.mission-map-background {
+  position: absolute;
+  background: linear-gradient(45deg, #e8e8e8 25%, transparent 25%), 
+              linear-gradient(-45deg, #e8e8e8 25%, transparent 25%), 
+              linear-gradient(45deg, transparent 75%, #e8e8e8 75%), 
+              linear-gradient(-45deg, transparent 75%, #e8e8e8 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  transition: transform 0.05s ease-out;
+  
+}
+
+.mission-map-background:active {
+  cursor: grabbing;
+}
+
+.background-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.center-marker {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 0, 0, 0.3);
+  border: 2px solid red;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Вертикальное расположение этапов */
+.stage-area.vertical {
+  position: absolute;
+  border-bottom: 2px dashed #ccc;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.stage-area.vertical:last-child {
+  border-bottom: none;
+}
+
+.stage-label.vertical {
+  top: 0;
+  margin-bottom: 100px;
+  transform: rotate(-90deg);
+  transform-origin: left center;
+  background: rgba(255,255,255,0.95);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 5;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  margin-top: 60px;
+}
+
+/* Альтернативный стиль для вертикальных подписей */
+.stage-label.vertical.alternative {
+  transform: none;
+  writing-mode: horizontal-tb;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+}
+
+.mission-flag {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.mission-flag:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  z-index: 20;
+}
+
+.mission-flag:hover .mission-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.flag-pole {
+  width: 2px;
+  height: 30px;
+  background: #8B4513;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.flag {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 15px;
+  background: #e74c3c;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px 2px 0 0;
+  z-index: 3;
+}
+
+.mission-flag.completed .flag {
+  background: #27ae60;
+}
+
+.mission-flag.current .flag {
+  background: #3498db;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.1); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+.mission-tooltip {
+  width: 200px;
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.mission-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(0, 0, 0, 0.9);
+}
+
+.cource-mission-description {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-top: 4px;
+  white-space: normal;
+  max-width: 150px;
+  line-height: 1.3;
+}
+
+.viewport-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid #2c3e50;
+  pointer-events: none;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
+}
+
+.drag-hint {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.5;
+}
+
+.position-indicator {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  pointer-events: none;
+  z-index: 10;
+  font-family: monospace;
+}
+
+/* Дополнительные стили для лучшего отображения вертикальной структуры */
+.stage-area.vertical {
+  background: linear-gradient(to bottom, 
+    rgba(255,255,255,0.1) 0%, 
+    rgba(255,255,255,0.05) 50%, 
+    rgba(255,255,255,0.1) 100%);
+}
+
+.stage-area.vertical:nth-child(odd) {
+  background: linear-gradient(to bottom, 
+    rgba(100, 150, 255, 0.05) 0%, 
+    rgba(100, 150, 255, 0.02) 50%, 
+    rgba(100, 150, 255, 0.05) 100%);
+}
+
+.stage-area.vertical:nth-child(even) {
+  background: linear-gradient(to bottom, 
+    rgba(255, 150, 100, 0.05) 0%, 
+    rgba(255, 150, 100, 0.02) 50%, 
+    rgba(255, 150, 100, 0.05) 100%);
+}

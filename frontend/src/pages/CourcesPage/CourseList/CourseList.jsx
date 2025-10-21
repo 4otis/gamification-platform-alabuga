@@ -1,6 +1,7 @@
 import React from 'react';
 import './CourseList.css'; 
 import {Link} from 'react-router-dom';
+import { Typography } from '@mui/material';
 
 const courses = [
   {
@@ -88,11 +89,11 @@ const courses = [
 const CourseList = ({name}) => {
   return (
     <div className="course-list-container">
-      <h2>{name}</h2>
+      <Typography variant='h4' className='course-list-head'>{name}</Typography>
       <div className="course-list">
         {courses.map(course => (
           <div key={course.id} className="course-item">
-            <h3><Link to="./cource-detail" style={{ textDecoration: 'none', color: "black" }}>{course.title}</Link></h3>
+            <h3><Link to="./detail" style={{ textDecoration: 'none', color: "black" }}>{course.title}</Link></h3>
             <p className='p-rank'><strong>Требуемый ранг:</strong> {course.requiredRank}</p>
             <div className="mana-exp-container">
               <p><strong>Мана: </strong>+{course.mana}</p>

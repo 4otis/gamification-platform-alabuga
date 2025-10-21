@@ -1,6 +1,8 @@
 import React from 'react';
-import { Header, Footer } from "../publicComponents/publicComponents"; // Импортируем Header и Footer
+import { Header, Footer } from "../../shared/components/publicComponents"; // Импортируем Header и Footer
 import "./CourseDetailPage.css";
+import MissionMap from "./MissionMap/MissionMap"
+import { Typography } from '@mui/material';
 
 const CourseDetailPage = () => {
   // Основная информация о курсе
@@ -16,70 +18,91 @@ const CourseDetailPage = () => {
   // Этапы с миссиями
   const stages = [
     {
-      stage: 1,
+      id: 1,
+      name: "Начальный этап",
       missions: [
-        { id: 1, title: "Изучить переменные и типы данных", completed: true },
-        { id: 2, title: "Изучить операторы и условия", completed: true},
-        { id: 3, title: "Решить задачи на циклы", completed: true },
-        { id: 4, title: "Создать свою первую функцию", completed: true }
+        { id: 1, name: "Знакомство", description: "Познакомьтесь с системойLorem ipsum dolor sit amet consectetur adipisicing elit. Libero nam maxime id quidem earum consectetur impedit accusantium molestiae, saepe, natus voluptatibus vel molestias tempora. Porro tempora eligendi minima provident voluptas", completed: true },
+        { id: 2, name: "Обучение", description: "Пройдите обучение", completed: true },
+        { id: 3, name: "Первая задача", description: "Выполните первую задачу", current: true },
+        { id: 4, name: "Базовые настройки", description: "Настройте профиль", completed: true }
       ]
     },
     {
-      stage: 2,
+      id: 2,
+      name: "Развитие навыков",
       missions: [
-        { id: 5, title: "Изучить асинхронность", completed: true },
-        { id: 6, title: "Разобраться с промисами", completed: false },
-        { id: 7, title: "Понять async/await", completed: true },
-        { id: 8, title: "Создать HTTP запросы", completed: false }
+        { id: 5, name: "Исследование", description: "Исследуйте возможности" },
+        { id: 6, name: "Эксперименты", description: "Проведите эксперименты" },
+        { id: 7, name: "Практика", description: "Закрепите навыки" }
       ]
     },
     {
-      stage: 3,
+      id: 3,
+      name: "Продвинутый уровень",
       missions: [
-        { id: 9, title: "Пройти тест по основам JavaScript", completed: false },
-        { id: 10, title: "Создать проект на JavaScript", completed: true },
-        { id: 11, title: "Изучить основы ES6", completed: false }
+        { id: 8, name: "Сложные задачи", description: "Решите сложные задачи" },
+        { id: 9, name: "Оптимизация", description: "Оптимизируйте процессы" }
+      ]
+    },
+    {
+      id: 4,
+      name: "Завершение и сертификация",
+      missions: [
+        { id: 10, name: "Финальный тест", description: "Пройдите финальный тест" },
+        { id: 11, name: "Достижение", description: "Получите достижение" },
+        { id: 12, name: "Сертификация", description: "Получите сертификат" }
       ]
     }
   ];
 
   return (
-    <div className="course-detail-page">
+    <div className="course-detail-page App">
       <Header />
       
       <main className="course-detail-content">
         <section className="course-info">
-          <h1>{courseInfo.title}</h1>
+          <Typography variant='h3' className='course-title'>{courseInfo.title}</Typography>
           <div className="cource-info-container">
             <div className="descriprion-container">
-              <p>{courseInfo.description}</p>
-              <ul>
-                <li><strong>Время на выполнение:</strong> {courseInfo.duration} дней</li>
-                <li><strong>Процент выполнения: </strong> {"34% из "+courseInfo.minCompletion}%</li>
-                <li><strong>Требуемый ранг:</strong> {courseInfo.rang}</li>
-              </ul>
-            </div>
-            <div className="actifact-container">
+              <Typography variant='p' className='cource-descr'>{courseInfo.description}</Typography>
+              <div className='additional-info-container'>
+                <Typography variant='p' className="time-to-finish">
+                  <strong>Время на выполнение:</strong> 
+                  <br/>{courseInfo.duration} дней
+                </Typography>
+                <Typography variant='p' className="percent-finishing">
+                  <strong>Процент выполнения: </strong> 
+                  <br/>{"34% из "+courseInfo.minCompletion}%
+                </Typography>
+                <Typography variant='' className='required-rank'>
+                  <strong>Требуемый ранг:</strong>
+                  <br/> {courseInfo.rang}
+                </Typography>
+              </div>
               
             </div>
+
+            <MissionMap 
+              stages={stages}
+            />
             
           </div>
           
         </section>
         
         <section className="course-missions">
-          <h2>Этапы и Миссии</h2>
+          <Typography variant='h5'>Этапы и Миссии</Typography>
           <div className="missions-list">
             {stages.map(stage => (
-              <div key={stage.stage} className="stage-container">
-                <h3>Этап {stage.stage}</h3>
+              <div key={stage.name} className="stage-container">
+                <h3>{stage.name}</h3>
                 <ul className="mission-list">
                   {stage.missions.map(mission => (
                     <li
                       key={mission.id}
                       className={`mission-item ${mission.completed ? 'completed' : ''}`}
                     >
-                      {`${stage.stage}.${mission.id} ${mission.title}`}
+                      {`${stage.name}.${mission.id} ${mission.name}`}
                     </li>
                   ))}
                 </ul>
