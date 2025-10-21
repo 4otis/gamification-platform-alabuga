@@ -41,7 +41,7 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 
 	studentService := services.NewStudentService(*studentRepo, *studentRankRepo, *skillRepo, *missionRepo, *studentsMissionsRepo, *studentsCoursesRepo)
 	missionService := services.NewMissionService(*missionRepo, *studentRepo, *studentsMissionsRepo, *missionsSkillsRepo, studentService)
-	courseService := services.NewCourseService(*courseRepo, *missionRepo, *studentRepo, *studentsCoursesRepo)
+	courseService := services.NewCourseService(*courseRepo, *artifactRepo, *studentRepo, *studentsCoursesRepo, *studentsMissionsRepo)
 	rankingService := services.NewRankingService(*studentRepo, *skillRepo, *artifactRepo, *studentsSkillsRepo, *missionsSkillsRepo)
 	inventoryService := services.NewInventoryService(*itemRepo, *itemTypeRepo, *studentsItemsRepo, *studentRepo)
 	shopService := services.NewShopService(*studentRepo, *studentsMerchesRepo)
@@ -49,13 +49,13 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 
 	mainHandler := student.NewMainHandler(studentService, missionService, courseService, rankingService, inventoryService)
 	profileHandler := student.NewProfileHandler(studentService, inventoryService, rankingService, loggingService)
-	// inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
 
 	g.Static("/static", "./static")
 
 	g.GET("/student/:student_id/main", mainHandler.GetMainPage)
 
 	g.GET("/student/:student_id/profile", profileHandler.GetProfile)
+	g.GET("/student/profile/history/:student_id", profileHandler.GetMissionHistory)
 
 	// g.GET("/student/profile/items/:student_id", itemsHandler.GetProfile)
 	// g.GET("/student/profile/items/:student_id", itemsHandler.GetAllItems)
@@ -63,18 +63,18 @@ func SetupRoutes(g *gin.Engine, db *gorm.DB) {
 	// g.GET("/student/profile/items", itemsHandler.GetItemTypes)
 	// g.PATCH("/student/profile/items/:student_id", itemsHandler.EquipItem) // ожидаем пачку
 
-	courseHandler := student.NewCourseHandler(courseService, missionService)
-	g.GET("/student/:student_id/courses/:course_id", courseHandler.GetCoursePage)
-
-	// inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
+	inventoryHandler := student.NewInventoryHandler(inventoryService, studentService)
+	g.GET("/student/:student_id/inventory", inventoryHandler.GetInventoryPage)
+	g.PATCH("/student/:student_id/inventory/equip", inventoryHandler.EquipItem)
 
 	// g.GET("/hr/analytic/courses/", analyticHandler.GetAllCoursesConversion)
 	// g.GET("/hr/:hr_id/analytic/courses/", analyticHandler.GetAllCoursesConversionByHRID)
 	// g.GET("/hr/analytic/courses/detailed/:course_id", analyticHandler.GetDetailedCourse) // student + course + mission + students_missions + students_courses
 
 	// // курсы
+	courseHandler := student.NewCourseHandler(courseService, missionService)
 	// g.GET("/student/:student_id/courses", coursesHandler.GetAllCourses) // вообще все курсы (доступные, завершенные, неначатые)
-	// g.GET("/student/:student_id/courses/:course_id", coursesHandler.GetCourse)
+	g.GET("/student/:student_id/courses/:course_id", courseHandler.GetCoursePage)
 	// g.POST("/student/:student_id/courses/:course_id/join", coursesHandler.JoinCourse)
 	// g.POST("/student/:student_id/missions/:mission_id", missionHandler.CompleteMission)
 

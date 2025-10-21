@@ -21,15 +21,14 @@ type courseService struct {
 	studentsCoursesRepo  repository.StudentsCoursesRepository
 	artifactRepo         repository.ArtifactRepository
 	studentRepo          repository.StudentRepository
-	missionRepo          repository.MissionRepository
 	studentsMissionsRepo repository.StudentsMissionsRepository
 }
 
 func NewCourseService(
 	courseRepo repository.CourseRepository,
-	studentsCoursesRepo repository.StudentsCoursesRepository,
 	artifactRepo repository.ArtifactRepository,
 	studentRepo repository.StudentRepository,
+	studentsCoursesRepo repository.StudentsCoursesRepository,
 	studentsMissionsRepo repository.StudentsMissionsRepository,
 ) CourseService {
 	return &courseService{
