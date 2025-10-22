@@ -67,6 +67,10 @@
     justify-content: space-around;
     gap:10px;
 }
+.main-content-wrapper {
+    width: 100%;
+    z-index: 1;
+}
 
 @import "tailwindcss";
 @import "tw-animate-css";

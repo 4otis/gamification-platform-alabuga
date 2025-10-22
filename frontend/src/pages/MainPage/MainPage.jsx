@@ -5,7 +5,7 @@ import {Header, Footer} from "../../shared/components/publicComponents";
 import PixelBackground from '../../shared/components/pixelBackground/pixelBackground';
 import { mainPageApi } from '../../shared/api/endpoints/mainpage-api';
 
-import FeedBack from "./Feedback/Feeback.jsx";
+import FeedBack from "./Feedback/Feedback.jsx";
 import MainBody from "./profile+mission+leaderboard/ProfileMissionLeaderbord.jsx";
 import InfoBody from "./Info/Info.jsx";
 

@@ -3,6 +3,7 @@ import './ProfilePage.css';
 import {Header, Footer} from "../../shared/components/publicComponents"
 import { studentProfileApi } from '../../shared/api/endpoints/profile-api';
 
+import PixelBackground from '../../shared/components/pixelBackground/pixelBackground';
 import UserProfile from './UserProfile/UserProfile'; 
 import ArtifactList from './ArtifactList/ArtifactList'; 
 import UserInfoPanel from './UserInfoPanel/UserInfoPanel';
@@ -69,25 +70,33 @@ function ProfilePage() {
 
   return (
     <div className="App">
-      <Header />
-      <div className="main-content">
-        <div className="prof-art-container">
-          <UserProfile 
-            profile={profileData.profile}
-          />
-          <ArtifactList 
-            artifacts={profileData.artifacts}
-          />
+      <PixelBackground
+          pixelSize={6}
+          color={['#ceecffff']}
+          speed={600}
+          intensity={0.001} 
+        />
+      <div className='main-content-wrapper'>
+        <Header />
+        <div className="main-content">
+          <div className="prof-art-container">
+            <UserProfile 
+              profile={profileData.profile}
+            />
+            <ArtifactList 
+              artifacts={profileData.artifacts}
+            />
+          </div>
+          <div className="stats-trans-container">
+            <UserInfoPanel 
+              profile={profileData.profile}
+              skills={profileData.skills}
+            />
+            <TransactionJournal />
+          </div>
         </div>
-        <div className="stats-trans-container">
-          <UserInfoPanel 
-            profile={profileData.profile}
-            skills={profileData.skills}
-          />
-          <TransactionJournal />
-        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }

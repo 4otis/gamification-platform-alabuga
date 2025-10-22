@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './feedback.css';
+import './Feedback.css';
 
 const FeedBack = () => {
     const [text, setText] = useState('');
@@ -9,7 +9,7 @@ const FeedBack = () => {
         email: '',
         job: ''
     });
-
+    
     const handleTextChange = (e) => {
         setText(e.target.value);
     };

@@ -25,7 +25,7 @@ function UserProfile( {profile}) {
       </div>
       
       {/* Кнопка кастомизации */}
-      <Link className="customization-link" to='/profile/customization'>
+      <Link className="customization-link" to='/profile/customisation'>
         <Button variant="contained" color="primary" className="customization-button">
           Кастомизация
         </Button>

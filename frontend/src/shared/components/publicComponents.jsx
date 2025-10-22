@@ -34,7 +34,7 @@ export const Footer = () =>{
                     <a>
                         <img src={logo} alt="Logo" className="footer-logo" />
                     </a>
-                    <div>
+                    <div className="footer-text-container">
                         <p>«Hackathon Alabuga 2025 | MVP version».</p>
                         <p>© 2025 Your Company. All rights reserved.</p>
                     </div>
