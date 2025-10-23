@@ -3,6 +3,7 @@ import { Header, Footer } from "../../shared/components/publicComponents"; // И
 import "./CourseDetailPage.css";
 import MissionMap from "./MissionMap/MissionMap"
 import { Typography } from '@mui/material';
+import { USER} from "../../shared/globals";
 
 const CourseDetailPage = () => {
   // Основная информация о курсе

@@ -2,6 +2,7 @@ import React , { useState, useEffect } from 'react';
 import './ProfilePage.css';
 import {Header, Footer} from "../../shared/components/publicComponents"
 import { studentProfileApi } from '../../shared/api/endpoints/profile-api';
+import { USER} from "../../shared/globals";
 
 import PixelBackground from '../../shared/components/pixelBackground/pixelBackground';
 import UserProfile from './UserProfile/UserProfile'; 
@@ -20,8 +21,7 @@ function ProfilePage() {
         setLoading(true);
         setError(null);
 
-        const studentId = 1; 
-        const data = await studentProfileApi.getProfile(studentId);
+        const data = await studentProfileApi.getProfile(USER.id);
         setProfileData(data);
       } catch (err) {
         console.error("Fetch error:", err);

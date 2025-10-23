@@ -1,6 +1,7 @@
 import React from 'react';
 import CourseList from "./CourseList/CourseList";
 import {Header, Footer} from "../../shared/components/publicComponents"
+import { USER} from "../../shared/globals";
 
 function CourcesPage(){
     return(

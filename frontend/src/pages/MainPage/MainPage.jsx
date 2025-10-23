@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';  // Импортируем Link для 
 import {Header, Footer} from "../../shared/components/publicComponents";
 import PixelBackground from '../../shared/components/pixelBackground/pixelBackground';
 import { mainPageApi } from '../../shared/api/endpoints/mainpage-api';
+import { USER} from "../../shared/globals";
 
 import FeedBack from "./Feedback/Feedback.jsx";
 import MainBody from "./profile+mission+leaderboard/ProfileMissionLeaderbord.jsx";
@@ -20,8 +21,7 @@ function MainPage() {
         setLoading(true);
         setError(null);
 
-        const studentId = 1; /* подлежит к уничтожению */
-        const data = await mainPageApi.getMainPage(studentId);
+        const data = await mainPageApi.getMainPage(USER.id);
         setMainPageData(data);
       } catch (err) {
         console.error("Fetch error:", err);

@@ -3,6 +3,8 @@ import {Header, Footer} from "../../shared/components/publicComponents"
 import PixelBackground from '../../shared/components/pixelBackground/pixelBackground';
 import AvatarCustomizer from "./AvatarCustomizer/AvatarCustomizer";
 import { customisationApi } from '../../shared/api/endpoints/customization-api';
+import { USER} from "../../shared/globals";
+
 import "./CustomisationPage.css"
 
 function Customisation(){
@@ -17,8 +19,7 @@ function Customisation(){
             setLoading(true);
             setError(null);
     
-            const studentId = 1; /* подлежит к уничтожению */
-            const data = await customisationApi.getCustomisation(studentId);
+            const data = await customisationApi.getCustomisation(USER.id);
             setCustData(data);
             } catch (err) {
             console.error("Fetch error:", err);
