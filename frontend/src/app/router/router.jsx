@@ -1,19 +1,19 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import CourseDetailPage from "../../pages/CourseDetailPage/CourseDetailPage";
+import CoursesPage from "../../pages/CoursesPage/CoursesPage";
+import CustomisationPage from "../../pages/CustomisationPage/CustomisationPage";
 import MainPage from "../../pages/MainPage/MainPage";
 import ProfilePage from "../../pages/ProfilePage/ProfilePage";
-import CustomisationPage from "../../pages/CustomisationPage/CustomisationPage";
-import CourcesPage from "../../pages/CourcesPage/CourcesPage";
-import CourseDetailPage from "../../pages/CourseDetailPage/CourseDetailPage";
 
 export const AppRouter = () => {
   return (
     <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/profile" element={<ProfilePage />} /> 
-        <Route path="/profile/customisation" element={<CustomisationPage />} /> 
-        <Route path="/cources" element={<CourcesPage />} /> 
-        <Route path="/cources/detail" element={<CourseDetailPage />} /> 
+      <Route path="/" element={<MainPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/profile/customisation" element={<CustomisationPage />} />
+      <Route path="/courses" element={<CoursesPage />} />
+      <Route path="/courses/detail" element={<CourseDetailPage />} />
     </Routes>
   );
 };

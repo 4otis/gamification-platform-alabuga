@@ -11,16 +11,16 @@ export function NodeLevelGroup(missions) {
   const levelMap = new Map();
 
   sortedMissions.forEach(mission => {
-    const absLevel = Math.abs(mission.node_level);
-    
+    const absLevel = Math.abs(mission.node_lvl);
+
     if (!levelMap.has(absLevel)) {
       levelMap.set(absLevel, {
-        node_level: absLevel,
+        node_lvl: absLevel,
         missions: []
       });
       result.push(levelMap.get(absLevel));
     }
-    
+
     levelMap.get(absLevel).missions.push(mission);
   });
 

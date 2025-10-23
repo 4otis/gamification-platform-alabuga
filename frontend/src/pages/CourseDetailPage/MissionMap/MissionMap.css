@@ -3,7 +3,8 @@
   border: 2px solid #333;
   border-radius: 8px;
   overflow: hidden;
-  background: #f1f2f3;;
+  background: #f1f2f3;
+  ;
   user-select: none;
   touch-action: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -13,14 +14,14 @@
 
 .mission-map-background {
   position: absolute;
-  background: linear-gradient(45deg, #e8e8e8 25%, transparent 25%), 
-              linear-gradient(-45deg, #e8e8e8 25%, transparent 25%), 
-              linear-gradient(45deg, transparent 75%, #e8e8e8 75%), 
-              linear-gradient(-45deg, transparent 75%, #e8e8e8 75%);
+  background: linear-gradient(45deg, #e8e8e8 25%, transparent 25%),
+    linear-gradient(-45deg, #e8e8e8 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e8e8e8 75%),
+    linear-gradient(-45deg, transparent 75%, #e8e8e8 75%);
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
   transition: transform 0.05s ease-out;
-  
+
 }
 
 .mission-map-background:active {
@@ -33,9 +34,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
-    linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
   opacity: 0.5;
   pointer-events: none;
@@ -72,14 +73,14 @@
   margin-bottom: 100px;
   transform: rotate(-90deg);
   transform-origin: left center;
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   padding: 8px 16px;
   border-radius: 6px;
   font-weight: bold;
   font-size: 14px;
   border: 1px solid #ddd;
   white-space: nowrap;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 5;
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -150,9 +151,17 @@
 }
 
 @keyframes pulse {
-  0% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.1); }
-  100% { transform: translateX(-50%) scale(1); }
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
 }
 
 .mission-tooltip {
@@ -171,7 +180,7 @@
   visibility: hidden;
   transition: all 0.3s ease;
   z-index: 100;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .mission-tooltip::after {
@@ -187,7 +196,7 @@
   border-top: 6px solid rgba(0, 0, 0, 0.9);
 }
 
-.cource-mission-description {
+.course-mission-description {
   font-size: 11px;
   opacity: 0.8;
   margin-top: 4px;
@@ -205,7 +214,7 @@
   border: 3px solid #2c3e50;
   pointer-events: none;
   border-radius: 6px;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .drag-hint {
@@ -238,22 +247,22 @@
 
 /* Дополнительные стили для лучшего отображения вертикальной структуры */
 .stage-area.vertical {
-  background: linear-gradient(to bottom, 
-    rgba(255,255,255,0.1) 0%, 
-    rgba(255,255,255,0.05) 50%, 
-    rgba(255,255,255,0.1) 100%);
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.1) 100%);
 }
 
 .stage-area.vertical:nth-child(odd) {
-  background: linear-gradient(to bottom, 
-    rgba(100, 150, 255, 0.05) 0%, 
-    rgba(100, 150, 255, 0.02) 50%, 
-    rgba(100, 150, 255, 0.05) 100%);
+  background: linear-gradient(to bottom,
+      rgba(100, 150, 255, 0.05) 0%,
+      rgba(100, 150, 255, 0.02) 50%,
+      rgba(100, 150, 255, 0.05) 100%);
 }
 
 .stage-area.vertical:nth-child(even) {
-  background: linear-gradient(to bottom, 
-    rgba(255, 150, 100, 0.05) 0%, 
-    rgba(255, 150, 100, 0.02) 50%, 
-    rgba(255, 150, 100, 0.05) 100%);
+  background: linear-gradient(to bottom,
+      rgba(255, 150, 100, 0.05) 0%,
+      rgba(255, 150, 100, 0.02) 50%,
+      rgba(255, 150, 100, 0.05) 100%);
 }

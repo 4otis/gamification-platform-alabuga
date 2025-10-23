@@ -1,25 +1,25 @@
-import React, {useState, useEffect} from 'react';
-import { Header, Footer } from "../../shared/components/publicComponents";
-import {courseApi} from "../../shared/api/endpoints/course-api";
-import "./CourseDetailPage.css";
-import MissionMap from "./MissionMap/MissionMap"
 import { Typography } from '@mui/material';
-import { USER} from "../../shared/globals";
-import {NodeLevelGroup} from "./funcs/NodeLevelGroup.jsx"
+import React, { useEffect, useState } from 'react';
+import { courseApi } from "../../shared/api/endpoints/course-api";
+import { Footer, Header } from "../../shared/components/publicComponents";
+import { USER } from "../../shared/globals";
+import "./CourseDetailPage.css";
+import { NodeLevelGroup } from "./funcs/NodeLevelGroup.jsx";
+import MissionMap from "./MissionMap/MissionMap";
 
 const CourseDetailPage = () => {
-  const [courceDetailData, setCourceDetailData] = useState(null);
+  const [courseDetailData, setCourseDetailData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCourceDetailData= async () => {
+    const fetchCourseDetailData = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        const data = await courseApi.getDetailCourse(USER.id, USER.cource);
-        setCourceDetailData(data);
+        const data = await courseApi.getDetailCourse(USER.id, USER.course);
+        setCourseDetailData(data);
       } catch (err) {
         console.error("Fetch error:", err);
         setError(err.message);
@@ -28,14 +28,14 @@ const CourseDetailPage = () => {
       }
     };
 
-    fetchCourceDetailData();
+    fetchCourseDetailData();
   }, []);
-  
+
   if (loading) {
     return (
       <div className="App">
         <Header />
-          <h2 className="loading">Загрузка профиля...</h2>
+        <h2 className="loading">Загрузка профиля...</h2>
         <Footer />
       </div>
     );
@@ -54,11 +54,11 @@ const CourseDetailPage = () => {
     );
   }
 
-  if (!courceDetailData) {
+  if (!courseDetailData) {
     return (
       <div className="App">
         <Header />
-          <div className="error">Данные не найдены</div>
+        <div className="error">Данные не найдены</div>
         <Footer />
       </div>
     );
@@ -117,51 +117,54 @@ const CourseDetailPage = () => {
   return (
     <div className="course-detail-page App">
       <Header />
-      
+
       <main className="course-detail-content">
         <section className="course-info">
-          <Typography variant='h3' className='course-title'>{courceDetailData.course.title}</Typography>
-          <div className="cource-info-container">
+          <Typography variant='h3' className='course-title'>{courseDetailData.course.title}</Typography>
+          <div className="course-info-container">
             <div className="descriprion-container">
-              <Typography variant='p' className='cource-descr'>{courceDetailData.course.descr}</Typography>
+              <Typography variant='p' className='course-descr'>{courseDetailData.course.descr}</Typography>
               <div className='additional-info-container'>
                 <Typography variant='p' className="time-to-finish">
-                  <strong>Время на выполнение:</strong> 
-                  <br/>{courceDetailData.course.timeout} дней
+                  <strong>Время на выполнение:</strong>
+                  <br />{courseDetailData.course.timeout} дней
                 </Typography>
                 <Typography variant='p' className="percent-finishing">
-                  <strong>Процент выполнения: </strong> 
-                  <br/>{courceDetailData.course.cur_progress*100+"% из "+courceDetailData.course.min_progress*100}%
+                  <strong>Процент выполнения: </strong>
+                  <br />{courseDetailData.course.cur_progress * 100 + "% из " + courseDetailData.course.min_progress * 100}%
                 </Typography>
                 <Typography variant='' className='required-rank'>
                   <strong>Требуемый ранг:</strong>
-                  <br/> {courceDetailData.course.rank}
+                  <br /> {courseDetailData.course.rank}
                 </Typography>
               </div>
-              
+
             </div>
 
-            <MissionMap 
-              stages={stages}
+            <MissionMap
+
+              // stages={stages}
+              stages={NodeLevelGroup(courseDetailData.detailed_missions)}
             />
-            
+
           </div>
-          
+
         </section>
-        
+
         <section className="course-missions">
           <Typography variant='h5'>Этапы и Миссии</Typography>
           <div className="missions-list">
-            {stages.map(stage => (
-              <div key={stage.name} className="stage-container">
-                <h3>{stage.name}</h3>
+            {NodeLevelGroup(courseDetailData.missions).map(stage => (
+
+              <div key={stage.node_lvl} className="stage-container">
+                <h3>{"Этап " + stage.node_lvl}</h3>
                 <ul className="mission-list">
                   {stage.missions.map(mission => (
                     <li
                       key={mission.id}
                       className={`mission-item ${mission.completed ? 'completed' : ''}`}
                     >
-                      {`${stage.name}.${mission.id} ${mission.name}`}
+                      {`${stage.node_lvl}.${mission.id} ${mission.title}`}
                     </li>
                   ))}
                 </ul>

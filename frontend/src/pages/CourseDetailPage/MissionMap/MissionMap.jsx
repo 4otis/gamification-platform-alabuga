@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import './MissionMap.css';
 
 const MissionMap = ({ stages = [], containerHeight = 450 }) => {
@@ -6,9 +6,11 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-  
+
   const containerRef = useRef(null);
   const backgroundRef = useRef(null);
+
+  console.log("babah: ", stages);
 
   // Эффект для получения реальных размеров контейнера
   useEffect(() => {
@@ -20,7 +22,7 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
     };
 
     updateContainerSize();
-    
+
     const resizeObserver = new ResizeObserver(updateContainerSize);
     if (containerRef.current) {
       resizeObserver.observe(containerRef.current);
@@ -34,36 +36,36 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
   // Расчет размеров фонового пространства на основе реальных размеров
   const backgroundWidth = containerSize.width * 1.5;
   const backgroundHeight = containerSize.height * 1.5;
-  
+
   // Ограничение перемещения фона
   const maxX = backgroundWidth - containerSize.width;
   const maxY = backgroundHeight - containerSize.height;
 
   const handleMouseDown = useCallback((e) => {
     if (e.button !== 0) return; // Только левая кнопка мыши
-    
+
     setIsDragging(true);
     setDragStart({
       x: e.clientX - position.x,
       y: e.clientY - position.y
     });
-    
+
     e.preventDefault();
   }, [position]);
 
   const handleMouseMove = useCallback((e) => {
     if (!isDragging) return;
-    
+
     const newX = e.clientX - dragStart.x;
     const newY = e.clientY - dragStart.y;
-    
+
     // Ограничение перемещения в пределах фона
     const constrainedX = Math.max(-maxX, Math.min(0, newX));
     const constrainedY = Math.max(-maxY, Math.min(0, newY));
-    
-    setPosition({ 
-      x: constrainedX, 
-      y: constrainedY 
+
+    setPosition({
+      x: constrainedX,
+      y: constrainedY
     });
   }, [isDragging, dragStart, maxX, maxY]);
 
@@ -112,22 +114,22 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
 
     // Высота каждого этапа
     const stageHeight = backgroundHeight / stages.length;
-    
+
     // Позиция этапа по Y
     const stageTop = 0;
-    
+
     // Центр этапа по вертикали
     const stageCenterY = stageTop + stageHeight / 2;
-    
+
     // Распределяем миссии по всей ширине этапа
     const missionSpacing = backgroundWidth / (totalMissionsInStage + 1);
     const baseX = missionSpacing * (missionIndex + 1);
-    
+
     // Базовое положение по Y - в центре этапа
     const baseY = stageCenterY;
-    
+
     const randomOffset = getRandomOffset();
-    
+
     return {
       x: baseX + randomOffset.x,
       y: baseY + randomOffset.y
@@ -135,7 +137,7 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
   };
 
   return (
-    <div 
+    <div
       className="mission-map-container"
       style={{
         height: containerHeight,
@@ -144,7 +146,7 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
       ref={containerRef}
     >
       {containerSize.width > 0 && (
-        <div 
+        <div
           className="mission-map-background"
           ref={backgroundRef}
           style={{
@@ -157,7 +159,7 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
         >
           {/* Визуализация этапов (вертикально) */}
           {stages.map((stage, stageIndex) => (
-            <div 
+            <div
               key={stage.id || stageIndex}
               className="stage-area vertical"
               style={{
@@ -169,15 +171,15 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
               <div className="stage-label vertical">
                 {stage.name || `Этап ${stageIndex + 1}`}
               </div>
-              
+
               {/* Флажки миссий */}
               {stage.missions?.map((mission, missionIndex) => {
                 const missionPos = getMissionPosition(
-                  stageIndex, 
-                  missionIndex, 
+                  stageIndex,
+                  missionIndex,
                   stage.missions.length
                 );
-                
+
                 return (
                   <div
                     key={mission.id || missionIndex}
@@ -186,16 +188,16 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
                       left: missionPos.x,
                       top: missionPos.y
                     }}
-                    title={mission.name || `Миссия ${missionIndex + 1}`}
+                    title={mission.title || `Миссия ${missionIndex + 1}`}
                   >
                     <div className="flag-pole"></div>
                     <div className="flag">
                       {missionIndex + 1}
                     </div>
                     <div className="mission-tooltip">
-                      {mission.name || `Миссия ${missionIndex + 1}`}
+                      {mission.title || `Миссия ${missionIndex + 1}`}
                       {mission.description && (
-                        <div className="cource-mission-description">
+                        <div className="course-mission-description">
                           {mission.description}
                         </div>
                       )}
@@ -205,12 +207,12 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
               })}
             </div>
           ))}
-          
+
           {/* Вспомогательная сетка */}
           <div className="background-grid" />
-          
+
           {/* Центральная метка для ориентира */}
-          <div 
+          <div
             className="center-marker"
             style={{
               left: backgroundWidth / 2,
@@ -219,12 +221,12 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
           />
         </div>
       )}
-      
+
       {/* Границы видимой области */}
       <div className="viewport-border" />
-      
+
       {/* Информация о перетаскивании */}
-      
+
       <div className="drag-hint">
         Зажмите и двигайте курсор для перемещения по карте
       </div>

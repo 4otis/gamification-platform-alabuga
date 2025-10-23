@@ -109,7 +109,7 @@ const ElectricBorder = ({ children, color = '#5227FF', speed = 1, chaos = 1, thi
             <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
             <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
             <feDisplacementMap
-              in="SourceGraphic"
+              in="SourseGraphic"
               in2="combinedNoise"
               scale="30"
               xChannelSelector="R"
