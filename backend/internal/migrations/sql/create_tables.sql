@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS student (
     exp INT,
     mana INT,
     rank_id INT,
+    male BOOLEAN,
     FOREIGN KEY (rank_id) REFERENCES student_rank(id)
 );
 

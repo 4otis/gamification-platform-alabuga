@@ -67,11 +67,7 @@ ALTER COLUMN file_path SET NOT NULL;
 
 ALTER TABLE artifact
 ADD CONSTRAINT unique_artifact_title UNIQUE (title);
-
--- Ограничения таблицы course
-ALTER TABLE course
-ALTER COLUMN title SET NOT NULL;
-
+удал
 ALTER TABLE course
 ADD CONSTRAINT unique_course_title UNIQUE (title);
 
