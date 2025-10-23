@@ -35,7 +35,7 @@ func NewProfileHandler(studentService services.StudentService,
 // GetProfile godoc
 // @Summary Получить профиль студента
 // @Description Возвращает полную информацию о профиле студента: данные студента, навыки, артефакты и историю
-// @Tags Student
+// @Tags [ STUDENT ] Profile
 // @Accept  json
 // @Produce  json
 // @Param student_id path int true "ID студента"

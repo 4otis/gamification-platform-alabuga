@@ -35,7 +35,7 @@ func NewCourseHandler(
 // GetCoursePage godoc
 // @Summary Получить страницу курса
 // @Description Возвращает данные для страницы курса: информацию о курсе, его этапах и миссиях
-// @Tags Course
+// @Tags [ STUDENT ] Course
 // @Accept json
 // @Produce json
 // @Param student_id path int true "ID студента"
