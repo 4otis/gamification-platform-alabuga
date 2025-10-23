@@ -119,7 +119,8 @@ func (h *CourseHandler) GetCoursePage(c *gin.Context) {
 			},
 			Progress: progress,
 		},
-		Missions: convertStudentsMissionsToStructedTreeMissionsDTO(missions),
+		Missions:         convertStudentsMissionsToStructedTreeMissionsDTO(missions),
+		DetailedMissions: convertStudentsMissionsToDetailedMissionsDTO(missions),
 	}
 
 	c.JSON(http.StatusOK, response)
@@ -133,6 +134,32 @@ func convertStudentsMissionsToStructedTreeMissionsDTO(missions []*models.Student
 			Title:       m.Mission.Title,
 			IsActive:    m.IsActive,
 			IsCompleted: m.IsCompleted,
+		})
+	}
+
+	return result
+}
+
+func convertStudentsMissionsToDetailedMissionsDTO(missions []*models.StudentsMissions) []*student.DetailedMissionInfo {
+	var result []*student.DetailedMissionInfo
+	for _, mission := range missions {
+		result = append(result, &student.DetailedMissionInfo{
+			ID:              mission.Mission.ID,
+			Title:           mission.Mission.Title,
+			Descr:           mission.Mission.Descr,
+			ManaReward:      mission.Mission.ManaReward,
+			ExpReward:       mission.Mission.ExpReward,
+			MissionType:     mission.Mission.MissionType.Name,
+			NodeLvl:         mission.Mission.NodeLvl,
+			IsAutoCompleted: mission.Mission.IsAutoCompleted,
+			Artifact: &student.ArtifactInfo{
+				ID:       mission.Mission.Artifact.ID,
+				Title:    mission.Mission.Artifact.Title,
+				Descr:    mission.Mission.Artifact.Descr,
+				FilePath: mission.Mission.Artifact.FilePath,
+				RarityID: mission.Mission.Artifact.RarityID,
+				Rarity:   mission.Mission.Artifact.Rarity.Name,
+			},
 		})
 	}
 

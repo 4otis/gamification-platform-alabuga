@@ -68,7 +68,8 @@ func (h *InventoryHandler) GetInventoryPage(c *gin.Context) {
 		return
 	}
 
-	availableItems, err := h.inventoryService.GetAvailableItems(c.Request.Context(), uint(studentID))
+	// availableItems, err := h.inventoryService.GetAvailableItems(c.Request.Context(), uint(studentID))
+	availableItems, err := h.inventoryService.GetAllItems(c.Request.Context())
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
