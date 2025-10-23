@@ -159,12 +159,12 @@ const CourseDetailPage = () => {
               <div key={stage.node_lvl} className="stage-container">
                 <h3>{"Этап " + stage.node_lvl}</h3>
                 <ul className="mission-list">
-                  {stage.missions.map(mission => (
+                  {stage.missions.map((mission, index) => (
                     <li
                       key={mission.id}
                       className={`mission-item ${mission.completed ? 'completed' : ''}`}
                     >
-                      {`${stage.node_lvl}.${mission.id} ${mission.title}`}
+                      {`${stage.node_lvl}.${index+1} ${mission.title}`}
                     </li>
                   ))}
                 </ul>
