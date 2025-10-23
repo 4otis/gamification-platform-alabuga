@@ -1,37 +1,170 @@
 [
     {
         "id": 1,
-        "name": "Кибер-аватар",
-        "file_path": "/items/cyber_avatar.png",
-        "min_exp": 100,
+        "name": "костюм 1",
+        "file_path": "/items/body1.png",
+        "min_exp": 0,
         "type_id": 1
     },
     {
         "id": 2,
-        "name": "Золотая рамка",
-        "file_path": "/items/golden_frame.png",
-        "min_exp": 500,
-        "type_id": 2
+        "name": "костюм 2",
+        "file_path": "/items/body2.png",
+        "min_exp": 100,
+        "type_id": 1
     },
     {
         "id": 3,
-        "name": "Космический фон",
-        "file_path": "/items/space_background.png",
-        "min_exp": 200,
-        "type_id": 3
+        "name": "костюм 3",
+        "file_path": "/items/body3.png",
+        "min_exp": 300,
+        "type_id": 1
     },
     {
         "id": 4,
-        "name": "Анимация огня",
-        "file_path": "/items/fire_animation.gif",
-        "min_exp": 1000,
-        "type_id": 4
+        "name": "костюм 4",
+        "file_path": "/items/body4.png",
+        "min_exp": 600,
+        "type_id": 1
     },
     {
         "id": 5,
-        "name": "Стикеры программиста",
-        "file_path": "/items/programmer_stickers.png",
-        "min_exp": 300,
+        "name": "костюм 5",
+        "file_path": "/items/body5.png",
+        "min_exp": 1000,
+        "type_id": 1
+    },
+    {
+        "id": 6,
+        "name": "глаза 1",
+        "file_path": "/items/eye1.png",
+        "min_exp": 0,
         "type_id": 5
+    },
+    {
+        "id": 7,
+        "name": "глаза 2",
+        "file_path": "/items/eye2.png",
+        "min_exp": 150,
+        "type_id": 5
+    },
+    {
+        "id": 8,
+        "name": "глаза 3",
+        "file_path": "/items/eye3.png",
+        "min_exp": 400,
+        "type_id": 5
+    },
+    {
+        "id": 9,
+        "name": "глаза 4",
+        "file_path": "/items/eye4.png",
+        "min_exp": 800,
+        "type_id": 5
+    },
+    {
+        "id": 10,
+        "name": "брови 1",
+        "file_path": "/items/eyebrow1.png",
+        "min_exp": 0,
+        "type_id": 6
+    },
+    {
+        "id": 11,
+        "name": "брови 2",
+        "file_path": "/items/eyebrow2.png",
+        "min_exp": 120,
+        "type_id": 6
+    },
+    {
+        "id": 12,
+        "name": "брови 3",
+        "file_path": "/items/eyebrow3.png",
+        "min_exp": 350,
+        "type_id": 6
+    },
+    {
+        "id": 13,
+        "name": "брови 4",
+        "file_path": "/items/eyebrow4.png",
+        "min_exp": 700,
+        "type_id": 6
+    },
+    {
+        "id": 14,
+        "name": "прическа 1",
+        "file_path": "/items/hair1.png",
+        "min_exp": 0,
+        "type_id": 7
+    },
+    {
+        "id": 15,
+        "name": "прическа 2",
+        "file_path": "/items/hair2.png",
+        "min_exp": 200,
+        "type_id": 7
+    },
+    {
+        "id": 16,
+        "name": "шляпа 1",
+        "file_path": "/items/hat1.png",
+        "min_exp": 0,
+        "type_id": 8
+    },
+    {
+        "id": 17,
+        "name": "шляпа 2",
+        "file_path": "/items/hat2.png",
+        "min_exp": 250,
+        "type_id": 8
+    },
+    {
+        "id": 18,
+        "name": "кожа",
+        "file_path": "/items/skin.png",
+        "min_exp": 0,
+        "type_id": 2
+    },
+    {
+        "id": 19,
+        "name": "нос 1",
+        "file_path": "/items/nose1.png",
+        "min_exp": 0,
+        "type_id": 4
+    },
+    {
+        "id": 20,
+        "name": "нос 2",
+        "file_path": "/items/nose2.png",
+        "min_exp": 180,
+        "type_id": 4
+    },
+    {
+        "id": 21,
+        "name": "улыбка 1",
+        "file_path": "/items/smile1.png",
+        "min_exp": 0,
+        "type_id": 3
+    },
+    {
+        "id": 22,
+        "name": "улыбка 2",
+        "file_path": "/items/smile2.png",
+        "min_exp": 130,
+        "type_id": 3
+    },
+    {
+        "id": 23,
+        "name": "улыбка 3",
+        "file_path": "/items/smile3.png",
+        "min_exp": 380,
+        "type_id": 3
+    },
+    {
+        "id": 24,
+        "name": "улыбка 4",
+        "file_path": "/items/smile4.png",
+        "min_exp": 750,
+        "type_id": 3
     }
 ]

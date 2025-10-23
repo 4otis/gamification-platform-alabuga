@@ -1,46 +1,304 @@
 [
     {
         "id": 1,
-        "title": "Основы синтаксиса",
-        "descr": "Изучение базового синтаксиса языка программирования",
+        "title": "Первая программа",
+        "descr": "Написание и запуск простой программы 'Hello World'",
         "exp_reward": 50,
         "mana_reward": 25,
         "node_lvl": 1,
-        "artifact_id": 2,
+        "artifact_id": 1,
         "type_id": 1,
         "course_id": 1
     },
     {
         "id": 2,
-        "title": "Первый проект",
-        "descr": "Создание простого консольного приложения",
-        "exp_reward": 100,
-        "mana_reward": 50,
-        "node_lvl": 2,
-        "artifact_id": 1,
-        "type_id": 3,
+        "title": "Переменные и типы данных",
+        "descr": "Изучение основных типов данных и работы с переменными",
+        "exp_reward": 75,
+        "mana_reward": 35,
+        "node_lvl": 1,
+        "type_id": 1,
         "course_id": 1
     },
     {
         "id": 3,
-        "title": "Верстка сайта",
-        "descr": "Создание адаптивной верстки",
+        "title": "Условные операторы",
+        "descr": "Применение if-else конструкций для управления потоком программы",
+        "exp_reward": 100,
+        "mana_reward": 50,
+        "node_lvl": 2,
+        "type_id": 1,
+        "course_id": 1
+    },
+    {
+        "id": 4,
+        "title": "Циклы",
+        "descr": "Использование циклов for и while для автоматизации повторяющихся задач",
+        "exp_reward": 120,
+        "mana_reward": 60,
+        "node_lvl": 2,
+        "type_id": 1,
+        "course_id": 1
+    },
+    {
+        "id": 5,
+        "title": "Функции",
+        "descr": "Создание и использование функций для структурирования кода",
         "exp_reward": 150,
         "mana_reward": 75,
+        "node_lvl": 3,
+        "type_id": 1,
+        "course_id": 1
+    },
+    {
+        "id": 6,
+        "title": "Работа с массивами",
+        "descr": "Обработка данных с использованием массивов и списков",
+        "exp_reward": 130,
+        "mana_reward": 65,
+        "node_lvl": 3,
+        "type_id": 1,
+        "course_id": 1
+    },
+    {
+        "id": 7,
+        "title": "Мини-калькулятор",
+        "descr": "Создание консольного калькулятора с базовыми операциями",
+        "exp_reward": 200,
+        "mana_reward": 100,
+        "node_lvl": 4,
+        "type_id": 3,
+        "course_id": 1
+    },
+    {
+        "id": 8,
+        "title": "Игра 'Угадай число'",
+        "descr": "Разработка простой игры с генерацией случайных чисел",
+        "exp_reward": 180,
+        "mana_reward": 90,
+        "node_lvl": -4,
+        "type_id": 3,
+        "course_id": 1
+    },
+    {
+        "id": 9,
+        "title": "Работа с файлами",
+        "descr": "Чтение и запись данных в текстовые файлы",
+        "exp_reward": 160,
+        "mana_reward": 80,
+        "node_lvl": 5,
+        "artifact_id": 2,
+        "type_id": 1,
+        "course_id": 1
+    },
+    {
+        "id": 10,
+        "title": "Финальный проект",
+        "descr": "Создание комплексного консольного приложения",
+        "exp_reward": 300,
+        "mana_reward": 150,
+        "node_lvl": 5,
+        "type_id": 3,
+        "course_id": 1
+    },
+    {
+        "id": 11,
+        "title": "Основы HTML",
+        "descr": "Создание первой веб-страницы с базовой разметкой",
+        "exp_reward": 80,
+        "mana_reward": 40,
         "node_lvl": 1,
-        "artifact_id": 3,
         "type_id": 2,
         "course_id": 2
     },
     {
-        "id": 4,
-        "title": "Линейная регрессия",
-        "descr": "Реализация алгоритма линейной регрессии",
+        "id": 12,
+        "title": "Стилизация CSS",
+        "descr": "Применение CSS для оформления веб-страницы",
+        "exp_reward": 100,
+        "mana_reward": 50,
+        "node_lvl": 1,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 13,
+        "title": "Адаптивная верстка",
+        "descr": "Создание верстки, адаптирующейся под разные устройства",
+        "exp_reward": 150,
+        "mana_reward": 75,
+        "node_lvl": 2,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 14,
+        "title": "Flexbox",
+        "descr": "Освоение технологии Flexbox для создания гибких макетов",
+        "exp_reward": 120,
+        "mana_reward": 60,
+        "node_lvl": -2,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 15,
+        "title": "Основы JavaScript",
+        "descr": "Изучение базового синтаксиса JavaScript",
+        "exp_reward": 130,
+        "mana_reward": 65,
+        "node_lvl": 3,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 16,
+        "title": "DOM манипуляции",
+        "descr": "Работа с Document Object Model для динамического изменения страницы",
+        "exp_reward": 160,
+        "mana_reward": 80,
+        "node_lvl": 3,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 17,
+        "title": "Анимации CSS",
+        "descr": "Создание плавных анимаций с помощью CSS",
+        "exp_reward": 140,
+        "mana_reward": 70,
+        "node_lvl": -3,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 18,
+        "title": "Формы и валидация",
+        "descr": "Создание интерактивных форм с проверкой данных",
+        "exp_reward": 170,
+        "mana_reward": 85,
+        "node_lvl": 4,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 19,
+        "title": "AJAX и Fetch API",
+        "descr": "Работа с асинхронными запросами к серверу",
         "exp_reward": 200,
         "mana_reward": 100,
-        "node_lvl": 1,
-        "artifact_id": 4,
+        "node_lvl": 4,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 20,
+        "title": "Введение в React",
+        "descr": "Создание первого компонента на React",
+        "exp_reward": 180,
+        "mana_reward": 90,
+        "node_lvl": -4,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 21,
+        "title": "Работа с API",
+        "descr": "Интеграция с внешним REST API",
+        "exp_reward": 220,
+        "mana_reward": 110,
+        "node_lvl": 5,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 22,
+        "title": "Система сборки Webpack",
+        "descr": "Настройка сборки проекта с помощью Webpack",
+        "exp_reward": 190,
+        "mana_reward": 95,
+        "node_lvl": -5,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 23,
+        "title": "Авторизация пользователей",
+        "descr": "Реализация системы входа и регистрации",
+        "exp_reward": 250,
+        "mana_reward": 125,
+        "node_lvl": 6,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 24,
+        "title": "PWA приложение",
+        "descr": "Преобразование сайта в Progressive Web App",
+        "exp_reward": 230,
+        "mana_reward": 115,
+        "node_lvl": -6,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 25,
+        "title": "Тестирование кода",
+        "descr": "Написание unit-тестов для JavaScript кода",
+        "exp_reward": 210,
+        "mana_reward": 105,
+        "node_lvl": -6,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 26,
+        "title": "Интернет-магазин",
+        "descr": "Создание полнофункционального интернет-магазина",
+        "exp_reward": 400,
+        "mana_reward": 200,
+        "node_lvl": 7,
         "type_id": 3,
-        "course_id": 3
+        "course_id": 2
+    },
+    {
+        "id": 27,
+        "title": "Оптимизация производительности",
+        "descr": "Применение техник для ускорения загрузки сайта",
+        "exp_reward": 180,
+        "mana_reward": 90,
+        "node_lvl": -7,
+        "type_id": 2,
+        "course_id": 2
+    },
+    {
+        "id": 28,
+        "title": "Деплой проекта",
+        "descr": "Развертывание веб-приложения на хостинге",
+        "exp_reward": 150,
+        "mana_reward": 75,
+        "node_lvl": 7,
+        "type_id": 3,
+        "course_id": 2
+    },
+    {
+        "id": 29,
+        "title": "Портфолио разработчика",
+        "descr": "Создание персонального сайта-портфолио",
+        "exp_reward": 280,
+        "mana_reward": 140,
+        "node_lvl": -7,
+        "type_id": 3,
+        "course_id": 2
+    },
+    {
+        "id": 30,
+        "title": "Финальный веб-проект",
+        "descr": "Разработка комплексного веб-приложения с полным функционалом",
+        "exp_reward": 500,
+        "mana_reward": 250,
+        "node_lvl": 8,
+        "type_id": 3,
+        "course_id": 2
     }
 ]

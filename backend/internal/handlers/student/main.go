@@ -38,7 +38,7 @@ func NewMainHandler(studentService services.StudentService,
 // GetMainPage godoc
 // @Summary Получить главную страницу студента
 // @Description Возвращает данные для главной страницы студента: информацию о студенте, активные миссии, курсы и позицию в рейтинге
-// @Tags Student
+// @Tags [ STUDENT ] Main
 // @Accept  json
 // @Produce  json
 // @Param student_id path int true "ID студента"

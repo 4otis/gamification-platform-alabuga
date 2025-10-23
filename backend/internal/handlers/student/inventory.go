@@ -32,7 +32,7 @@ func NewInventoryHandler(
 // GetInventoryPage godoc
 // @Summary Получить страницу инвентаря студента
 // @Description Возвращает данные для страницы инвентаря студента: информацию о студенте, экипированные предметы, доступные предметы и типы предметов
-// @Tags Inventory
+// @Tags [ STUDENT ] Inventory
 // @Accept  json
 // @Produce  json
 // @Param student_id path int true "ID студента"
@@ -68,7 +68,8 @@ func (h *InventoryHandler) GetInventoryPage(c *gin.Context) {
 		return
 	}
 
-	availableItems, err := h.inventoryService.GetAvailableItems(c.Request.Context(), uint(studentID))
+	// availableItems, err := h.inventoryService.GetAvailableItems(c.Request.Context(), uint(studentID))
+	availableItems, err := h.inventoryService.GetAllItems(c.Request.Context())
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -101,7 +102,7 @@ func (h *InventoryHandler) GetInventoryPage(c *gin.Context) {
 // EquipItem godoc
 // @Summary Экипировать или снять предмет
 // @Description Экипирует или снимает предмет у студента. Если предмет уже экипирован - снимает его.
-// @Tags Inventory
+// @Tags [ STUDENT ] Inventory
 // @Accept  json
 // @Produce  json
 // @Param student_id path int true "ID студента"

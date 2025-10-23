@@ -9,7 +9,7 @@ type Mission struct {
 	ExpReward       uint   `gorm:"not null;check:exp_reward>=0" json:"exp_reward"`
 	ManaReward      uint   `gorm:"not null;check:mana_reward>=0" json:"mana_reward"`
 	NodeLvl         int    `gorm:"not null" json:"node_lvl"`
-	ArtifactID      uint   `gorm:"not null" json:"artifact_id"`
+	ArtifactID      uint   `gorm:"default:null;" json:"artifact_id"`
 	TypeID          uint   `gorm:"not null" json:"type_id"`
 	CourseID        uint   `gorm:"not null" json:"course_id"`
 	IsAutoCompleted bool   `gorm:"not null;default:true;" json:"is_auto_completed"`

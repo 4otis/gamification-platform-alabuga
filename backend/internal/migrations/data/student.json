@@ -8,7 +8,8 @@
         "patronymic": "Сергеевич",
         "exp": 250,
         "mana": 120,
-        "rank_id": 2
+        "rank_id": 2,
+        "male": true
     },
     {
         "id": 2,
@@ -19,7 +20,8 @@
         "patronymic": "Александровна",
         "exp": 800,
         "mana": 400,
-        "rank_id": 3
+        "rank_id": 3,
+        "male": false
     },
     {
         "id": 3,
@@ -30,7 +32,8 @@
         "patronymic": "Дмитриевич",
         "exp": 150,
         "mana": 80,
-        "rank_id": 1
+        "rank_id": 1,
+        "male": true
     },
     {
         "id": 4,
@@ -41,7 +44,8 @@
         "patronymic": "Владимировна",
         "exp": 3000,
         "mana": 1500,
-        "rank_id": 4
+        "rank_id": 4,
+        "male": false
     },
     {
         "id": 5,
@@ -52,7 +56,8 @@
         "patronymic": "Андреевич",
         "exp": 450,
         "mana": 220,
-        "rank_id": 2
+        "rank_id": 2,
+        "male": true
     },
     {
         "id": 6,
@@ -63,7 +68,8 @@
         "patronymic": "Игоревна",
         "exp": 1200,
         "mana": 600,
-        "rank_id": 3
+        "rank_id": 3,
+        "male": false
     },
     {
         "id": 7,
@@ -74,7 +80,8 @@
         "patronymic": "Викторовна",
         "exp": 80,
         "mana": 40,
-        "rank_id": 1
+        "rank_id": 1,
+        "male": false
     },
     {
         "id": 8,
@@ -85,7 +92,8 @@
         "patronymic": "Сергеевич",
         "exp": 2200,
         "mana": 1100,
-        "rank_id": 4
+        "rank_id": 4,
+        "male": true
     },
     {
         "id": 9,
@@ -96,7 +104,8 @@
         "patronymic": "Александровна",
         "exp": 600,
         "mana": 300,
-        "rank_id": 2
+        "rank_id": 2,
+        "male": false
     },
     {
         "id": 10,
@@ -107,7 +116,8 @@
         "patronymic": "Дмитриевич",
         "exp": 950,
         "mana": 475,
-        "rank_id": 3
+        "rank_id": 3,
+        "male": true
     },
     {
         "id": 11,
@@ -118,7 +128,8 @@
         "patronymic": "Олеговна",
         "exp": 180,
         "mana": 90,
-        "rank_id": 1
+        "rank_id": 1,
+        "male": false
     },
     {
         "id": 12,
@@ -129,7 +140,8 @@
         "patronymic": "Владимирович",
         "exp": 2800,
         "mana": 1400,
-        "rank_id": 4
+        "rank_id": 4,
+        "male": true
     },
     {
         "id": 13,
@@ -140,7 +152,8 @@
         "patronymic": "Сергеевна",
         "exp": 350,
         "mana": 175,
-        "rank_id": 2
+        "rank_id": 2,
+        "male": false
     },
     {
         "id": 14,
@@ -151,7 +164,8 @@
         "patronymic": "Андреевич",
         "exp": 1100,
         "mana": 550,
-        "rank_id": 3
+        "rank_id": 3,
+        "male": true
     },
     {
         "id": 15,
@@ -162,7 +176,8 @@
         "patronymic": "Ивановна",
         "exp": 50,
         "mana": 25,
-        "rank_id": 1
+        "rank_id": 1,
+        "male": false
     },
     {
         "id": 16,
@@ -173,7 +188,8 @@
         "patronymic": "Петрович",
         "exp": 3200,
         "mana": 1600,
-        "rank_id": 4
+        "rank_id": 4,
+        "male": true
     },
     {
         "id": 17,
@@ -184,7 +200,8 @@
         "patronymic": "Алексеевна",
         "exp": 420,
         "mana": 210,
-        "rank_id": 2
+        "rank_id": 2,
+        "male": false
     },
     {
         "id": 18,
@@ -195,7 +212,8 @@
         "patronymic": "Викторович",
         "exp": 1300,
         "mana": 650,
-        "rank_id": 3
+        "rank_id": 3,
+        "male": true
     },
     {
         "id": 19,
@@ -206,7 +224,8 @@
         "patronymic": "Дмитриевна",
         "exp": 200,
         "mana": 100,
-        "rank_id": 1
+        "rank_id": 1,
+        "male": false
     },
     {
         "id": 20,
@@ -217,7 +236,8 @@
         "patronymic": "Олегович",
         "exp": 3500,
         "mana": 1750,
-        "rank_id": 5
+        "rank_id": 5,
+        "male": true
     },
     {
         "id": 21,
@@ -228,7 +248,8 @@
         "patronymic": "Сергеевна",
         "exp": 700,
         "mana": 350,
-        "rank_id": 2
+        "rank_id": 2,
+        "male": false
     },
     {
         "id": 22,
@@ -239,7 +260,8 @@
         "patronymic": "Игоревич",
         "exp": 1600,
         "mana": 800,
-        "rank_id": 3
+        "rank_id": 3,
+        "male": true
     },
     {
         "id": 23,
@@ -250,7 +272,8 @@
         "patronymic": "Андреевна",
         "exp": 90,
         "mana": 45,
-        "rank_id": 1
+        "rank_id": 1,
+        "male": false
     },
     {
         "id": 24,
@@ -261,6 +284,7 @@
         "patronymic": "Витальевич",
         "exp": 4000,
         "mana": 2000,
-        "rank_id": 5
+        "rank_id": 5,
+        "male": true
     }
 ]

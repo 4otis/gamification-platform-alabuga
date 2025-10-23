@@ -16,6 +16,7 @@ type DetailedCourseInfo struct {
 // CourseResponse структура ответа страницы одного курса
 // swagger:model CourseResponse
 type CourseResponse struct {
-	Course   *DetailedCourseInfo    `json:"course"`
-	Missions []*StructedTreeMission `json:"missions"`
+	Course           *DetailedCourseInfo    `json:"course"`
+	Missions         []*StructedTreeMission `json:"missions"`
+	DetailedMissions []*DetailedMissionInfo `json:"detailed_missions"`
 }
