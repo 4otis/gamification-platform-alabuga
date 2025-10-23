@@ -134,6 +134,7 @@ func convertStudentsMissionsToStructedTreeMissionsDTO(missions []*models.Student
 			Title:       m.Mission.Title,
 			IsActive:    m.IsActive,
 			IsCompleted: m.IsCompleted,
+			NodeLvl:     m.Mission.NodeLvl,
 		})
 	}
 

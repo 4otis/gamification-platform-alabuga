@@ -29,4 +29,5 @@ type StructedTreeMission struct {
 	Title       string `json:"title"`
 	IsActive    bool   `json:"is_active"`
 	IsCompleted bool   `json:"is_completed"`
+	NodeLvl     int    `json:"node_lvl"`
 }
