@@ -1,12 +1,69 @@
-import React from 'react';
-import { Header, Footer } from "../../shared/components/publicComponents"; // Импортируем Header и Footer
+import React, {useState, useEffect} from 'react';
+import { Header, Footer } from "../../shared/components/publicComponents";
+import {courseApi} from "../../shared/api/endpoints/course-api";
 import "./CourseDetailPage.css";
 import MissionMap from "./MissionMap/MissionMap"
 import { Typography } from '@mui/material';
 import { USER} from "../../shared/globals";
 
 const CourseDetailPage = () => {
-  // Основная информация о курсе
+  const [courceDetailData, setCourceDetailData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCourceDetailData= async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const data = await courseApi.getDetailCourse(USER.id, USER.cource);
+        setCourceDetailData(data);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourceDetailData();
+  }, []);
+  
+  if (loading) {
+    return (
+      <div className="App">
+        <Header />
+          <h2 className="loading">Загрузка профиля...</h2>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="App">
+        <Header />
+        <div className='error'>
+          <h2>Ошибка</h2>
+          <p>Не удалось подключиться к серверу</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!courceDetailData) {
+    return (
+      <div className="App">
+        <Header />
+          <div className="error">Данные не найдены</div>
+        <Footer />
+      </div>
+    );
+  }
+
+
   const courseInfo = {
     title: "Основы JavaScript",
     description: "Этот курс предназначен для новичков, которые хотят изучить основы JavaScript. В курсе рассматриваются базовые концепции, такие как переменные, операторы, условия, циклы и функции.",
@@ -62,22 +119,22 @@ const CourseDetailPage = () => {
       
       <main className="course-detail-content">
         <section className="course-info">
-          <Typography variant='h3' className='course-title'>{courseInfo.title}</Typography>
+          <Typography variant='h3' className='course-title'>{courceDetailData.course.title}</Typography>
           <div className="cource-info-container">
             <div className="descriprion-container">
-              <Typography variant='p' className='cource-descr'>{courseInfo.description}</Typography>
+              <Typography variant='p' className='cource-descr'>{courceDetailData.course.descr}</Typography>
               <div className='additional-info-container'>
                 <Typography variant='p' className="time-to-finish">
                   <strong>Время на выполнение:</strong> 
-                  <br/>{courseInfo.duration} дней
+                  <br/>{courceDetailData.course.timeout} дней
                 </Typography>
                 <Typography variant='p' className="percent-finishing">
                   <strong>Процент выполнения: </strong> 
-                  <br/>{"34% из "+courseInfo.minCompletion}%
+                  <br/>{courceDetailData.course.cur_progress*100+"% из "+courceDetailData.course.min_progress*100}%
                 </Typography>
                 <Typography variant='' className='required-rank'>
                   <strong>Требуемый ранг:</strong>
-                  <br/> {courseInfo.rang}
+                  <br/> {courceDetailData.course.rank}
                 </Typography>
               </div>
               
