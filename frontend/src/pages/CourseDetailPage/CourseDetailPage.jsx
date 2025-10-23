@@ -5,6 +5,7 @@ import "./CourseDetailPage.css";
 import MissionMap from "./MissionMap/MissionMap"
 import { Typography } from '@mui/material';
 import { USER} from "../../shared/globals";
+import {NodeLevelGroup} from "./funcs/NodeLevelGroup.jsx"
 
 const CourseDetailPage = () => {
   const [courceDetailData, setCourceDetailData] = useState(null);

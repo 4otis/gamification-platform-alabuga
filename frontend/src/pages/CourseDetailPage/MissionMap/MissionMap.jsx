@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import './MissionMap.css';
 
 const MissionMap = ({ stages = [], containerHeight = 450 }) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: -250, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
@@ -226,7 +226,7 @@ const MissionMap = ({ stages = [], containerHeight = 450 }) => {
       {/* Информация о перетаскивании */}
       
       <div className="drag-hint">
-        Зажмите и перетащите фон для перемещения по карте
+        Зажмите и двигайте курсор для перемещения по карте
       </div>
     </div>
   );
