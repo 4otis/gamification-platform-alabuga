@@ -19,6 +19,12 @@ function ArtifactList() {
     { name: 'Папка 4', rarity: 'Легендарная', description: 'Описание папки 4', imageUrl: Artifact4 },
     { name: 'Папка 5', rarity: 'Редкая', description: 'Описание папки 5', imageUrl: Artifact5 },
     { name: 'Папка 6', rarity: 'Обычная', description: 'Описание папки 6', imageUrl: Artifact6 },
+    { name: 'Папка 1', rarity: 'Обычная', description: 'Описание папки 1', imageUrl:  Artifact1},
+    { name: 'Папка 2', rarity: 'Редкая', description: 'Описание папки 2', imageUrl: Artifact2 },
+    { name: 'Папка 3', rarity: 'Эпическая', description: 'Описание папки 3', imageUrl: Artifact3},
+    { name: 'Папка 4', rarity: 'Легендарная', description: 'Описание папки 4', imageUrl: Artifact4 },
+    { name: 'Папка 5', rarity: 'Редкая', description: 'Описание папки 5', imageUrl: Artifact5 },
+    { name: 'Папка 6', rarity: 'Обычная', description: 'Описание папки 6', imageUrl: Artifact6 },
   ];
 
   const handleClickOpen = (item) => {
@@ -48,7 +54,8 @@ function ArtifactList() {
   };
 
   return (
-    <div className="item-list-container">
+    <div className="artifact-list-container">
+      <Typography variant='h4' className='artifact-list-title'>Список Артефактов</Typography>
       <Box className="scrollable-list">
         {/* Прокручиваемый список с двумя элементами в ряду */}
         <Grid container spacing={2} justifyContent="center">

@@ -82,17 +82,18 @@ function ProfilePage() {
           <div className="prof-art-container">
             <UserProfile 
               profile={profileData.profile}
+              skills={profileData.skills}
             />
             <ArtifactList 
               artifacts={profileData.artifacts}
             />
           </div>
           <div className="stats-trans-container">
-            <UserInfoPanel 
+            {/* <UserInfoPanel 
               profile={profileData.profile}
               skills={profileData.skills}
-            />
-            <TransactionJournal />
+            /> */}
+            <TransactionJournal transactions={profileData.transactions} />
           </div>
         </div>
         <Footer />

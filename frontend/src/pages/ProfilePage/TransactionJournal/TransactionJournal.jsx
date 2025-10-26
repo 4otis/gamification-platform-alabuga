@@ -2,15 +2,26 @@ import React, { useState } from 'react';
 import { Box, List, ListItem, ListItemText, Typography, Divider, Grid } from '@mui/material';
 import './TransactionJournal.css';
 
-function TransactionJournal() {
+function formatTimestamp(timestamp, locale = 'ru-RU') {
+    const date = new Date(timestamp);
+    
+    return new Intl.DateTimeFormat(locale, {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    }).format(date);
+}
+
+const getCompetencyColor = (score) => {
+    const hue = (1 - (score / 10)) * 240; 
+    return `hsl(${hue}, 50%, 50%)`;
+  };
+
+function TransactionJournal({transactions}) {
   // Пример данных для журнала транзакций
-  const transactions = [
-    { id: 1, date: '2023-09-25', amount: 100, description: 'Покупка книг', details: 'Оплата книг на сумму 100 рублей в магазине "Книги".' },
-    { id: 2, date: '2023-09-26', amount: 50, description: 'Оплата транспорта', details: 'Покупка проездного билета на автобус за 50 рублей.' },
-    { id: 3, date: '2023-09-27', amount: 200, description: 'Ресторан', details: 'Оплата ужина в ресторане за 200 рублей.' },
-    { id: 4, date: '2023-09-28', amount: 150, description: 'Покупка одежды', details: 'Оплата одежды на сумму 150 рублей в магазине "Одежда".' },
-    { id: 5, date: '2023-09-29', amount: 300, description: 'Магазин электроники', details: 'Оплата покупки в магазине электроники за 300 рублей.' },
-  ];
 
   const [selectedTransaction, setSelectedTransaction] = useState(null); // Хранение выбранной транзакции
 
@@ -34,8 +45,8 @@ function TransactionJournal() {
                   className="transaction-item"
                 >
                   <ListItemText 
-                    primary={`Дата: ${transaction.date}`} 
-                    secondary={`Мана: ${transaction.amount} Опыт: ${transaction.amount} `}
+                    primary={`Дата: ${formatTimestamp(transaction.timestamp)}`} 
+                    secondary={`Мана: ${transaction.mana < 0 ? "":"+"}${transaction.mana} Опыт: ${transaction.exp} `}
                   />
                 </ListItem>
               ))}
@@ -51,11 +62,32 @@ function TransactionJournal() {
                   Информация о транзакции
                 </Typography>
                 <Divider />
-                <Typography variant="body1"><strong>Дата:</strong> {selectedTransaction.date}</Typography>
-                <Typography variant="body1"><strong>Описание:</strong> {selectedTransaction.description}</Typography>
-                <Typography variant="body1"><strong>Детали:</strong> {selectedTransaction.details}</Typography>
-                <Typography variant="body1"><strong>Mana:</strong> {selectedTransaction.amount}</Typography>
-                <Typography variant="body1"><strong>Опыт:</strong> {selectedTransaction.amount}</Typography>
+                <Typography variant="body1">{selectedTransaction.type}</Typography>
+                <Typography variant="body1"><strong>{selectedTransaction.title}</strong> </Typography>
+                
+                <Typography variant="body1">{selectedTransaction.descr}</Typography>
+                
+                <Typography variant="body1">
+                  Mana: {((selectedTransaction.mana < 0 )? "":"+") + selectedTransaction.mana + " "}
+                  Опыт: {selectedTransaction.exp}
+                </Typography>
+                <div className='transaction-skills-list'>
+                  {selectedTransaction.skills?.map((skill, index)=>{
+                    <LinearProgress
+                      key={index}
+                      variant="determinate"
+                      value={(skill.score / 10) * 100} // Преобразуем уровень в процент
+                      sx={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)', // Прозрачный фон
+                        '& .MuiLinearProgress-bar': {
+                          backgroundColor: getCompetencyColor(skill.score),
+                          boxShadow: `0 0 10px ${getCompetencyColor(skill.score)}`, 
+                        },
+                      }}
+                    />
+                  })}
+
+                </div>
               </div>
             ) : (
               <Typography variant="body2" color="textSecondary">Выберите транзакцию для просмотра информации</Typography>

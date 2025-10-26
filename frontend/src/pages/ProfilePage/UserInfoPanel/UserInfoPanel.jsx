@@ -18,7 +18,7 @@ function UserInfoPanel( {profile, skills}) {
 
   return (
     <Box className="user-info-panel">
-      <Box className="user-stats">
+      {/* <Box className="user-stats">
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <Typography variant="h5" className="mana-text">Мана: {userStats.mana}</Typography>
@@ -27,7 +27,7 @@ function UserInfoPanel( {profile, skills}) {
             <Typography variant="h5" className="experience-text">Опыт: {userStats.experience}</Typography>
           </Grid>
         </Grid>
-      </Box>
+      </Box> */}
 
       {/* Прокручиваемый список компетенций */}
       <Typography variant="h5" gutterBottom>

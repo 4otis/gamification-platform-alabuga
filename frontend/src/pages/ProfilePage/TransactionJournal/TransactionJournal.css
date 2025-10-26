@@ -3,7 +3,7 @@
 .transaction-journal {
   display:flex;
   flex-direction: row;
-  width: 55%; 
+  width: 65%; 
   justify-content: center;
   background-color: #f9f9f9;
   border-radius: 8px;
