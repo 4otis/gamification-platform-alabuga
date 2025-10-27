@@ -10,6 +10,7 @@ import (
 type InventoryService interface {
 	GetItemByID(ctx context.Context, id uint) (*models.Item, error)
 	GetAllItems(ctx context.Context) ([]*models.Item, error)
+	GetAllItemsWithAssigning(ctx context.Context, studentID uint) ([]*models.Item, error)
 	GetAvailableItems(ctx context.Context, studentID uint) ([]*models.Item, error)
 	GetEquipedItems(ctx context.Context, studentID uint) ([]*models.Item, error)
 	GetItemTypes(ctx context.Context) ([]*models.ItemType, error)
@@ -41,6 +42,20 @@ func (s *inventoryService) GetItemByID(ctx context.Context, id uint) (*models.It
 }
 
 func (s *inventoryService) GetAllItems(ctx context.Context) ([]*models.Item, error) {
+	return s.itemRepo.ReadAll(ctx)
+}
+
+func (s *inventoryService) GetAllItemsWithAssigning(ctx context.Context, studentID uint) ([]*models.Item, error) {
+	student, err := s.studentRepo.Read(ctx, studentID)
+	if err != nil {
+		return nil, err
+	}
+
+	err = s.studentsItemsRepo.AssignAvailableItemsToStudent(ctx, studentID, student.Exp)
+	if err != nil {
+		return nil, err
+	}
+
 	return s.itemRepo.ReadAll(ctx)
 }
 
