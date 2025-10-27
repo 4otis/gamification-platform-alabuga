@@ -11,21 +11,21 @@ const ProgressBar = ({
 
   return (
     <div className="progress-bar-container">
-        <ElectricBorder
+        {/* <ElectricBorder
             color="#7df9ff"
             speed={1}
             chaos={0.4}
             thickness={10}
             style={{ borderRadius: 16 }}
         >
-            {/* <div 
+            <div 
                 className="progress-bar"
                 style={{ 
                 width: `${parseInt(parseFloat(progress)/initialProgress * 100)}%`,
                 background: `linear-gradient(90deg, ${startColor}, ${endColor})`
                 }}
-            ></div> */}
-        </ElectricBorder>
+            ></div>
+        </ElectricBorder> */}
     </div>
   );
 };

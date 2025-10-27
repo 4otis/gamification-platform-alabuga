@@ -79,6 +79,7 @@ function Customisation(){
                     <AvatarCustomizer
                       profile={custData.profile}
                       items={custData.items}
+                      equipedItems={custData.profile.equiped_items}
                       types={custData.item_types}
                     />
                 </div>

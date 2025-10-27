@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
-import { Avatar } from '../../../shared/components/hooks/Avatar';
+import Avatar from '../../../shared/components/hooks/Avatar';
 import ProgressBar from '../../../shared/components/progressBar/ProfgressBar';
 
 import "./AvatarCustomizer.css"
 
-export default function AvatarCustomiser ({profile, items, types}) {
+export default function AvatarCustomiser ({profile, items, equipedItems, types}) {
   const [activeCategory, setActiveCategory] = useState(1);
   const handleItemSelect = async (item) => {
     console.log("Всё ок")
@@ -22,8 +22,10 @@ export default function AvatarCustomiser ({profile, items, types}) {
       {/* Левая панель - предпросмотр аватара */}
       <div className="avatar-preview">
         <Typography variant="h4">Ваш Аватар</Typography>
-        <Avatar items={items} />
-        
+        <Avatar
+          items={equipedItems}
+          types={types}
+         />
         {/* Дополнительная информация о студенте */}
         <div className="student-info">
             <ProgressBar initialProgress={profile.student.exp}/>
@@ -49,10 +51,10 @@ export default function AvatarCustomiser ({profile, items, types}) {
         {/* Сетка предметов текущей категории */}
         <div className="items-grid">
           {items.map(item => {
-            console.log("---------------------------"+item.type_id+" "+ activeCategory)
+           
             if (item.type_id==activeCategory){
+               console.log("я существуююююююю")
               const unlocked = isItemUnlocked(item);
-              console.log("!!!!!!!!!!!!!!!!мапаем"+activeCategory);
               return (
                 <div
                   key={item.file_path}
@@ -60,7 +62,7 @@ export default function AvatarCustomiser ({profile, items, types}) {
                   onClick={() => unlocked && handleItemSelect(item)}
                 >
                   <img 
-                    src={ "https://myasnavesna.com/home/catalog_products/item_114/image/guliver2.png"} 
+                    src="" 
                     alt={item.name}
                     className="item-image"
                   />
