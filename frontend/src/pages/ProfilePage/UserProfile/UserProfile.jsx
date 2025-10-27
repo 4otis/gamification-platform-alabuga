@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'; 
-import { Avatar, Button, Typography, Box } from '@mui/material';
-import defaultAvatar from "../../../assets/defaultavatar.png";
-import './UserProfile.css';
+import {  Button, Typography, Box } from '@mui/material';
 import UserInfoPanel from '../UserInfoPanel/UserInfoPanel';
+import Avatar from '../../../shared/components/hooks/Avatar';
+
+import './UserProfile.css';
 
 function UserProfile( {profile, skills}) {
   return (
@@ -19,10 +20,10 @@ function UserProfile( {profile, skills}) {
             profile.student.patronymic}
           </Typography>
           
-          <img
-            alt="User Avatar"
-            src={defaultAvatar}
-            className="avatar"
+          <Avatar
+            width={270}
+            height={270}
+            marginRight={0}
           />
         </div>
         

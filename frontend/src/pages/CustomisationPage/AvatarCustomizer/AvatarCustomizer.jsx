@@ -23,8 +23,8 @@ export default function AvatarCustomiser ({profile, items, equipedItems, types})
       <div className="avatar-preview">
         <Typography variant="h4">Ваш Аватар</Typography>
         <Avatar
-          items={equipedItems}
-          types={types}
+          width={270}
+          height={270}
          />
         {/* Дополнительная информация о студенте */}
         <div className="student-info">

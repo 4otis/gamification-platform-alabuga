@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import defaultAvatar from "../../../assets/defaultavatar.png";
 import CountUp from '../../../shared/components/countingText/CountingText';
+import Avatar from '../../../shared/components/hooks/Avatar';
 import './ProfileMissionLeaderbord.css';
-import users from './users.json';
 
 const manaIcon = () => {
     return (
@@ -155,17 +155,6 @@ const MainBody = ({ profile, missions, leaderlist, currentPosition }) => {
     const leaderboardScrollRef = useRef(null);
     const [currentUser, setCurrentUser] = useState(null);
 
-    const findUserByName = (name) => {
-        const foundUser = users.users.find(user =>
-            user.name.toLowerCase().includes(name.toLowerCase())
-        );
-        setCurrentUser(foundUser || null);
-    };
-
-    useEffect(() => {
-        findUserByName("Петр Петров");
-    }, [])
-
     return (
         <div className="main-body">
 
@@ -184,12 +173,20 @@ const MainBody = ({ profile, missions, leaderlist, currentPosition }) => {
                         <div className='user-info-container'
                             style={{ top: 0, left: 0, position: "absolute", }}
                         >
+                            
+                            <Typography variant="h6" className="mp-user-name-surname">
+                                {profile.student.name + " " + profile.student.surname}
+                            </Typography>
+                            <Typography variant="h6" className="mp-user-rank">
+                                {rankIcon()}
+                                <span>{profile.student.rank}</span>
+                            </Typography>
                             <Typography variant="h6" className="mp-exp-mana">
                                 <span style={{ display: "flex", gap: "5px" }}>
                                     {manaIcon()}
                                     <CountUp
-                                        from={profile.student.exp / 2}
-                                        to={profile.student.exp}
+                                        from={profile.student.mana / 2}
+                                        to={profile.student.mana}
                                         separator=","
                                         direction="up"
                                         duration={1}
@@ -199,8 +196,8 @@ const MainBody = ({ profile, missions, leaderlist, currentPosition }) => {
                                 <span style={{ display: "flex", gap: "5px" }}>
                                     {expIcon()}
                                     <CountUp
-                                        from={profile.student.mana / 2}
-                                        to={profile.student.mana + 10000}
+                                        from={profile.student.exp / 2}
+                                        to={profile.student.exp }
                                         separator=","
                                         direction="up"
                                         duration={1}
@@ -209,20 +206,13 @@ const MainBody = ({ profile, missions, leaderlist, currentPosition }) => {
                                 </span>
 
                             </Typography>
-                            <Typography variant="h6" className="mp-user-name-surname">
-                                {profile.student.name + " " + profile.student.surname}
-                            </Typography>
-                            <Typography variant="h6" className="mp-user-rank">
-                                {rankIcon()}
-                                <span>{profile.student.rank}</span>
-                            </Typography>
 
                         </div>
 
-                        <img
-                            alt="User Avatar"
-                            src={defaultAvatar}
-                            className="mp-avatar"
+                        <Avatar
+                            width={300}
+                            height={300}
+                            marginLeft={80}
                         />
 
 
