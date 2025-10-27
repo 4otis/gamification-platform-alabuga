@@ -124,6 +124,7 @@ func convertItemsToDTO(items []*models.Item) []*student.ItemInfo {
 	var result []*student.ItemInfo
 	for _, i := range items {
 		result = append(result, &student.ItemInfo{
+			ID:       i.ID,
 			Name:     i.Name,
 			FilePath: i.FilePath,
 			MinExp:   i.MinExp,

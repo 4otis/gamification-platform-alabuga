@@ -18,6 +18,7 @@ type ProfileInfo struct {
 }
 
 type ItemInfo struct {
+	ID       uint   `json:"id"`
 	Name     string `json:"name"`
 	FilePath string `json:"file_path"`
 	MinExp   uint   `json:"min_exp"`
