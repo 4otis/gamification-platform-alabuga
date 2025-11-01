@@ -68,11 +68,11 @@ function Customisation(){
     return(
         <div className="App">
             <PixelBackground
-                      pixelSize={6}
-                      color={['#ceecffff']}
-                      speed={600}
-                      intensity={0.001} 
-                    />
+              pixelSize={6}
+              color={['#ceecffff']}
+              speed={600}
+              intensity={0.001} 
+            />
             <div className="main-content-wrapper">
                 <Header />
                 <div className='main-customisation-content'>
@@ -81,6 +81,7 @@ function Customisation(){
                       items={custData.items}
                       equipedItems={custData.profile.equiped_items}
                       types={custData.item_types}
+                      api={customisationApi}
                     />
                 </div>
                 <Footer />

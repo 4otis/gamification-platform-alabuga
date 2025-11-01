@@ -131,7 +131,7 @@ const CourseDetailPage = () => {
                 </Typography>
                 <Typography variant='p' className="percent-finishing">
                   <strong>Процент выполнения: </strong>
-                  <br />{courseDetailData.course.cur_progress * 100 + "% из " + courseDetailData.course.min_progress * 100}%
+                  <br />{ parseInt(courseDetailData.course.cur_progress * 100) + "% из " + parseInt(courseDetailData.course.min_progress * 100)}%
                 </Typography>
                 <Typography variant='' className='required-rank'>
                   <strong>Требуемый ранг:</strong>

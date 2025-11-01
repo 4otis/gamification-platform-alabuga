@@ -1,21 +1,32 @@
 import { useState, useEffect } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import Avatar from '../../../shared/components/hooks/Avatar';
 import ProgressBar from '../../../shared/components/progressBar/ProfgressBar';
-
+import {USER} from '../../../shared/globals';
 import "./AvatarCustomizer.css"
 
-export default function AvatarCustomiser ({profile, items, equipedItems, types}) {
+export default function AvatarCustomiser ({profile, items, equipedItems, types, api}) {
   const [activeCategory, setActiveCategory] = useState(1);
+  const [avatarKey, setAvatarKey] = useState(0);
   const handleItemSelect = async (item) => {
-    console.log("Всё ок")
+    const updateData = {
+          "item_id": item.id,
+          "type_id": item.type_id
+        };
+    console.log(updateData)
+    try {
+      const result = await api.patchCustomisation(USER.id, updateData)
+      console.log('Кастомизация обновлена:', result);
+      setAvatarKey(prev => prev + 1);
+    } catch (error) {
+      console.error('Ошибка обновления:', error);
+    }
+    
   }
 
   const isItemUnlocked = (item) => {
     return profile.student.exp >= item.min_exp;
   };
-
-  console.log("до return"+activeCategory)
 
   return (
     <div className="customisation-frame">
@@ -23,14 +34,13 @@ export default function AvatarCustomiser ({profile, items, equipedItems, types})
       <div className="avatar-preview">
         <Typography variant="h4">Ваш Аватар</Typography>
         <Avatar
+          key={avatarKey}
           width={270}
           height={270}
          />
         {/* Дополнительная информация о студенте */}
-        <div className="student-info">
-            <ProgressBar initialProgress={profile.student.exp}/>
-          <p>EXP: {profile.student.exp}</p>
-        </div>
+        <ProgressBar initialProgress={profile.student.exp}/>
+        <Typography variant='h6'>EXP: {profile.student.exp}</Typography>
       </div>
 
       {/* Правая панель - кастомизация */}
@@ -38,45 +48,49 @@ export default function AvatarCustomiser ({profile, items, equipedItems, types})
         {/* Табы категорий */}
         <div className="category-tabs">
           {types.map(category => (
-            <button
+            <Button
               key={category.id}
               className={`tab ${activeCategory === category.id ? 'active' : ''}`}
               onClick={() => setActiveCategory(category.id)}
             >
               {category.name}
-            </button>
+            </Button>
           ))}
         </div>
 
         {/* Сетка предметов текущей категории */}
-        <div className="items-grid">
-          {items.map(item => {
-           
-            if (item.type_id==activeCategory){
-               console.log("я существуююююююю")
-              const unlocked = isItemUnlocked(item);
-              return (
-                <div
-                  key={item.file_path}
-                  className={`item-card ${unlocked ? 'unlocked' : 'locked'}`}
-                  onClick={() => unlocked && handleItemSelect(item)}
-                >
-                  <img 
-                    src="" 
-                    alt={item.name}
-                    className="item-image"
-                  />
-                  <div className="item-info">
-                    <span className="item-name">{item.name}</span>
-                    <span className="required-exp">EXP: {item.min_exp}</span>
-
-                  </div>
-                </div>
-              );
-            }
+        <div className='customization-frame-items'>
+          <div className="customization-items">
+            {items.map(item => {
             
-          })}
+              if (item.type_id==activeCategory){
+                const unlocked = isItemUnlocked(item);
+                return (
+                  <div
+                    key={item.file_path}
+                    className={`customization-item-card ${unlocked ? 'unlocked' : 'locked'}`}
+                    onClick={() => unlocked && handleItemSelect(item)}
+                  >
+                    <img 
+                      src={USER.backendURL+"/static"+item.file_path} 
+                      alt={item.name}
+                      className="customization-item-image"
+                    />
+                    <div className="customization-item-info">
+                      <span className="customization-item-name">{item.name}</span>
+                      <br/>
+                      <span className="required-exp">EXP: {item.min_exp}</span>
+
+                    </div>
+                  </div>
+                );
+              }
+              
+            })}
+            
+          </div>
         </div>
+        
       </div>
     </div>
   );

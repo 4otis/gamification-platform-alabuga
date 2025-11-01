@@ -13,75 +13,88 @@ class HttpClient {
         const headers = {
             ...API_CONFIG.DEFAULT_HEADERS,
             ...options.headers,
-    };
+        };
 
-    // Создаем конфигурацию запроса с таймаутом
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.TIMEOUT);
+        // Создаем конфигурацию запроса с таймаутом
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.TIMEOUT);
 
-    try {
-      console.log(`Making request to: ${fullUrl}`);
-      
-      const response = await fetch(fullUrl, {
-        ...options,
-        headers,
-        signal: controller.signal,
-      });
+        try {
+            console.log(`Making request to: ${fullUrl}`);
+            
+            const response = await fetch(fullUrl, {
+                ...options,
+                headers,
+                signal: controller.signal,
+            });
 
-      clearTimeout(timeoutId);
+            clearTimeout(timeoutId);
 
-      console.log(`Response status: ${response.status}`);
+            console.log(`Response status: ${response.status}`);
 
-      // Проверяем, успешен ли запрос
-      if (!response.ok) {
-        throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-      }
+            // Проверяем, успешен ли запрос
+            if (!response.ok) {
+                throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+            }
 
-      // Парсим JSON ответ
-      const data = await response.json();
-      console.log('Data received:', data);
-      
-      return data;
+            // Парсим JSON ответ
+            const data = await response.json();
+            console.log('Data received:', data);
+            
+            return data;
 
-    } catch (error) {
-      clearTimeout(timeoutId);
-      console.error('Request failed:', error);
-      
-      // Улучшаем сообщение об ошибке
-      if (error.name === 'AbortError') {
-        throw new Error(`Request timeout: ${API_CONFIG.TIMEOUT}ms`);
-      }
-      
-      throw error;
+        } catch (error) {
+            clearTimeout(timeoutId);
+            console.error('Request failed:', error);
+            
+            // Улучшаем сообщение об ошибке
+            if (error.name === 'AbortError') {
+                throw new Error(`Request timeout: ${API_CONFIG.TIMEOUT}ms`);
+            }
+            
+            throw error;
+        }
     }
-  }
 
-  /**
-   * GET запрос
-   * @param {string} url - endpoint
-   * @param {Object} options - дополнительные опции
-   */
-  async get(url, options = {}) {
-    return this.request(url, {
-      ...options,
-      method: 'GET',
-    });
-  }
+    /**
+     * GET запрос
+     * @param {string} url - endpoint
+     * @param {Object} options - дополнительные опции
+     */
+    async get(url, options = {}) {
+        return this.request(url, {
+            ...options,
+            method: 'GET',
+        });
+    }
 
-  /**
-   * POST запрос
-   * @param {string} url - endpoint
-   * @param {Object} data - данные для отправки
-   * @param {Object} options - дополнительные опции
-   */
-  async post(url, data, options = {}) {
-    return this.request(url, {
-      ...options,
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-  }
+    /**
+     * POST запрос
+     * @param {string} url - endpoint
+     * @param {Object} data - данные для отправки
+     * @param {Object} options - дополнительные опции
+     */
+    async post(url, data, options = {}) {
+        return this.request(url, {
+            ...options,
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    }
 
+    /**
+     * PATCH запрос
+     * @param {string} url - endpoint
+     * @param {Object} data - данные для обновления
+     * @param {Object} options - дополнительные опции
+     */
+    async patch(url, data, options = {}) {
+        return this.request(url, {
+            ...options,
+            method: 'PATCH',
+            body: JSON.stringify(data),
+        });
+    }
 }
 
 export const httpClient = new HttpClient();

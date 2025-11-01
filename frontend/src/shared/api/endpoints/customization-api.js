@@ -11,19 +11,9 @@ class CustomisationApi {
     return httpClient.get(`/student/${studentId}/inventory`);
   }
 
-  /**
-   * Обновить профиль студента
-   * @param {number} studentId - ID студента
-   * @param {Object} customisationData - данные 
-   * @returns {Promise} Promise с обновленными данными
-   */
-  async updateCustomisation(studentId, customisationData) {
-    return httpClient.post(`/student/${studentId}/inventory`, customisationData);
+  async patchCustomisation(studentId, updateData){
+    return httpClient.patch(`/student/${studentId}/inventory/equip`, updateData);
   }
-
-  // Позже можно добавить другие методы:
-  // async getGrades(studentId) { ... }
-  // async getCourses(studentId) { ... }
 }
 
 // Создаем и экспортируем экземпляр API
