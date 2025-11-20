@@ -106,16 +106,16 @@
     },
     {
         "id": 16,
-        "name": "шляпа 1",
+        "name": "нет",
         "file_path": "/items/hat1.png",
         "min_exp": 0,
         "type_id": 8
     },
     {
         "id": 17,
-        "name": "шляпа 2",
+        "name": "шляпа 1",
         "file_path": "/items/hat2.png",
-        "min_exp": 250,
+        "min_exp": 0,
         "type_id": 8
     },
     {
@@ -166,5 +166,12 @@
         "file_path": "/items/smile4.png",
         "min_exp": 750,
         "type_id": 3
+    },
+    {
+        "id": 25,
+        "name": "шляпа 2",
+        "file_path": "/items/hat3.png",
+        "min_exp": 250,
+        "type_id": 8
     }
 ]
